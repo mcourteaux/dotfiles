@@ -1,0 +1,20 @@
+[user]
+	name = Martijn Courteaux
+	email = courteauxmartijn@gmail.com
+[credential]
+	helper = cache
+[alias]
+    graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%C(blue)%x20(%ce)%x20%C(cyan)[gpg:%GK%x20%G?]%C(reset)%n%x20%s%n"
+	stat = status -sb
+	last = log -1 --stat
+	unstage = reset HEAD --
+	cached = diff --cached
+	d = difftool
+[color]
+	ui = auto
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[gpg]
+	program = gpg
