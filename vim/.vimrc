@@ -93,7 +93,8 @@ if has("gui_running")
         set guioptions-=R
         set guioptions-=l
         set guioptions-=L
-        set guifont=Source\ Code\ Pro\ for\ Powerline:h11
+	"set guifont=Source\ Code\ Pro\ for\ Powerline:h11
+        set guifont=FuraMono\ Nerd\ Font:h11
     endif
 endif
 syntax on
