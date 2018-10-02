@@ -7,13 +7,6 @@ elif [[ $unamestr == 'Darwin' ]]; then
   platform='darwin'
 fi
 
-# YADR support
-alias yav='yadr vim-add-plugin'
-alias ydv='yadr vim-delete-plugin'
-alias ylv='yadr vim-list-plugin'
-alias yup='yadr update-plugins'
-alias yip='yadr init-plugins'
-
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
@@ -67,65 +60,46 @@ alias ve='vim ~/.vimrc'
 alias ze='vim ~/.zshrc'
 
 # Git Aliases
+alias g='git'
 alias gs='git status'
-alias gstsh='git stash'
-alias gst='git stash'
-alias gsp='git stash pop'
-alias gsa='git stash apply'
-alias gsh='git show'
-alias gshw='git show'
-alias gshow='git show'
-alias gi='vim .gitignore'
-alias gc='git commit'
-alias ga='git add -A'
-alias gap='git add -p'
-alias guns='git unstage'
-alias gunc='git uncommit'
-alias gm='git merge'
-alias gms='git merge --squash'
-alias gam='git amend --reset-author'
-alias grv='git remote -v'
-alias grr='git remote rm'
-alias grad='git remote add'
-alias gr='git rebase'
-alias gra='git rebase --abort'
-alias ggrc='git rebase --continue'
-alias gbi='git rebase --interactive'
-alias gl='git l'
-alias glg='git l'
-alias glog='git l'
-alias co='git co'
-alias gf='git fetch'
-alias gfp='git fetch --prune'
-alias gfa='git fetch --all'
-alias gfap='git fetch --all --prune'
-alias gfch='git fetch'
 alias gd='git diff'
-alias gb='git b'
-# Staged and cached are the same thing
-alias gdc='git diff --cached -w'
-alias gds='git diff --staged -w'
-alias gpub='grb publish'
-alias gtr='grb track'
-alias gpl='git pull'
-alias gplr='git pull --rebase'
-alias gp='git push'
-alias gps='git push'
-alias gpsh='git push -u origin `git rev-parse --abbrev-ref HEAD`'
-alias gnb='git nb' # new branch aka checkout -b
-alias grs='git reset'
-alias grsh='git reset --hard'
-alias gcln='git clean'
-alias gclndf='git clean -df'
-alias gclndfx='git clean -dfx'
-alias gsm='git submodule'
-alias gsmi='git submodule init'
-alias gsmu='git submodule update'
-alias gt='git t'
-alias gbg='git bisect good'
-alias gbb='git bisect bad'
-alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+alias gb='git branch'
+alias gco='git checkout'
 
+## Git Staging / Committing
+alias gc='git commit --verbose'
+alias gca='git commit --verbose --all'
+alias gcam='git commit --verbose --all --message'
+alias grs='git reset --soft'
+alias gRs='git reset --hard'
+alias guncommit='git reset --soft "HEAD^"'
+alias ga='git add -A'
+alias gadd='git add'
+
+## Git Merge
+alias gm='git merge'
+alias gmF='git moerge --no-ff'
+
+## Git Log
+export _git_log_long_format='%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)  %C(blue)%ai (%ar)%C(reset)%n%+B'
+export _git_log_medium_format='%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset'
+export _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
+alias gl='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
+alias gll='git log --topo-order --pretty=format:"${_git_log_long_format}"'
+alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
+alias gls='git log --topo-order --stat --pretty=format:"${_git_log_long_format}"'
+alias glg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}%n"'
+
+## Git Push / Pull
+alias gp='git push'
+alias gpA='git push --all && git push --tags'
+alias gpl='git pull'
+alias gf='git fetch'
+alias gr='git remote --verbose'
+
+## Git Submodule
+alias gS='git submodule'
+alias gSuir='git submodule update --init --recursive'
 
 alias -g k='exa'
 alias -g kk='exa -bl --color-scale'
