@@ -62,6 +62,7 @@ alias ze='vim ~/.zshrc'
 # Git Aliases
 alias g='git'
 alias gs='git status'
+alias gi='vim .gitignore'
 alias gd='git diff'
 alias gb='git branch'
 alias gco='git checkout'
