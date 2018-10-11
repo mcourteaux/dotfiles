@@ -47,7 +47,7 @@ Options:
    -P, --no-parameters   Don't ask for parameters.
    -C, --no-clean        Don't clean compilation
    -q, --quiet           Be quiet. Don't show [INFO] messages.
-   -B, --no-build        Avoid building. 
+   -B, --no-build        Avoid building.
    -D, --no-copy-deps    Avoid copy dependencies
    -M, --no-main         Don't search on src/main/java.
    -T, --no-test         Don't search on src/test/java.
@@ -101,30 +101,27 @@ function dependencyClasspath() {
       echo 'target/dependency/*'
    else
       for i in target/dependency/*.jar
-      do 
+      do
          echo -n $i$SEPARATOR
       done | sed 's/'${SEPARATOR}'$//'
    fi
 }
 
 function launch() {
+   PHASES=""
    if [ "$CLEAN" == "yes" ]
    then
-      echo cleaning...
-      mvn $QUIET clean
+      PHASES="$PHASES clean"
    fi
    if [ "$BUILD" == "yes" ]
    then
-      echo compiling...
-      mvn $QUIET install
+      PHASES="$PHASES install"
    fi
    if [ "$COPY_DEP" == "yes" ]
    then
-      echo getting dependencies...
-      mvn $QUIET dependency:copy-dependencies
+      PHASES="$PHASES dependency:copy-dependencies"
    fi
-   echo executing $CLASS
-   mvn $QUIET exec:exec -Dexec.executable="$JAVA" -Dexec.workingdir="." \
+   mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." \
       -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS}${ARGS} $*"
 }
 # }}}
@@ -148,17 +145,17 @@ do
       -P|--no-parameters)
          SET_PARAMS=
          ;;
-      -B|--no-build) 
-         BUILD="no" 
+      -B|--no-build)
+         BUILD="no"
          ;;
-      -C|--no-clean) 
-         CLEAN="no" 
+      -C|--no-clean)
+         CLEAN="no"
          ;;
-      -D|--no-copy-deps) 
-         COPY_DEP="no" 
+      -D|--no-copy-deps)
+         COPY_DEP="no"
          ;;
-      -q|--quiet) 
-         QUIET="-q" 
+      -q|--quiet)
+         QUIET="-q"
          ;;
       -M|--no-main)
          SEARCH_MAIN="no"
@@ -278,7 +275,7 @@ do
       echo set parameters:
       read -i "$*" -e ARGS
       if [ -n "$ARGS" ]
-      then 
+      then
          ARGS=" $ARGS"
       fi
    fi
