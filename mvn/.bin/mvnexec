@@ -121,8 +121,8 @@ function launch() {
    then
       PHASES="$PHASES dependency:copy-dependencies"
    fi
-   mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." \
-      -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS}${ARGS} $*"
+   #mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS}${ARGS} $*"
+   mvn $QUIET $PHASES exec:java -Dexec.mainClass="$CLASS" ${ARGS} $*
 }
 # }}}
 
