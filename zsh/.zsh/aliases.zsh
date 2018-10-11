@@ -38,8 +38,7 @@ mkcdir ()
       cd -P -- "$1"
 }
 
-alias ae='vim $yadr/zsh/aliases.zsh' #alias edit
-alias ar='source $yadr/zsh/aliases.zsh'  #alias reload
+alias resource='source ~/.zshrc'
 alias gar="killall -HUP -u \"$USER\" zsh"  #global alias reload
 
 # vim using
