@@ -141,6 +141,7 @@ set clipboard=unnamed
 
 " Enable mouse mode
 set mouse=a
+set ttymouse=xterm2
 
 " Automatically change the pwd to the file
 autocmd BufEnter * silent! lcd %:p:h
