@@ -1,5 +1,5 @@
 # History
-export HISTFILE=.zhistory
+export HISTFILE=~/.zhistory
 HISTSIZE=50000
 SAVEHIST=10000
 
