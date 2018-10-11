@@ -1,0 +1,1 @@
+alias mvnexec="~/.bin/mvnexec"

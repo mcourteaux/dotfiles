@@ -7,7 +7,7 @@ elif [[ $unamestr == 'Darwin' ]]; then
     EXA_BIN="exa_macos-x86_64"
 fi
 
-alias -g exa="~/.exa/$EXA_BIN"
+alias -g exa="~/.bin/$EXA_BIN"
 
 alias -g k='exa'
 alias -g kk='exa -bl --color-scale'
