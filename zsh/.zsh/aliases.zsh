@@ -101,7 +101,3 @@ alias gr='git remote --verbose'
 ## Git Submodule
 alias gS='git submodule'
 alias gSuir='git submodule update --init --recursive'
-
-alias -g k='exa'
-alias -g kk='exa -bl --color-scale'
-alias -g kg='exa -bl --git --color-scale'
