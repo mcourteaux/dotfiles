@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+set encoding=UTF-8
+
 " =================================
 " ====== Set the Leaderkey   ======
 " =================================
@@ -24,7 +26,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'embear/vim-localvimrc'
 Plugin 'SirVer/ultisnips'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'luochen1990/rainbow'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -63,11 +65,14 @@ Plugin 'neovimhaskell/haskell-vim'
 
 " Random plugin
 Plugin 'itchyny/calendar.vim'
+Plugin 'mhinz/vim-startify'
 
-" Load extra bundles
-if filereadable(expand("~/.mc-vim/vimrc.bundles"))
-    source ~/.mc-vim/vimrc.bundles
-endif
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+Plugin 'ryanoasis/vim-devicons'
+
+
 
 call vundle#end()
 filetype plugin on
@@ -234,7 +239,7 @@ let g:localvimrc_sandbox=0
 let g:localvimrc_persistent=1
 
 " (7) UltiSnippet
-let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsExpandTrigger="<c-L>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
@@ -268,6 +273,7 @@ let g:rainbow_conf = {
 \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
 \       },
 \       'css': 0,
+\       'cmake': 0,
 \   }
 \}
 
