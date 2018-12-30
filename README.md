@@ -13,9 +13,24 @@
  - chsh (/usr/bin/zsh)
  - vim +PluginInstall +qall
  - sudo apt install libncurses-dev libz-dev xz-utils libpthread-workqueue-dev
- - compile ycm (python3 ./install.py --clang-completer)
+ - compile ycm :
+ 
+      # macOS
+      YCM_CORES=6 EXTRA_CMAKE_ARGS="-DEXTERNAL_LIBCLANG_PATH=$(brew --prefix llvm)/lib/libclang.dylib" python3 ./install.py --clang-completer --java-completer
+
+      # Linux
+      YCM_CORES=6 python3 ./install.py --clang-completer --java-completer
+
  - compile color_coded (mkdir build, cmake .., make, make install)
  - sudo apt install gnome-tweak-tool
  - set font through Tweaks (search Nerd)
  - logout/login
  - base16_monokai
+
+
+## Install instructions macOS
+
+ - brew install llvm
+ - brew install fd fzf the-silver-searcher
+
+

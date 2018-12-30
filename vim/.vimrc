@@ -26,12 +26,14 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'embear/vim-localvimrc'
 Plugin 'SirVer/ultisnips'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'luochen1990/rainbow'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'honza/vim-snippets'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-fugitive'
+
 
 " Git diff highlight
 Plugin 'airblade/vim-gitgutter'
@@ -318,3 +320,16 @@ nnoremap gd :YcmCompleter GoTo<CR>
 
 " (16) Python SimplyIFold
 let g:SimpylFold_fold_docstring = 0
+
+" (17) FZF (Alternative to CtrlP)
+set rtp+=/usr/local/opt/fzf
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+noremap <C-p> :ProjectFiles<CR>
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)

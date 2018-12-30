@@ -4,7 +4,7 @@ unamestr=$(uname)
 if [[ $unamestr == 'Linux' ]]; then
     EXA_BIN="exa-linux-x86_64"
 elif [[ $unamestr == 'Darwin' ]]; then
-    EXA_BIN="exa_macos-x86_64"
+    EXA_BIN="exa-macos-x86_64"
 fi
 
 alias exa="~/.bin/$EXA_BIN"
