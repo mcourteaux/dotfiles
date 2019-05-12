@@ -52,6 +52,7 @@ Plugin 'AndrewRadev/sideways.vim'
 
 " Python
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-python/python-syntax'
 
 " Java
 Plugin 'artur-shaik/vim-javacomplete2'
@@ -78,6 +79,8 @@ Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 filetype plugin on
+
+let g:python_highlight_all = 1
 
 " =========================
 " ====== Set the LaF ======
@@ -322,6 +325,7 @@ nnoremap gd :YcmCompleter GoTo<CR>
 let g:SimpylFold_fold_docstring = 0
 
 " (17) FZF (Alternative to CtrlP)
+let $FZF_DEFAULT_COMMAND = 'fd --type f'
 set rtp+=/usr/local/opt/fzf
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
