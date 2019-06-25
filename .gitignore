@@ -1,2 +1,4 @@
 *.swp
 .DS_Store
+
+fonts/.local/share/fonts/.uuid

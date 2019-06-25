@@ -33,6 +33,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'honza/vim-snippets'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'fedorenchik/VimCalc3'
 
 
 " Git diff highlight
@@ -64,6 +65,9 @@ Plugin 'tikhomirov/vim-glsl'
 
 " Haskell
 Plugin 'neovimhaskell/haskell-vim'
+
+" Julia
+Plugin 'JuliaEditorSupport/julia-vim'
 
 " Random plugin
 Plugin 'itchyny/calendar.vim'
@@ -308,6 +312,19 @@ if !exists('g:ycm_semantic_triggers')
 endif
 let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 let g:tex_flavor = 'latex'
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'qf': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1,
+      \ 'julia': 1
+      \}
 
 " (14) C-style (Java / C++) argument objects for "cia" -> "change in argument"
 omap aa <Plug>SidewaysArgumentTextobjA
@@ -323,6 +340,7 @@ let g:SimpylFold_fold_docstring = 0
 
 " (17) FZF (Alternative to CtrlP)
 set rtp+=/usr/local/opt/fzf
+set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf/
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
