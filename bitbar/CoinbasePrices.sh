@@ -20,9 +20,9 @@ eth_icon='iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAACXBIWXMAABYlAAAWJQFJUi
 ltc_icon='iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAQAAABLCVATAAAACXBIWXMAABYlAAAWJQFJUiTwAAABVklEQVRIx2P8z0AdwMRALfAfC8QA3ijSW8l3kRkK7xT5BpkSNog4r71GkRYh1yBFFMl75McaESFEnEGoIXQahZfAYEC81w6hSNrCxUUZ1jP8YeAm1iBmhi9IUgiNAQwvgfxLxAe2LooURCMfwwIofw5MGQsZacgRaIwcRtATdNEMFKl8hgkM/+C8VQwCxBt0FkXqA5z1jiGSlATJwfALq5IdDFKkpWwLLNJfGDJIzyJ5GJJHGJTJyWuLUSR+MpTjzAsEDLqJImFFXgkpwrAWRfg1eUWtH8MLNOFt5BjUh0W4kXSDGBk+YhH2Jt0gRazCoqTXa/pA/IahAEXsIf7Axm6QHsMmBh2Gx8QUsfiLkVUMTRhl9XlgvsMN/uFLR3uxSmKHq3EX/owMJiTU/KdxG6QBLFCJB6eYiKzN8IN/DGepY9BNhs+4C39Dhr9EG3QSGKSDrsUGAN8MmUJvvpOgAAAAAElFTkSuQmCC'
 
 bit_price=$(curl -s -H "CB-Version: 2015-04-08" "https://api.coinbase.com/v2/prices/BTC-USD/buy" | python -c "import sys, json; print(json.load(sys.stdin)['data']['amount'])")
-eth_price=$(curl -s -H "CB-Version: 2015-04-08" "https://api.coinbase.com/v2/prices/ETH-USD/buy" | python -c "import sys, json; print(json.load(sys.stdin)['data']['amount'])")
-ltc_price=$(curl -s -H "CB-Version: 2015-04-08" "https://api.coinbase.com/v2/prices/LTC-USD/buy" | python -c "import sys, json; print(json.load(sys.stdin)['data']['amount'])")
+#eth_price=$(curl -s -H "CB-Version: 2015-04-08" "https://api.coinbase.com/v2/prices/ETH-USD/buy" | python -c "import sys, json; print(json.load(sys.stdin)['data']['amount'])")
+#ltc_price=$(curl -s -H "CB-Version: 2015-04-08" "https://api.coinbase.com/v2/prices/LTC-USD/buy" | python -c "import sys, json; print(json.load(sys.stdin)['data']['amount'])")
 
 echo "$bit_price | templateImage=$bitcoin_icon"
-echo "$eth_price | templateImage=$eth_icon"
-echo "$ltc_price | templateImage=$ltc_icon"
+#echo "$eth_price | templateImage=$eth_icon"
+#echo "$ltc_price | templateImage=$ltc_icon"
