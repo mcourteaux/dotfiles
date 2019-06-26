@@ -209,11 +209,11 @@ bar {
         status_command i3status
 }
 
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 5
 gaps left 12
 gaps right 12
 gaps top 5
-gaps inner 15
+gaps inner 25
 
 exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 
