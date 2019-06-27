@@ -17,6 +17,7 @@ set rtp+=~/.vim/bundle/Vundle.Vim
 call vundle#begin()
 " Vundle manages itself
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'dylanaraps/wal.vim'
 
 " Add other plugins to Vundle
 Plugin 'scrooloose/nerdtree'
@@ -92,8 +93,8 @@ let g:python_highlight_all = 1
 
 " Line numbers
 set number
-highlight LineNr ctermfg=red
-highlight LineNr ctermbg=black
+"highlight LineNr ctermfg=red
+"highlight LineNr ctermbg=black
 
 " Highlight current line
 set cursorline
@@ -138,7 +139,7 @@ set expandtab
 filetype plugin indent on
 set smartindent
 
-execute "set colorcolumn=" . join(range(81,335), ',')
+" execute "set colorcolumn=" . join(range(81,335), ',')
 
 " =======================================
 " ====== Some special characters   ======
@@ -233,6 +234,8 @@ else
     set background=dark
     colorscheme default
 endif
+
+colorscheme wal
 
 " Over length
 highlight OverLength ctermbg=red

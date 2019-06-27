@@ -37,7 +37,8 @@ set $mod Mod4
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -213,9 +214,12 @@ for_window [class="^.*"] border pixel 5
 gaps left 12
 gaps right 12
 gaps top 5
-gaps inner 25
+gaps inner 35
 
-exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
+
+
+
+# exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 
 exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
