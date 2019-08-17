@@ -1,0 +1,40 @@
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+URxvt.transparent: true
+URxvt.shading: 40
+URxvt.blurRadius: 20
+
+! Included this so you know how to make your foreground not match the color of your background
+URxvt.foreground: #eeeeee
+
+
+
+!! URxvt Appearance
+URxvt.font: xft:Hack Nerd Font:size=12
+!URxvt.boldFont: -*-Hack Nerd Font-*
+!URxvt.italicFont: -*-Hack Nerd Font-*
+!URxvt.boldItalicfont: -*-Hack Nerd Font-*
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt.geometry: 92x24
+URxvt.internalBorder: 24
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.saveline: 2048
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.urgentOnBell: true
+URxvt.depth: 24
+URxvt.iso14755: false
+
+
+
+URxvt.perl-ext-common: font-size
+
