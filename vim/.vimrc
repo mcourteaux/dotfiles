@@ -236,7 +236,11 @@ else
     colorscheme default
 endif
 
-colorscheme wal
+if has('unix')
+    if !has('macunix')
+        colorscheme wal
+    endif
+endif
 
 " Over length
 highlight OverLength ctermbg=red
