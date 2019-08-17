@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 set encoding=UTF-8
+set noswapfile
 
 " =================================
 " ====== Set the Leaderkey   ======
@@ -40,8 +41,6 @@ Plugin 'airblade/vim-gitgutter'
 
 " C/C++
 Plugin 'valloric/youcompleteme'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'vim-scripts/a.vim'
 Plugin 'derekwyatt/vim-fswitch'
 Plugin 'majutsushi/tagbar'
 Plugin 'rhysd/vim-clang-format'
@@ -151,7 +150,9 @@ set clipboard=unnamed
 
 " Enable mouse mode
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 " Automatically change the pwd to the file
 autocmd BufEnter * silent! lcd %:p:h
@@ -333,6 +334,9 @@ endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>
+
+command! ProjectTestFiles execute 'Files' s:find_git_root() . '/test'
+noremap <C-m> :ProjectTestFiles<CR>
 
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files

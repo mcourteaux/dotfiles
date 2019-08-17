@@ -7,6 +7,8 @@ elif [[ $unamestr == 'Darwin' ]]; then
   platform='darwin'
 fi
 
+alias hl='highlight'
+
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
