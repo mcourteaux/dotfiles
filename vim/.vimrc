@@ -97,8 +97,8 @@ set number
 "highlight LineNr ctermbg=black
 
 " Highlight current line
-set cursorline
-highlight CursorLine cterm=NONE ctermbg=black
+"set cursorline
+"highlight CursorLine cterm=NONE ctermbg=black
 
 " Color
 if has("gui_running")

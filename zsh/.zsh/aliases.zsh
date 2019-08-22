@@ -55,6 +55,9 @@ alias :e='vim'
 # vimrc editing
 alias ve='vim ~/.vimrc'
 
+# i3 editing
+alias vi3='vim ~/.config/i3/config'
+
 # zsh profile editing
 alias ze='vim ~/.zshrc'
 
