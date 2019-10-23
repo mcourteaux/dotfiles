@@ -36,5 +36,13 @@ URxvt.iso14755: false
 
 
 
-URxvt.perl-ext-common: font-size
+URxvt.perl-ext-common: font-size,keyboard-select,clipboard
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+!!URxvt.iso14755: False
 
+
+
+! To reload:
+!
+!    xrdb ~/.Xresources

@@ -73,6 +73,7 @@ Plugin 'JuliaEditorSupport/julia-vim'
 " Random plugin
 Plugin 'itchyny/calendar.vim'
 Plugin 'mhinz/vim-startify'
+Plugin 'aserebryakov/vim-todo-lists'
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
