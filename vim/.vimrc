@@ -338,6 +338,12 @@ let g:ycm_filetype_blacklist = {
       \ 'julia': 1
       \}
 
+if has('macunix')
+    " All good
+elseif has('unix')
+    let g:vimtex_view_method = 'zathura'
+endif
+
 " (14) C-style (Java / C++) argument objects for "cia" -> "change in argument"
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
