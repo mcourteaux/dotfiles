@@ -48,8 +48,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
-Plugin 'jeaye/color_coded'
 Plugin 'AndrewRadev/sideways.vim'
+if !has('nvim')
+Plugin 'jeaye/color_coded'
+endif
 
 " Python
 Plugin 'tmhedberg/SimpylFold'

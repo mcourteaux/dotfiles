@@ -21,6 +21,7 @@ alias cls='clear;ls'
 # Show human friendly numbers and colors
 alias df='df -h'
 alias du='du -h -d 2'
+alias dus='du -h -d 1 | sort -h'
 
 if [[ $platform == 'linux' ]]; then
   alias ll='ls -alh --color=auto'
@@ -44,10 +45,16 @@ alias resource='source ~/.zshrc'
 alias gar="killall -HUP -u \"$USER\" zsh"  #global alias reload
 
 # vim using
+nvim --version > /dev/null 2>&1
+NEOVIM_INSTALLED=$?
+if [ $NEOVIM_INSTALLED -eq 0 ]; then
+  alias vim="nvim"
+else
 mvim --version > /dev/null 2>&1
 MACVIM_INSTALLED=$?
 if [ $MACVIM_INSTALLED -eq 0 ]; then
   alias vim="mvim -v"
+fi
 fi
 
 # mimic vim functions
