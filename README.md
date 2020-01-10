@@ -5,7 +5,7 @@
  - sudo apt install git
  - git clone this repo
  - git submodule update --recursive --init
- - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev
+ - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip
  - install linuxbrew
  - brew install fzf (yes yes yes)
  - install fd (.deb)

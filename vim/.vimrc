@@ -75,6 +75,7 @@ Plugin 'JuliaEditorSupport/julia-vim'
 " Random plugin
 Plugin 'itchyny/calendar.vim'
 Plugin 'mhinz/vim-startify'
+Plugin 'aserebryakov/vim-todo-lists'
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
@@ -98,8 +99,8 @@ set number
 "highlight LineNr ctermbg=black
 
 " Highlight current line
-set cursorline
-highlight CursorLine cterm=NONE ctermbg=black
+"set cursorline
+"highlight CursorLine cterm=NONE ctermbg=black
 
 " Color
 if has("gui_running")
@@ -338,6 +339,12 @@ let g:ycm_filetype_blacklist = {
       \ 'mail': 1,
       \ 'julia': 1
       \}
+
+if has('macunix')
+    " All good
+elseif has('unix')
+    let g:vimtex_view_method = 'zathura'
+endif
 
 " (14) C-style (Java / C++) argument objects for "cia" -> "change in argument"
 omap aa <Plug>SidewaysArgumentTextobjA
