@@ -248,6 +248,7 @@ bindsym Control+Print exec gnome-screenshot -i
 
 # exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 
-exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /usr/bin/telegram'
 exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
 
+exec_always "xrandr --dpi 120"
