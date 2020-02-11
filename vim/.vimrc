@@ -337,6 +337,7 @@ let g:ycm_filetype_blacklist = {
       \ 'mail': 1,
       \ 'julia': 1
       \}
+noremap <LocalLeader>lv :VimtexView
 
 if has('macunix')
     " All good
