@@ -242,6 +242,7 @@ if has('unix')
         colorscheme wal
     endif
 endif
+hi Normal ctermbg=none
 
 " Over length
 highlight OverLength ctermbg=red
