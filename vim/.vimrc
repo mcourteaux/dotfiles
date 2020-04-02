@@ -244,6 +244,7 @@ if has('unix')
         colorscheme wal
     endif
 endif
+hi Normal ctermbg=none
 
 " Over length
 highlight OverLength ctermbg=red
@@ -339,6 +340,7 @@ let g:ycm_filetype_blacklist = {
       \ 'mail': 1,
       \ 'julia': 1
       \}
+noremap <LocalLeader>lv :VimtexView
 
 if has('macunix')
     let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
