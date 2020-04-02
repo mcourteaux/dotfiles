@@ -341,7 +341,9 @@ let g:ycm_filetype_blacklist = {
       \}
 
 if has('macunix')
-    " All good
+    let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+    let g:vimtex_view_general_options = '-r @line @pdf @tex'
+    let g:vimtex_fold_enabled = 0 "So large files can open more easily
 elseif has('unix')
     let g:vimtex_view_method = 'zathura'
 endif
