@@ -247,8 +247,8 @@ endif
 hi Normal ctermbg=none
 
 " Over length
-highlight OverLength ctermbg=red
-match OverLength /\%81v.\+/
+autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=red
+autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/
 
 " (5) Clang-Format
 if isdirectory(expand("~/.vim/bundle/vim-clang-format/"))
@@ -276,7 +276,7 @@ let g:rainbow_active = 1
 let g:rainbow#max_level = 8
 let g:rainbow_conf = {
 \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'red', 'green', 'yellow'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
@@ -372,6 +372,9 @@ endfunction
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>
+
+command! SuperProjectFiles execute 'Files' s:find_git_root() . '/../'
+noremap <C-P> :SuperProjectFiles<CR>
 
 command! ProjectTestFiles execute 'Files' s:find_git_root() . '/test'
 noremap <C-m> :ProjectTestFiles<CR>
