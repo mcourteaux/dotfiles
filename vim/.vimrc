@@ -340,7 +340,7 @@ let g:ycm_filetype_blacklist = {
       \ 'mail': 1,
       \ 'julia': 1
       \}
-noremap <LocalLeader>lv :VimtexView
+noremap <LocalLeader>lv :VimtexView<CR>
 
 if has('macunix')
     let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
