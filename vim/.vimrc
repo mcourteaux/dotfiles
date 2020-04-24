@@ -50,7 +50,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'AndrewRadev/sideways.vim'
 if !has('nvim')
-Plugin 'jeaye/color_coded'
+Plugin 'mcourteaux/color_coded'
 endif
 
 " Python
