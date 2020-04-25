@@ -269,7 +269,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 
-exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/jerry-zhang-nxu_VUcBVdA-unsplash.jpg
+exec_always feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/manjaro.png
 exec_always --no-startup-id compton --config ~/.config/compton.conf
 
 exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/chromium-browser; exec /snap/bin/telegram-desktop'
