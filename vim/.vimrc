@@ -363,7 +363,9 @@ nnoremap gd :YcmCompleter GoTo<CR>
 let g:SimpylFold_fold_docstring = 0
 
 " (17) FZF (Alternative to CtrlP)
-let $FZF_DEFAULT_COMMAND = 'fd --type f'
+" These are C/C++ specific right now...
+let $FZF_DEFAULT_COMMAND = '(fd --type f --regex ".*\.(cpp|hpp|c|h)$" ; fd --type f -E "*.cpp" -E "*.hpp" -E "*.h" -E "*.c" )'
+let $FZF_DEFAULT_OPTS = '--tiebreak=index'
 set rtp+=/usr/local/opt/fzf
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf/
 function! s:find_git_root()
