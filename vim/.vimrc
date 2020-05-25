@@ -364,8 +364,8 @@ let g:SimpylFold_fold_docstring = 0
 
 " (17) FZF (Alternative to CtrlP)
 " These are C/C++ specific right now...
-let $FZF_DEFAULT_COMMAND = '(fd --type f --regex ".*\.(cpp|hpp|c|h)$" ; fd --type f -E "*.cpp" -E "*.hpp" -E "*.h" -E "*.c" )'
-let $FZF_DEFAULT_OPTS = '--tiebreak=index'
+"let $FZF_DEFAULT_COMMAND = '(fd --type f --regex ".*\.(cpp|hpp|c|h)$" ; fd --type f -E "*.cpp" -E "*.hpp" -E "*.h" -E "*.c" )'
+"let $FZF_DEFAULT_OPTS = '--tiebreak=index'
 set rtp+=/usr/local/opt/fzf
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf/
 function! s:find_git_root()
@@ -376,10 +376,10 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>
 
 command! SuperProjectFiles execute 'Files' s:find_git_root() . '/../'
-noremap <C-P> :SuperProjectFiles<CR>
+noremap <C-m> :SuperProjectFiles<CR>
 
 command! ProjectTestFiles execute 'Files' s:find_git_root() . '/test'
-noremap <C-m> :ProjectTestFiles<CR>
+noremap <C-t> :ProjectTestFiles<CR>
 
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
