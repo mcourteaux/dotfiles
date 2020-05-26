@@ -40,14 +40,14 @@
 
 # Fixing the Keychron K2 under Linux
 
-Set keyboard in Mac-mode (hardware switch).
+Set keyboard in Linux-mode (hardware switch).
 
-    echo "options hid_apple fnmode=0 swap_opt_cmd=1" | sudo tee /etc/modprobe.d/hid_apple.conf
+    echo "options hid_apple fnmode=0 swap_opt_cmd=0" | sudo tee /etc/modprobe.d/hid_apple.conf
     sudo update-initramfs -u
 
 And reboot. To do the same at runtime:
 
-    echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
+    echo 0 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
     echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
 
 To use Azerty:
