@@ -42,13 +42,13 @@
 
 Set keyboard in Mac-mode (hardware switch).
 
-    echo "options hid_apple fnmode=2 swap_opt_cmd=1" | sudo tee /etc/modprobe.d/hid_apple.conf
+    echo "options hid_apple fnmode=0 swap_opt_cmd=1" | sudo tee /etc/modprobe.d/hid_apple.conf
     sudo update-initramfs -u
 
 And reboot. To do the same at runtime:
 
     echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
-    echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
+    echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
 
 To use Azerty:
 
