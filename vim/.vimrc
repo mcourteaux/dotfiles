@@ -327,6 +327,7 @@ if !exists('g:ycm_semantic_triggers')
 endif
 let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 let g:tex_flavor = 'latex'
+let g:tex_fast = 'cmMpr'
 let g:ycm_filetype_blacklist = {
       \ 'tagbar': 1,
       \ 'qf': 1,
