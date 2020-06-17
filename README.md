@@ -5,7 +5,11 @@
  - sudo apt install git
  - git clone this repo
  - git submodule update --recursive --init
- - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip dmenu rxvt-unicode-256color i3status feh compton
+ - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip rxvt-unicode-256color i3status feh compton zathura xdotool playerctl
+ - To install emoji-keyboards support:
+   - sudo apt install fonts-emojione rofi xdotool xsel
+   - Download release from: https://github.com/fdw/rofimoji/releases
+   - Install wheel: pip3 install rofimoji-....
  - install linuxbrew
  - brew install fzf (yes yes yes)
  - install fd (.deb)
@@ -34,4 +38,18 @@
  - brew install llvm
  - brew install fd fzf the-silver-searcher
 
+# Fixing the Keychron K2 under Linux
 
+Set keyboard in Linux-mode (hardware switch).
+
+    echo "options hid_apple fnmode=0 swap_opt_cmd=0" | sudo tee /etc/modprobe.d/hid_apple.conf
+    sudo update-initramfs -u
+
+And reboot. To do the same at runtime:
+
+    echo 0 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
+    echo 0 | sudo tee /sys/module/hid_apple/parameters/fnmode
+
+To use Azerty:
+
+    setxkbmap -layout be

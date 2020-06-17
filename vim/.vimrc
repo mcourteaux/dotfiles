@@ -48,8 +48,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
-Plugin 'jeaye/color_coded'
 Plugin 'AndrewRadev/sideways.vim'
+if !has('nvim')
+Plugin 'mcourteaux/color_coded'
+endif
 
 " Python
 Plugin 'tmhedberg/SimpylFold'
@@ -242,10 +244,11 @@ if has('unix')
         colorscheme wal
     endif
 endif
+hi Normal ctermbg=none
 
 " Over length
-highlight OverLength ctermbg=red
-match OverLength /\%81v.\+/
+autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=red
+autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/
 
 " (5) Clang-Format
 if isdirectory(expand("~/.vim/bundle/vim-clang-format/"))
@@ -273,7 +276,7 @@ let g:rainbow_active = 1
 let g:rainbow#max_level = 8
 let g:rainbow_conf = {
 \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'red', 'green', 'yellow'],
 \   'operators': '_,_',
 \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
@@ -324,6 +327,7 @@ if !exists('g:ycm_semantic_triggers')
 endif
 let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 let g:tex_flavor = 'latex'
+let g:tex_fast = 'cmMpr'
 let g:ycm_filetype_blacklist = {
       \ 'tagbar': 1,
       \ 'qf': 1,
@@ -337,10 +341,12 @@ let g:ycm_filetype_blacklist = {
       \ 'mail': 1,
       \ 'julia': 1
       \}
-noremap <LocalLeader>lv :VimtexView
+noremap <LocalLeader>lv :VimtexView<CR>
 
 if has('macunix')
-    " All good
+    let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+    let g:vimtex_view_general_options = '-r @line @pdf @tex'
+    let g:vimtex_fold_enabled = 0 "So large files can open more easily
 elseif has('unix')
     let g:vimtex_view_method = 'zathura'
 endif
@@ -358,7 +364,9 @@ nnoremap gd :YcmCompleter GoTo<CR>
 let g:SimpylFold_fold_docstring = 0
 
 " (17) FZF (Alternative to CtrlP)
-let $FZF_DEFAULT_COMMAND = 'fd --type f'
+" These are C/C++ specific right now...
+"let $FZF_DEFAULT_COMMAND = '(fd --type f --regex ".*\.(cpp|hpp|c|h)$" ; fd --type f -E "*.cpp" -E "*.hpp" -E "*.h" -E "*.c" )'
+"let $FZF_DEFAULT_OPTS = '--tiebreak=index'
 set rtp+=/usr/local/opt/fzf
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf/
 function! s:find_git_root()
@@ -368,8 +376,11 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>
 
+command! SuperProjectFiles execute 'Files' s:find_git_root() . '/../'
+noremap <C-m> :SuperProjectFiles<CR>
+
 command! ProjectTestFiles execute 'Files' s:find_git_root() . '/test'
-noremap <C-m> :ProjectTestFiles<CR>
+noremap <C-t> :ProjectTestFiles<CR>
 
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files

@@ -23,6 +23,19 @@ font pango:monospace 8
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn't scale on retina/hidpi displays.
+#
+
+# https://github.com/ValveSoftware/steam-for-linux/issues/1040
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -55,7 +68,7 @@ bindsym $mod+Shift+q kill
 bindsym $alt+F4      kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -103,7 +116,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+Control+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -194,16 +207,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
+        bindsym $left       resize shrink width 5 px or 2 ppt
+        bindsym $down       resize grow height 5 px or 2 ppt
+        bindsym $up         resize shrink height 5 px or 2 ppt
+        bindsym $right      resize grow width 5 px or 2 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
+        bindsym Left        resize shrink width 5 px or 2 ppt
+        bindsym Down        resize grow height 5 px or 2 ppt
+        bindsym Up          resize shrink height 5 px or 2 ppt
+        bindsym Right       resize grow width 5 px or 2 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -240,17 +253,40 @@ gaps inner 30
 #gaps right 0
 #gaps top 0
 
+# Emojis
+#bindsym $mod+space exec ~/.local/bin/dmenu-emoji.sh
+bindsym $mod+space exec rofimoji --rofi-args="-levenshtein-sort"
 
 
 # Screen Shots
-bindsym Print exec scrot -q 85 '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
 bindsym Control+Print exec gnome-screenshot -i
+
+# Media Controls
+#Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id bash ~/.config/i3/all-sinks.sh set-sink-volume "+5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id bash ~/.config/i3/all-sinks.sh set-sink-volume "-5%"
+bindsym XF86AudioMute exec --no-startup-id bash ~/.config/i3/all-sinks.sh set-sink-mute toggle
+
+
+# Spotify
+bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
+bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 
 exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
+#exec_always feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/manjaro.png
 exec_always --no-startup-id compton --config ~/.config/compton.conf
 
-exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /usr/bin/telegram-desktop'
-exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
+exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/chromium-browser; exec /snap/bin/telegram-desktop'
+exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/chromium-browser https://calendar.google.com/calendar/r'
 
 exec_always "xrandr --dpi 120"

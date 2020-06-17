@@ -17,17 +17,25 @@ URxvt.foreground: #eeeeee
 
 
 !! URxvt Appearance
-URxvt.font: xft:Hack Nerd Font:size=8
+!URxvt.font: xft:Hack Nerd Font:size=8
 !URxvt.boldFont: -*-Hack Nerd Font-*
 !URxvt.italicFont: -*-Hack Nerd Font-*
 !URxvt.boldItalicfont: -*-Hack Nerd Font-*
+
+! Hurmit does not render nicely:
+!URxvt.font: xft:Hurmit Nerd Font:style=medium:size=8
+
+URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=8
+URxvt.boldFont: xft:mononoki Nerd Font Mono:style=Bold:size=8
+URxvt.boldItalicFont: xft:mononoki Nerd Font Mono:style=BoldItalic:size=8
+
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
-URxvt.internalBorder: 24
+URxvt.internalBorder: 12
 URxvt.cursorBlink: true
 URxvt.cursorUnderline: false
-URxvt.saveline: 2048
+URxvt.saveline: 20480
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
 URxvt.urgentOnBell: true
