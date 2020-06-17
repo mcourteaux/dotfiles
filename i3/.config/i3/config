@@ -247,7 +247,7 @@ bindsym Print exec scrot -q 85 '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pi
 bindsym Control+Print exec gnome-screenshot -i
 
 
-# exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
+exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 exec_always --no-startup-id compton --config ~/.config/compton.conf
 
 exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /usr/bin/telegram-desktop'
