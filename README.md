@@ -32,6 +32,37 @@
  - logout/login
  - base16_monokai
 
+### Extra things to do for i3-gaps
+
+```sh
+sudo add-apt-repository ppa:kgilmer/speed-ricer
+sudo apt-get install feh rofi i3lock i3status i3-gaps-wm rxvt-unicode-256color compton pywal
+sudo aptitude install fonts-emojione xdotool xsel
+```
+
+Create the file /usr/share/xsessions/i3-gaps.desktop:
+```conf
+[Desktop Entry]
+Name=i3-gaps
+Comment=This session logs you into i3
+Exec=i3
+TryExec=i3
+Type=Application
+DesktopNames=ubuntu:i3
+X-Ubuntu-Gettext-Domain=i3
+```
+
+Kill `x-session-gdm` and log back in, with i3.
+
+Rofimoji needs python3.7
+Download the wheel for: Rofimoji.
+https://github.com/fdw/rofimoji/releases
+
+    sudo python3.7 -m pip install <wheelfilename>
+
+It's automatically added to your path.
+
+
 
 ## Install instructions macOS
 
