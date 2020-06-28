@@ -9,6 +9,10 @@ fi
 
 alias hl='highlight'
 
+if [[ $platform == 'darwin' ]]; then
+  alias ctags="`brew --prefix`/bin/ctags"
+fi
+
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "

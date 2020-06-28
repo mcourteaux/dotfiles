@@ -37,6 +37,7 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fedorenchik/VimCalc3'
 
+Plugin 'editorconfig/editorconfig-vim'
 
 " Git diff highlight
 Plugin 'airblade/vim-gitgutter'
@@ -206,6 +207,7 @@ endif
 " ================================
 
 " (1) tagbar
+set tags=tags;/
 if isdirectory(expand("~/.vim/bundle/tagbar/"))
     nnoremap <silent> <leader>tt :TagbarToggle<CR>
     autocmd FileType tagbar setlocal nocursorline nocursorcolumn
