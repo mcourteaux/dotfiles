@@ -3,7 +3,7 @@ ffmpeg_compress() {
     extension="${filename##*.}"
     filename="${filename%.*}"
 
-    ffmpeg -i "$1" -c:v libx264 -crf $2 -pix_fmt yuv420p "$filename.small.mp4"
+    ffmpeg -i "$1" -c:v libx264 -crf $2 -profile:v baseline -preset slower -pix_fmt yuv420p "$filename.small.mp4"
 }
 
 ffmpeg_compress_width() {
@@ -11,5 +11,5 @@ ffmpeg_compress_width() {
     extension="${filename##*.}"
     filename="${filename%.*}"
 
-    ffmpeg -i "$1" -c:v libx264 -crf $2 -pix_fmt yuv420p -filter "scale=$3:-2" "$filename.small.mp4"
+    ffmpeg -i "$1" -c:v libx264 -crf $2 -profile:v baseline -preset slower -pix_fmt yuv420p -filter "scale=$3:-2" "$filename.small.mp4"
 }
