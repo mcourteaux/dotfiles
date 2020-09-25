@@ -235,10 +235,20 @@ bar {
         status_command i3status
 }
 
+# class                 border  backgr. text    indicator child_border
+client.focused          #ff7899 #285577 #ffffff #ff9ef4   #ff4422
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+
 # i3 Gaps
-for_window [class="^.*"] border pixel 4
-bindsym $mod+g gaps inner all toggle 30, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
-gaps inner 30
+for_window [class="^.*"] border pixel 1
+bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
+gaps inner 10
 
 ## 4K
 #for_window [class="^.*"] border pixel 5
