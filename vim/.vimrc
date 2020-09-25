@@ -36,6 +36,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fedorenchik/VimCalc3'
+Plugin 'nathanaelkane/vim-indent-guides'
 
 Plugin 'editorconfig/editorconfig-vim'
 
@@ -246,7 +247,7 @@ if has('unix')
         colorscheme wal
     endif
 endif
-hi Normal ctermbg=none
+" hi Normal ctermbg=none
 
 " Over length
 autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=red
@@ -379,7 +380,7 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>
 
 command! SuperProjectFiles execute 'Files' s:find_git_root() . '/../'
-noremap <C-m> :SuperProjectFiles<CR>
+noremap <Leader><C-p> :SuperProjectFiles<CR>
 
 command! ProjectTestFiles execute 'Files' s:find_git_root() . '/test'
 noremap <C-t> :ProjectTestFiles<CR>
