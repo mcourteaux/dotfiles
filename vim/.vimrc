@@ -47,7 +47,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'valloric/youcompleteme'
 Plugin 'derekwyatt/vim-fswitch'
 Plugin 'majutsushi/tagbar'
-Plugin 'rhysd/vim-clang-format'
+Plugin 'Kypert/vim-clang-format', { 'branch' : 'fix/issues/98' }
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'AndrewRadev/sideways.vim'
