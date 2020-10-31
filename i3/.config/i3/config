@@ -40,6 +40,8 @@ for_window [title="^Steam Keyboard$"] floating enable
 for_window [title="Microsoft Teams Notification"] floating enable
 for_window [title="Microsoft Teams Notification"] move absolute position right bottom
 
+for_window [title="Citrix Workspace"] floating enable
+
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
 set $up k

@@ -361,6 +361,7 @@ omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
 
 " (15) YouCompleteMe
+let g:ycm_clangd_args=['--header-insertion=never']
 nnoremap gd :YcmCompleter GoTo<CR>
 
 " (16) Python SimplyIFold
