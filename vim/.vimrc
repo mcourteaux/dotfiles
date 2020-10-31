@@ -363,6 +363,13 @@ xmap ia <Plug>SidewaysArgumentTextobjI
 " (15) YouCompleteMe
 let g:ycm_clangd_args=['--header-insertion=never']
 nnoremap gd :YcmCompleter GoTo<CR>
+let g:ycm_disable_signature_help=0
+let g:ycm_auto_hover=''
+nmap <leader>d <plug>(YCMHover)
+
+if has('macunix')
+    let g:ycm_clangd_binary_path = '/usr/local/Cellar/llvm/11.0.0/bin/clangd'
+endif
 
 " (16) Python SimplyIFold
 let g:SimpylFold_fold_docstring = 0
