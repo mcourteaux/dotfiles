@@ -38,10 +38,15 @@ URxvt.foreground: #eeeeee
 ! RobotoMono Nerd Font Mono:style=Light,Regular
 ! RobotoMono Nerd Font Mono:style=Italic
 
-URxvt.font:           xft:RobotoMono Nerd Font Mono:style=Light:size=8
-URxvt.boldFont:       xft:RobotoMono Nerd Font Mono:style=Bold:size=8
-URxvt.boldItalicFont: xft:RobotoMono Nerd Font Mono:style=Bold Italic:size=8
-URxvt.italicFont:     xft:RobotoMono Nerd Font Mono:style=Italic:size=8
+! URxvt.font:           xft:RobotoMono Nerd Font Mono:style=Light:size=8
+! URxvt.boldFont:       xft:RobotoMono Nerd Font Mono:style=Bold:size=8
+! URxvt.boldItalicFont: xft:RobotoMono Nerd Font Mono:style=Bold Italic:size=8
+! URxvt.italicFont:     xft:RobotoMono Nerd Font Mono:style=Italic:size=8
+
+URxvt.font:           xft:FiraCode Nerd Font Mono:style=Light:size=8:antialias=true
+URxvt.boldFont:       xft:FiraCode Nerd Font Mono:style=Bold:size=8:antialias=true
+URxvt.boldItalicFont: xft:FiraCode Nerd Font Mono:style=Bold Italic:size=8:antialias=true
+URxvt.italicFont:     xft:FiraCode Nerd Font Mono:style=Italic:size=8:antialias=true
 
 !URxvt.letterSpace: 0
 URxvt.lineSpace: 0

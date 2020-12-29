@@ -83,4 +83,12 @@ And reboot. To do the same at runtime:
 
 To use Azerty:
 
+    sudo dpkg-reconfigure keyboard-configuration
+
+Fix locale:
+
+    sudo dpkg-reconfigure locales
+
+(Or at runtime)
+
     setxkbmap -layout be

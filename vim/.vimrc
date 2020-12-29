@@ -66,7 +66,8 @@ Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'lervag/vimtex'
 
 " GLSL
-Plugin 'tikhomirov/vim-glsl'
+"Plugin 'tikhomirov/vim-glsl'
+Plugin 'beyondmarc/glsl.vim'
 
 " Haskell
 Plugin 'neovimhaskell/haskell-vim'
