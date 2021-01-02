@@ -33,6 +33,7 @@ Plugin 'luochen1990/rainbow'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'chriskempson/base16-vim'
 Plugin 'honza/vim-snippets'
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fedorenchik/VimCalc3'
@@ -143,6 +144,10 @@ set shiftwidth=4
 set expandtab
 filetype plugin indent on
 set smartindent
+
+let g:indent_guides_space_guides=1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
 
 " execute "set colorcolumn=" . join(range(81,335), ',')
 
