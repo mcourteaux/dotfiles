@@ -1,25 +1,26 @@
-#!/bin/bash
+#!/bin/bash -eux
 
 #
 # Execute clases with main method inside maven project.
 #
 
-# debug {{{
-eval SCRIPT_DEBUG="\$$(basename $0 | tr - _)_DEBUG"
-SCRIPT_DEBUG=${SCRIPT_DEBUG:--1}
-
-if [ "$SCRIPT_DEBUG" -ge 1 ]
-then
-   set -x
-fi
-if [ "$SCRIPT_DEBUG" -ge 10 ]
-then
-   set -v
-fi
-#}}}
+## debug {{{
+#eval SCRIPT_DEBUG="\$$(basename $0 | tr - _)_DEBUG"
+#SCRIPT_DEBUG=${SCRIPT_DEBUG:--1}
+#
+#if [ "$SCRIPT_DEBUG" -ge 1 ]
+#then
+#   set -x
+#fi
+#if [ "$SCRIPT_DEBUG" -ge 10 ]
+#then
+#   set -v
+#fi
+##}}}
 
 # init {{{
-VERSION=1.1
+VERSION=1.2
+QUIET=""
 COMPILE="yes"
 CLEAN="no"
 SEARCH_MAIN="yes"
@@ -111,8 +112,12 @@ function launch() {
    then
       PHASES="$PHASES compile"
    fi
-   #mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS}${ARGS} $*"
-   mvn -T 1C $QUIET $PHASES -e exec:java -Dexec.mainClass="$CLASS" ${ARGS} $*
+   if [ "$SEARCH_TEST" == "yes" ]
+   then
+       PHASES="$PHASES -Dexec.classpathScope=test test-compile"
+   fi
+   #mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS} $*"
+   mvn -T 1C $QUIET $PHASES -e exec:java -Dexec.mainClass="$CLASS" $*
 }
 # }}}
 
@@ -183,10 +188,10 @@ done
 # }}}
 
 # exec {{{
-if [ -n "$JDK_HOME" ]
+if [[ -v JDK_HOME ]]
 then
    setJavaExecutable "$JDK_HOME"
-elif [ -n "$JAVA_HOME" ]
+elif [[ -v JAVA_HOME ]]
 then
    setJavaExecutable "$JAVA_HOME"
 elif command -v java >&-
