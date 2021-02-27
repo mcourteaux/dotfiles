@@ -42,7 +42,6 @@ version: $VERSION
 Execute clases with main method inside maven project.
 
 Options:
-   -P, --no-parameters   Don't ask for parameters.
    -c, --clean           Do clean compilation
    -q, --quiet           Be quiet. Don't show [INFO] messages.
    -B, --no-build        Avoid building.
@@ -55,12 +54,10 @@ Options:
 
 Examples:
 
- # lauch doing all common task, but quietly
+ # lauch quietly
  $ $scriptname -q
- # launch without prompt for parameters
- $ $scriptname -P
- # launch without any compilation task
- $ $scriptname -CBDq
+ # launch with force clean compilation
+ $ $scriptname -C
 
 EOF
 }
@@ -120,7 +117,7 @@ function launch() {
 # }}}
 
 # parse args {{{
-TEMP=$(getopt -o "PqBTf:DaClh" -l no-parameters,quiet,no-build,no-test,filter-name:,auto,no-copy-deps,clean,win-separator,list,help -n $(basename $0) -- "$@")
+TEMP=$(getopt -o "qBTf:aClh" -l quiet,no-build,no-test,filter-name:,auto,clean,win-separator,list,help -n $(basename $0) -- "$@")
 
 EXIT=$?
 if [ $EXIT != 0 ]
@@ -234,7 +231,9 @@ fi
 
 if [ $LIST == "yes" ]
 then
-   echo $FOUNDCLASSES
+   for C in $FOUNDCLASSES; do
+       echo $C
+   done
    exit 0
 fi
 

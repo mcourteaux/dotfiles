@@ -1,2 +1,2 @@
 MVNEXEC="~/.bin/mvnexec"
-alias mvnexec="$MVNEXEC -a -q -P"
+alias mvnexec="$MVNEXEC -a"
