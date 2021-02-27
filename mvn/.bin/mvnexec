@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/bash
 
 #
 # Execute clases with main method inside maven project.
