@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eux
 
 #
 # Execute clases with main method inside maven project.
@@ -117,6 +117,7 @@ function launch() {
        PHASES="$PHASES -Dexec.classpathScope=test test-compile"
    fi
    #mvn $QUIET $PHASES exec:java -Dexec.executable="$JAVA" -Dexec.workingdir="." -Dexec.args="-cp target/classes${SEPARATOR}target/test-classes${SEPARATOR}$(dependencyClasspath) ${CLASS} $*"
+   export MAVEN_OPTS=-XstartOnFirstThread
    mvn -T 1C $QUIET $PHASES -e exec:java -Dexec.mainClass="$CLASS" $*
 }
 # }}}
@@ -187,13 +188,14 @@ EOF
 done
 # }}}
 
+
 # exec {{{
-if [[ -v JDK_HOME ]]
+if [ -z "$JDK_HOME" ]
 then
-   setJavaExecutable "$JDK_HOME"
-elif [[ -v JAVA_HOME ]]
+   setJavaExecutable "${JDK_HOME}"
+elif [ -z "$JAVA_HOME" ]
 then
-   setJavaExecutable "$JAVA_HOME"
+   setJavaExecutable "${JAVA_HOME}"
 elif command -v java >&-
 then
    JAVA=$(command -v java >&-)
