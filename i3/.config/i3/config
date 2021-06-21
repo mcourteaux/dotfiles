@@ -261,7 +261,8 @@ client.background       #ffffff
 
 # i3 Gaps
 for_window [class="^.*"] border pixel 1
-bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
+#bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
+bindsym $mod+g gaps inner all toggle 20, gaps left all toggle 5, gaps right all toggle 5, gaps top all toggle 5
 gaps inner 10
 
 ## 4K
@@ -320,4 +321,4 @@ exec_always --no-startup-id compton --config ~/.config/compton.conf
 exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/chromium-browser; exec /snap/bin/telegram-desktop'
 exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/chromium-browser https://calendar.google.com/calendar/r'
 
-exec_always "xrandr --dpi 120"
+exec_always "xrandr --dpi 80"
