@@ -98,13 +98,13 @@ alias gmF='git moerge --no-ff'
 
 ## Git Log
 export _git_log_long_format='%C(bold)Commit:%C(reset) %C(green)%H%C(red)%d%n%C(bold)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)Date:%C(reset)  %C(blue)%ai (%ar)%C(reset)%n%+B'
-export _git_log_medium_format='%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset'
+export _git_log_medium_format='%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %s %C(magenta) [%an]%Creset'
 export _git_log_oneline_format='%C(green)%h%C(reset) %s%C(red)%d%C(reset)'
-alias gl='git log --topo-order --pretty=format:"${_git_log_medium_format}"'
-alias gll='git log --topo-order --pretty=format:"${_git_log_long_format}"'
-alias glo='git log --topo-order --pretty=format:"${_git_log_oneline_format}"'
-alias gls='git log --topo-order --stat --pretty=format:"${_git_log_long_format}"'
-alias glg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}%n"'
+alias gl='git log --topo-order --date=iso --pretty=format:"${_git_log_medium_format}"'
+alias gll='git log --topo-order --date=iso --pretty=format:"${_git_log_long_format}"'
+alias glo='git log --topo-order --date=iso --pretty=format:"${_git_log_oneline_format}"'
+alias gls='git log --topo-order --date=iso --stat --pretty=format:"${_git_log_long_format}"'
+alias glg='git log --topo-order --date=iso --all --graph --pretty=format:"${_git_log_oneline_format}%n"'
 
 ## Git Push / Pull
 alias gp='git push'
