@@ -10,7 +10,7 @@
     <array>
         <string>bash</string>
         <string>-c</string>
-        <string>. .bin/watchcpu.sh</string>
+        <string>/Users/martijn/.bin/watchcpu.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
