@@ -7,6 +7,9 @@ elif [[ $unamestr == 'Darwin' ]]; then
   platform='darwin'
 fi
 
+# Kitty
+alias icat='kitty +kitten icat'
+
 alias hl='highlight'
 
 if [[ $platform == 'darwin' ]]; then
@@ -87,7 +90,7 @@ alias gc='git commit --verbose'
 alias gca='git commit --verbose --all'
 alias gcam='git commit --verbose --all --message'
 alias grs='git reset --soft'
-alias gRs='git reset --hard'
+alias grh='git reset --hard'
 alias guncommit='git reset --soft "HEAD^"'
 alias ga='git add -A'
 alias gadd='git add'

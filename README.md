@@ -9,7 +9,7 @@
  - To install emoji-keyboards support:
    - sudo apt install fonts-emojione rofi xdotool xsel
    - Download release from: https://github.com/fdw/rofimoji/releases
-   - Install wheel: pip3 install rofimoji-....
+   - Install : pip3 install rofimoji
  - install linuxbrew
  - brew install fzf (yes yes yes)
  - install fd (.deb)
@@ -54,14 +54,11 @@ X-Ubuntu-Gettext-Domain=i3
 
 Kill `x-session-gdm` and log back in, with i3.
 
-Rofimoji needs python3.7
-Download the wheel for: Rofimoji.
-https://github.com/fdw/rofimoji/releases
+Rofimoji needs python3
 
-    sudo python3.7 -m pip install <wheelfilename>
+    python3 -m pip install rofimoji
 
 It's automatically added to your path.
-
 
 
 ## Install instructions macOS
