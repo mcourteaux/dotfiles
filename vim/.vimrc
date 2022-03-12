@@ -91,6 +91,7 @@ Plugin 'ryanoasis/vim-devicons'
 call vundle#end()
 filetype plugin on
 
+
 let g:python_highlight_all = 1
 
 " =========================
@@ -348,7 +349,8 @@ let g:ycm_filetype_blacklist = {
       \ 'pandoc': 1,
       \ 'infolog': 1,
       \ 'mail': 1,
-      \ 'julia': 1
+      \ 'julia': 1,
+      \ 'java': 1
       \}
 noremap <LocalLeader>lv :VimtexView<CR>
 
@@ -367,6 +369,7 @@ omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
 
 " (15) YouCompleteMe
+let g:ycm_use_clangd = 0
 let g:ycm_clangd_args=['--header-insertion=never']
 nnoremap gd :YcmCompleter GoTo<CR>
 let g:ycm_disable_signature_help=0

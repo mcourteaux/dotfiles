@@ -5,6 +5,8 @@ alias znr='cd ~/zec/NeonRAW/'
 alias znui='cd ~/zec/nui/'
 alias zcol='cd ~/zec/color/'
 
+alias tracy='~/zec/NeonRAW/ext/tracy/profiler/build/unix/Tracy-release'
+
 ZEC_HOME="$HOME/zec/"
 gplzec(){
   for REPO in $(ls "$ZEC_HOME")

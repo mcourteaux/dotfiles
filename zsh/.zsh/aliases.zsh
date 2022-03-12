@@ -16,7 +16,6 @@ fi
 # PS
 alias psa="ps aux"
 alias psg="ps aux | grep "
-alias psr='ps aux | grep ruby'
 
 # Moving around
 alias cdb='cd -'
@@ -66,13 +65,13 @@ alias :q='exit'
 alias :e='vim'
 
 # vimrc editing
-alias ve='vim ~/.vimrc'
+alias vvim='vim ~/.vimrc'
 
 # i3 editing
 alias vi3='vim ~/.config/i3/config'
 
 # zsh profile editing
-alias ze='vim ~/.zshrc'
+alias vzsh='vim ~/.zshrc'
 
 # Git Aliases
 alias g='git'

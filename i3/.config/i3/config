@@ -40,7 +40,11 @@ for_window [title="^Steam Keyboard$"] floating enable
 for_window [title="Microsoft Teams Notification"] floating enable
 for_window [title="Microsoft Teams Notification"] move absolute position right bottom
 
-for_window [title="Citrix Workspace"] floating enable
+for_window [title="^Citrix Workspace$"] floating enable
+
+for_window [title="^Screenshot$"] floating enable
+for_window [title="^Exit IDE$"] floating enable
+for_window [title="^Origin$"] floating enable
 
 for_window [title="^qiv: "] floating enable
 
@@ -154,6 +158,10 @@ set $ws9 "9"
 set $ws10 "10"
 set $ws11 "11:Discord"
 
+# move workspace left monitor
+bindsym $mod+Shift+Control+h move workspace to output left
+bindsym $mod+Shift+Control+l move workspace to output right
+
 # switch to workspace
 bindsym $mod+twosuperior workspace $ws0
 bindsym $mod+ampersand workspace $ws1
@@ -253,7 +261,7 @@ bar {
 client.focused          #ff7899 #285577 #ffffff #ff9ef4   #ff4422
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.urgent           #ff113a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
@@ -262,7 +270,7 @@ client.background       #ffffff
 # i3 Gaps
 for_window [class="^.*"] border pixel 1
 #bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
-bindsym $mod+g gaps inner all toggle 20, gaps left all toggle 5, gaps right all toggle 5, gaps top all toggle 5
+bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 5, gaps right all toggle 5, gaps top all toggle 5
 gaps inner 10
 
 ## 4K
@@ -284,7 +292,8 @@ bindsym $mod+space exec rofimoji --rofi-args="-levenshtein-sort"
 
 
 # Screen Shots
-bindsym Control+Print exec gnome-screenshot -i
+bindsym Control+Shift+Print exec gnome-screenshot -i
+bindsym Control+Print exec flameshot gui
 
 # Media Controls
 #Pulse Audio controls
@@ -294,14 +303,14 @@ bindsym XF86AudioMute exec --no-startup-id bash ~/.config/i3/all-sinks.sh set-si
 
 
 # Spotify
-#bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-#bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
-#bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
-#bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
-bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
-bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
-bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
-bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
+bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+#bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+#bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
+#bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+#bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -313,9 +322,11 @@ bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 #bindsym $mod+Shift+b exec feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 #bindsym $mod+Shift+b exec feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/wallpapers/
-bindsym $mod+Shift+b exec feh --bg-fill --randomize /usr/share/backgrounds/
+#bindsym $mod+Shift+b exec feh --bg-fill --randomize /usr/share/backgrounds/
+bindsym $mod+Shift+b exec feh --bg-fill /usr/share/backgrounds/warty-final-ubuntu.png
 
-exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
+exec_always feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png
+#exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 #exec_always feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/manjaro.png
 exec_always --no-startup-id killall compton
 exec_always --no-startup-id sleep 1 && compton --config ~/.config/compton.conf

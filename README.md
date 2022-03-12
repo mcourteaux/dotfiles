@@ -31,6 +31,7 @@
  - set font through Tweaks (search Nerd)
  - logout/login
  - base16_monokai
+ - `sudo vim /etc/pulse/default.pa`, and comment `load-module module-suspend-on-idle`.
 
 ### Extra things to do for i3-gaps
 
