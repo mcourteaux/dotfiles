@@ -317,10 +317,10 @@ let g:rainbow_conf = {
 set updatetime=500
 
 " Colors for highlights
-let g:gitgutter_highlight_lines = 1
-highlight clear DiffAdd
-highlight clear DiffChange
-highlight clear DiffDelete
+let g:gitgutter_highlight_lines = 0
+"highlight clear DiffAdd
+"highlight clear DiffChange
+"highlight clear DiffDelete
 highlight DiffAdd    guibg=#2b2e2a
 highlight DiffChange guibg=#292b3d
 highlight DiffDelete guibg=#382a2e
