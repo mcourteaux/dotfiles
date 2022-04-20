@@ -238,22 +238,22 @@ set laststatus=2
 let g:airline_theme = 'badwolf'
 let g:airline_powerline_fonts = 1
 
-" (4) Load colorscheme
-let base16colorspace=256  " Access colors present in 256 colorspace
+"" (4) Load colorscheme
+"let base16colorspace=256  " Access colors present in 256 colorspace
+"
+"if filereadable(expand("~/.vimrc_background"))
+"    let base16colorspace=256
+"    source ~/.vimrc_background
+"else
+"    set background=dark
+"    colorscheme default
+"endif
 
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-else
-    set background=dark
-    colorscheme default
-endif
-
-if has('unix')
-    if !has('macunix')
-        colorscheme wal
-    endif
-endif
+"if has('unix')
+"    if !has('macunix')
+"        colorscheme wal
+"    endif
+"endif
 " hi Normal ctermbg=none
 
 " Over length
