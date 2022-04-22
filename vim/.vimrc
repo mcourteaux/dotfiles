@@ -74,9 +74,6 @@ Plugin 'beyondmarc/glsl.vim'
 " Haskell
 Plugin 'neovimhaskell/haskell-vim'
 
-" Julia
-Plugin 'JuliaEditorSupport/julia-vim'
-
 " Random plugin
 Plugin 'itchyny/calendar.vim'
 Plugin 'mhinz/vim-startify'

@@ -1,0 +1,31 @@
+local colorFile = vim.fn.expand('~/.vimrc.color')
+
+local function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
+end
+
+
+local function reload() 
+    if file_exists(colorFile) then
+        vim.cmd("source ".. colorFile)
+    else
+        print("Color file not found")
+    end
+end
+
+local w = vim.loop.new_fs_event()
+local on_change
+local function watch_file(fname)
+	w:start(fname, {}, vim.schedule_wrap(on_change))
+end
+on_change = function()
+	reload()
+	-- Debounce: stop/start.
+	w:stop()
+	watch_file(colorFile)
+end
+
+-- reload vim config when background changes
+watch_file(colorFile)
+reload()
