@@ -337,5 +337,7 @@ exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /
 
 bindsym $mod+Shift+F9 exec ~/.config/toggle_dark_light.sh dark
 bindsym $mod+Shift+F10 exec ~/.config/toggle_dark_light.sh light
+bindsym $mod+Shift+W exec ~/.config/toggle_dark_light.sh dark
+bindsym $mod+Shift+X exec ~/.config/toggle_dark_light.sh light
 
 exec_always "xrandr --dpi 80"
