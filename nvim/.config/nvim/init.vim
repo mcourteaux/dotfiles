@@ -1,3 +1,5 @@
+""" NEOVIM config
+
 set encoding=UTF-8
 set noswapfile
 

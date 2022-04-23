@@ -54,7 +54,7 @@ alias gar="killall -HUP -u \"$USER\" zsh"  #global alias reload
 nvim --version > /dev/null 2>&1
 NEOVIM_INSTALLED=$?
 if [ $NEOVIM_INSTALLED -eq 0 ]; then
-  #alias vim="nvim"
+  alias vim="nvim"
 else
 mvim --version > /dev/null 2>&1
 MACVIM_INSTALLED=$?
@@ -68,7 +68,11 @@ alias :q='exit'
 alias :e='vim'
 
 # vimrc editing
-alias vvim='vim ~/.vimrc'
+if [ $NEOVIM_INSTALLED -eq 0 ]; then
+    alias vvim='vim ~/.config/nvim/init.vim'
+else
+    alias vvim='vim ~/.vimrc'
+fi
 
 # i3 editing
 alias vi3='vim ~/.config/i3/config'

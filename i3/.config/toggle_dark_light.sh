@@ -4,7 +4,7 @@ background="$1"
 
 
 if [ $background = "dark" ]; then
-    sed -i "s/background_opacity .*/background_opacity 0.86/g" ~/.config/kitty/kitty.conf
+    sed -i "s/^background_opacity .*/background_opacity 0.86/g" ~/.config/kitty/kitty.conf
     kitty +kitten themes --reload-in=all "Monokai"
 
 
@@ -20,7 +20,7 @@ if [ $background = "dark" ]; then
     Gtk/ThemeName \"Adwaita-dark\"
     " > ~/.xsettingsd
 else
-    sed -i "s/background_opacity .*/background_opacity 1.0/g" ~/.config/kitty/kitty.conf
+    sed -i "s/^background_opacity .*/background_opacity 1.0/g" ~/.config/kitty/kitty.conf
     kitty +kitten themes --reload-in=all "Solarized Light"
 
     echo "

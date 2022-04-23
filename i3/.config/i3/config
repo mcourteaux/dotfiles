@@ -331,8 +331,8 @@ exec_always feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png
 exec_always --no-startup-id killall compton
 exec_always --no-startup-id sleep 1 && compton --config ~/.config/compton.conf
 
-exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/chromium-browser; exec /snap/bin/telegram-desktop'
-exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/chromium-browser https://calendar.google.com/calendar/r'
+exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /snap/bin/telegram-desktop'
+exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
 
 
 bindsym $mod+Shift+F9 exec ~/.config/toggle_dark_light.sh dark
