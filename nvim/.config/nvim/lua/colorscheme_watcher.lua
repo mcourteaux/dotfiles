@@ -7,11 +7,7 @@ end
 
 
 local function reload() 
-    if file_exists(colorFile) then
         vim.cmd("source ".. colorFile)
-    else
-        print("Color file not found")
-    end
 end
 
 local w = vim.loop.new_fs_event()
@@ -27,5 +23,12 @@ on_change = function()
 end
 
 -- reload vim config when background changes
-watch_file(colorFile)
-reload()
+if file_exists(colorFile) then
+    watch_file(colorFile)
+    reload()
+else
+    print("Color file not found: " .. colorFile .. "  [Not watching the file]")
+    vim.cmd("set background=dark")
+    vim.cmd("colorscheme monokai")
+end
+

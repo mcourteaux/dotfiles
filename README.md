@@ -6,6 +6,7 @@
  - git clone this repo
  - git submodule update --recursive --init
  - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip rxvt-unicode-256color i3status feh compton zathura xdotool playerctl ctags xsettingsd
+ - pip3 install pynvim
  - To install emoji-keyboards support:
    - sudo apt install fonts-emojione rofi xdotool xsel
    - Download release from: https://github.com/fdw/rofimoji/releases

@@ -4,7 +4,7 @@ set noswapfile
 let mapleader = ","
 let maplocalleader = "_"
 
-let g:base16_transparent_background=1
+"let g:base16_transparent_background=1
 set termguicolors "Enable full RGB colors.
 
 " === Python support
@@ -51,6 +51,15 @@ set hidden            "Allow for non-save buffers
 set clipboard=unnamed " Use system clipboard
 set showcmd           "Show partial commands in the bottomright
 set wildmenu          " Show command completion suggestions
+
+" Automatically change the pwd to the file
+autocmd BufEnter * silent! lcd %:p:h
+
+" Enable mouse mode
+set mouse=a
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 " Search
 set incsearch    "Incremential searching
@@ -142,6 +151,4 @@ command! -bang -nargs=? -complete=dir Files
 
 
 " === Color theme
-"set background=light
-"colorscheme monokai
 :lua require('colorscheme_watcher')
