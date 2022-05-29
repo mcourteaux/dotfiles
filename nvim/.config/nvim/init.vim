@@ -39,6 +39,9 @@ Plug 'derekwyatt/vim-fswitch'
 Plug 'rhysd/vim-clang-format'
 Plug 'AndrewRadev/sideways.vim'
 
+" GLSL
+Plug 'beyondmarc/glsl.vim'
+
 " Tex
 Plug 'lervag/vimtex'
 
@@ -106,6 +109,8 @@ au! BufEnter *.cpp let b:fswitchlocs = 'reg:/.*\zssrc/include/'
 " === NERDTree
 noremap <Leader>e :NERDTreeFocus<CR>
 
+" === ClangFormat
+noremap <Leader>f :ClangFormat<CR>
 
 
 " === VimTex configuration
@@ -121,12 +126,16 @@ xmap ia <Plug>SidewaysArgumentTextobjI
 let g:ycm_use_clangd = 0
 let g:ycm_clangd_args=['--header-insertion=never']
 nnoremap gd :YcmCompleter GoTo<CR>
+nnoremap <leader>F :YcmCompleter FixIt<CR>
 let g:ycm_disable_signature_help=0
 let g:ycm_auto_hover=''
 nmap <leader>d <plug>(YCMHover)
 if has('macunix')
     let g:ycm_clangd_binary_path = '/usr/local/Cellar/llvm/11.0.0/bin/clangd'
 endif
+
+" === Clang-Format
+nnoremap <leader>f :ClangFormat<CR>
 
 " === FZF
 " These are C/C++ specific right now...
