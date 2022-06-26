@@ -1,0 +1,58 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 5
+        markup = "pango"
+}
+
+order += "ipv6"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "battery all"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "tztime local"
+
+wireless _first_ {
+        #format_up = "<span background='#86c1b9'> W: (%quality at %essid) %ip </span>"
+        format_up = "<span background='#436055'> W: (%quality at %essid) %ip </span>"
+        format_down = "W: down"
+        #color_good = "#001200"
+}
+
+ethernet _first_ {
+        format_up = "<span background='#436055'> E: %ip (%speed) </span>"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "<span background='#f7ca88'> %status %percentage %remaining </span>"
+        format_down = "<span background='#f7ca88'> Wall power </span>"
+}
+
+disk "/" {
+        format = "<span background='#a1b56c'> Disk: %avail </span>"
+}
+
+load {
+        format = "<span background='#ba8baf'> Load: %1min </span>"
+}
+
+memory {
+        format = "<span background='#7cafc2'> Memory: %used / %available </span>"
+        threshold_degraded = "1G"
+        format_degraded = "<span background='#ab4642'> MEMORY < %available </span>"
+}
+
+tztime local {
+        format = "<span background='#ffffff'> %time </span>"
+        format_time = "%Y-%m-%d %H:%M:%S"
+}
