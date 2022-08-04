@@ -116,6 +116,14 @@ noremap <Leader>f :ClangFormat<CR>
 " === VimTex configuration
 noremap <LocalLeader>lv :VimtexView<CR>
 
+if has('macunix')
+    let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+    let g:vimtex_view_general_options = '-r @line @pdf @tex'
+    let g:vimtex_fold_enabled = 0 "So large files can open more easily
+elseif has('unix')
+    let g:vimtex_view_method = 'zathura'
+endif
+
 " === C-style (Java / C++) argument objects for "cia" -> "change in argument"
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
