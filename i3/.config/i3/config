@@ -273,9 +273,12 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
+# window title
+for_window [] title_window_icon yes
+for_window [class="^.*"] border normal
+for_window [title="Calculator"] border pixel 1
 
 # i3 Gaps
-for_window [class="^.*"] border pixel 1
 #bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
 bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 5, gaps right all toggle 5, gaps top all toggle 5
 gaps inner 10

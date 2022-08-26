@@ -42,6 +42,9 @@ Plug 'AndrewRadev/sideways.vim'
 " GLSL
 Plug 'beyondmarc/glsl.vim'
 
+" Jai
+Plug 'jansedivy/jai.vim'
+
 " Tex
 Plug 'lervag/vimtex'
 
