@@ -160,6 +160,24 @@ set $ws9 "9"
 set $ws10 "10"
 set $ws11 "11:Discord"
 
+
+set $primary_monitor HDMI-0
+
+workspace $ws0 output DP-5
+workspace $ws1 output DP-5
+
+workspace $ws2 output $primary_monitor
+workspace $ws3 output $primary_monitor
+workspace $ws4 output $primary_monitor
+workspace $ws5 output $primary_monitor
+workspace $ws6 output $primary_monitor
+workspace $ws7 output $primary_monitor
+workspace $ws8 output $primary_monitor
+workspace $ws9 output $primary_monitor
+
+workspace $ws10 output DP-3
+workspace $ws11 output DP-3
+
 # move workspace left monitor
 bindsym $mod+Shift+Control+h move workspace to output left
 bindsym $mod+Shift+Control+l move workspace to output right
