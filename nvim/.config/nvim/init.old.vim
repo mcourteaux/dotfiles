@@ -29,9 +29,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-github-dashboard'
 
-"Python
-Plug 'tmhedberg/SimpylFold'
-
 " Various tools
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

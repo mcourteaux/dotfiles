@@ -6,20 +6,23 @@
  - git clone this repo
  - git submodule update --recursive --init
  - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip rxvt-unicode-256color i3status feh compton zathura xdotool playerctl ctags xsettingsd
- - pip3 install pynvim
+ - Install latest (9.1+) neovim appimage as `~/.local/bin/nvim`.
+ - `pip3 install pynvim`
  - To install emoji-keyboards support:
-   - sudo apt install fonts-emojione rofi xdotool xsel
+   - `sudo apt install fonts-emojione rofi xdotool xsel`
    - Download release from: https://github.com/fdw/rofimoji/releases
-   - Install : pip3 install rofimoji
+   - Install: `pip3 install rofimoji`
  - install linuxbrew
  - brew install fzf (yes yes yes)
  - install fd (.deb)
- # - dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+ - ~~dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"~~
  - add option "caps:escape" to /etc/defaults/keyboard
  - gconftool-2 --set /apps/gnome-terminal/profiles/Default/font --type string "Fura Mono Regular Nerd Font 11"
  - stow stuff
  - chsh (/usr/bin/zsh)
- - vim +PluginInstall +qall
+ - vim +PlugInstall +qall
+   - `pip3 install openai`
+   - `echo "sk-...<openaikey>" > ~/.config/vim-chatgpt.key`
  - compile ycm :
  
       # macOS

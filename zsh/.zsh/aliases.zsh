@@ -69,7 +69,7 @@ alias :e='vim'
 
 # vimrc editing
 if [ $NEOVIM_INSTALLED -eq 0 ]; then
-    alias vvim='vim ~/.config/nvim/init.vim'
+    alias vvim='vim ~/.config/nvim/init.lua'
 else
     alias vvim='vim ~/.vimrc'
 fi
