@@ -17,6 +17,8 @@ set pyxversion=3
 
 call plug#begin()
 
+Plug 'embear/vim-localvimrc'
+
 " Color scheme
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 "Plug 'chriskempson/base16-vim'
@@ -27,11 +29,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-github-dashboard'
 
+"Python
+Plug 'tmhedberg/SimpylFold'
+
 " Various tools
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
+Plug 'ntpeters/vim-better-whitespace'
 
 " C/C++
 Plug 'valloric/youcompleteme'
@@ -43,10 +49,11 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'beyondmarc/glsl.vim'
 
 " Jai
-Plug 'jansedivy/jai.vim'
+Plug 'rluba/jai.vim'
 
 " Tex
 Plug 'lervag/vimtex'
+Plug 'Konfekt/vim-sentence-chopper'
 
 call plug#end()
 
@@ -157,6 +164,9 @@ set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf/
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
+
+command! ProjectLines execute 'Lines' s:find_git_root()
+noremap <Leader>l :Ag<CR>
 
 command! ProjectFiles execute 'Files' s:find_git_root()
 noremap <C-p> :ProjectFiles<CR>

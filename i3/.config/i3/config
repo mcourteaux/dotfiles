@@ -49,6 +49,7 @@ for_window [title="^Origin$"] floating enable
 for_window [title="^qiv: "] floating enable
 
 for_window [title="1Password"] floating enable
+for_window [class="velox-ib-Main"] floating enable
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -178,6 +179,12 @@ workspace $ws9 output $primary_monitor
 workspace $ws10 output DP-3
 workspace $ws11 output DP-3
 
+assign [class="telegram-desktop"] workspace $ws0
+assign [class="^Mail$"] workspace $ws0
+assign [class="Spotify"] workspace $ws1
+assign [class="Discord"] workspace $ws11
+
+
 # move workspace left monitor
 bindsym $mod+Shift+Control+h move workspace to output left
 bindsym $mod+Shift+Control+l move workspace to output right
@@ -269,7 +276,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/lock.png & sleep 1 && xset dpms force off
-bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/dotfiles/wallpapers/wallpapers/manjaro.png
+#bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/dotfiles/wallpapers/wallpapers/manjaro.png
+bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/dotfiles/wallpapers/wallpapers/james-webb.png
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
