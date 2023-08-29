@@ -4,7 +4,7 @@ background="$1"
 
 
 if [ $background = "dark" ]; then
-    sed -i "s/^background_opacity .*/background_opacity 0.86/g" ~/.config/kitty/kitty.conf
+    sed -i "s/^background_opacity .*/background_opacity 0.80/g" ~/.config/kitty/kitty.conf
     kitty +kitten themes --reload-in=all "Monokai"
 
 

@@ -53,6 +53,6 @@ memory {
 }
 
 tztime local {
-        format = "<span background='#ffffff'> %time </span>"
-        format_time = "%Y-%m-%d %H:%M:%S"
+        format = "<span background='#ffffff'> %Y-%m-%d %H:%M:%S </span>"
+        timezone = "Europe/Brussels"
 }

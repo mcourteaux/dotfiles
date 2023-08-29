@@ -76,7 +76,8 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec kitty
-bindsym $mod+Shift+Return exec urxvt
+#bindsym $mod+Shift+Return exec urxvt
+bindsym $mod+Shift+Return exec rofi -show
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -339,7 +340,7 @@ gaps inner 10
 
 # Emojis
 #bindsym $mod+space exec ~/.local/bin/dmenu-emoji.sh
-bindsym $mod+space exec rofimoji --rofi-args="-levenshtein-sort"
+bindsym $mod+space exec rofimoji --selector-args="-levenshtein-sort"
 
 
 # Screen Shots
@@ -371,19 +372,26 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 
+# Belgian / Macedonian Keyboard
+#bindsym $alt+Escape exec bash ~/dotfiles/i3/.config/i3/toggle_keyboard_layout.sh
+
+
 #bindsym $mod+Shift+b exec feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 #bindsym $mod+Shift+b exec feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/wallpapers/
-#bindsym $mod+Shift+b exec feh --bg-fill --randomize /usr/share/backgrounds/
-bindsym $mod+Shift+b exec feh --bg-fill /usr/share/backgrounds/warty-final-ubuntu.png
+bindsym $mod+Shift+b exec feh --bg-fill --randomize /usr/share/backgrounds/dark/
+#bindsym $mod+Shift+b exec feh --bg-fill /usr/share/backgrounds/warty-final-ubuntu.png
 
-exec_always feh --bg-scale /usr/share/backgrounds/warty-final-ubuntu.png
+#exec_always feh --bg-scale /usr/share/backgrounds/dark/after-dark-68-3840x2160.jpg
+exec_always feh --bg-scale /usr/share/backgrounds/dark/seal.jpg
+
 #exec_always feh --bg-scale --randomize /home/martijn/.config/i3/wallpapers/
 #exec_always feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/manjaro.png
-exec_always --no-startup-id killall compton
-exec_always --no-startup-id sleep 1 && compton --config ~/.config/compton.conf
+#exec_always --no-startup-id killall compton
+#exec_always --no-startup-id sleep 1 && compton --config ~/.config/compton.conf
+exec_always --no-startup-id sleep 0.5 && picom --config ~/.config/picom.conf
 
-exec --no-startup-id i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /snap/bin/telegram-desktop'
-exec --no-startup-id i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
+exec --no-startup-id sleep 1.2 && i3-msg 'workspace 2:Web; exec /usr/bin/firefox; exec /usr/bin/telegram'
+exec --no-startup-id sleep 1.2 && i3-msg 'workspace 1:Mail; exec /usr/bin/thunderbird; exec /usr/bin/firefox https://calendar.google.com/calendar/r'
 
 
 bindsym $mod+Shift+F9 exec ~/.config/toggle_dark_light.sh dark
