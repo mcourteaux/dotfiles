@@ -53,9 +53,9 @@ Plugin 'rhysd/vim-clang-format'
 Plugin 'tpope/vim-dispatch'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'AndrewRadev/sideways.vim'
-if !has('nvim')
-Plugin 'mcourteaux/color_coded'
-endif
+"if !has('nvim')
+"Plugin 'mcourteaux/color_coded'
+"endif
 
 " Python
 Plugin 'tmhedberg/SimpylFold'
@@ -381,8 +381,7 @@ endif
 " (16) Python SimplyIFold
 let g:SimpylFold_fold_docstring = 0
 
-" (17) FZF (Alternative to CtrlP)
-" These are C/C++ specific right now...
+" (17) FZF (Alternative to CtrlP) These are C/C++ specific right now...
 "let $FZF_DEFAULT_COMMAND = '(fd --type f --regex ".*\.(cpp|hpp|c|h)$" ; fd --type f -E "*.cpp" -E "*.hpp" -E "*.h" -E "*.c" )'
 "let $FZF_DEFAULT_OPTS = '--tiebreak=index'
 set rtp+=/usr/local/opt/fzf

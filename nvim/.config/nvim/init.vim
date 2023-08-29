@@ -31,7 +31,11 @@ Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'easymotion/vim-easymotion'
+
+" ChatGPT
+Plug 'CoderCookE/vim-chatgpt'
 
 " C/C++
 Plug 'valloric/youcompleteme'
@@ -43,10 +47,13 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'beyondmarc/glsl.vim'
 
 " Jai
-Plug 'jansedivy/jai.vim'
+Plug 'rluba/jai.vim'
 
 " Tex
 Plug 'lervag/vimtex'
+
+" Python
+Plug 'tmhedberg/SimpylFold'
 
 call plug#end()
 
@@ -95,8 +102,8 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " Over length marking
-autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=blue
-autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/
+"autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=blue
+"autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/
 
 " ===  FSwitch (toggle source/header)
 noremap <Leader>a :FSHere<CR>
@@ -140,6 +147,7 @@ nnoremap gd :YcmCompleter GoTo<CR>
 nnoremap <leader>F :YcmCompleter FixIt<CR>
 let g:ycm_disable_signature_help=0
 let g:ycm_auto_hover=''
+let g:ycm_auto_trigger=1
 nmap <leader>d <plug>(YCMHover)
 if has('macunix')
     let g:ycm_clangd_binary_path = '/usr/local/Cellar/llvm/11.0.0/bin/clangd'
@@ -174,3 +182,12 @@ command! -bang -nargs=? -complete=dir Files
 
 " === Color theme
 :lua require('colorscheme_watcher')
+
+" === Chat GPT
+let g:chat_gpt_max_tokens = 500
+"let g:chat_gpt_model = 'gpt-4'
+let g:chat_gpt_model = 'gpt-3.5-turbo'
+let g:chat_gpt_session_mode = 0
+let g:chat_gpt_temperature = 0.2
+let g:chat_gpt_lang = 'English'
+let g:openai_api_key=join(readfile(expand("~/.config/vim-chatgpt.key")))
