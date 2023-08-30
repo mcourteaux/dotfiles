@@ -112,6 +112,20 @@ require("lazy").setup({
   -- { 'Soares/base16.nvim' , config=function() vim.cmd.colorscheme('summerfruit') end },
   { 'RRethy/nvim-base16' , config=function() vim.cmd.colorscheme('base16-summerfruit-dark') end },
 
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
+
   -- FZF
   {
     "ibhagwan/fzf-lua",
@@ -162,11 +176,11 @@ require("lazy").setup({
   { 'rluba/jai.vim' },
 
   -- C++
-  {
-    'rhysd/vim-clang-format', config = function() 
-      vim.api.nvim_set_keymap('n', '<Leader>f', ':ClangFormat<CR>', { noremap = true, silent = true })
-    end
-  },
+  --{
+  --  'rhysd/vim-clang-format', config = function()
+  --    vim.api.nvim_set_keymap('n', '<Leader>f', ':ClangFormat<CR>', { noremap = true, silent = true })
+  --  end
+  --},
   {
     'derekwyatt/vim-fswitch',
     config = function()
@@ -224,6 +238,7 @@ require("lazy").setup({
   {
     'lervag/vimtex',
     config = function()
+      vim.g.vimtex_fold_enabled = 1
       vim.api.nvim_set_keymap('n', '<LocalLeader>lv', ':VimtexView<CR>', { noremap = true })
       if vim.fn.has('macunix') == 1 then
         vim.g.vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
@@ -232,6 +247,51 @@ require("lazy").setup({
       elseif vim.fn.has('unix') == 1 then
         vim.g.vimtex_view_method = 'zathura'
       end
+
+
+      function findLatexConfig()
+        -- Get the current working directory
+        local currentDir = vim.fn.getcwd()
+
+        -- Iterate over each parent directory recursively until reaching the root
+        while currentDir ~= '/' do
+          local configFile = currentDir .. '/.latex_conf.nvim'
+
+          -- Check if the config file exists
+          if vim.fn.filereadable(configFile) == 1 then
+            -- Read the first line of the file
+            local file = io.open(configFile, 'r')
+            local mainPdf = file:read('*line')
+            file:close()
+
+            vim.g.main_pdf = currentDir .. "/" .. mainPdf
+            return
+          end
+
+          currentDir = vim.fn.fnamemodify(currentDir, ':h') -- Move up to the parent directory
+        end
+      end
+
+      function Synctex()
+        findLatexConfig()
+        vim.cmd("silent !zathura --synctex-forward " .. vim.fn.line('.') .. ":" .. vim.fn.col('.') .. ":" .. vim.fn.expand('%:p')  .. " " .. vim.g.main_pdf)
+        --vim.fn.system("zathura --synctex-forward " .. vim.fn.line('.') .. ":" .. vim.fn.col('.') .. ":" .. vim.fn.bufname('%') .. " " .. g:syncpdf)
+        --
+        local windowId = os.getenv("WINDOWID")
+        local gdmSession = os.getenv("GDMSESSION")
+
+        if windowId and gdmSession then
+          -- Request focus using i3-msg
+          if gdmSession == "i3" then
+            vim.cmd("silent !i3-msg '[id=" .. windowId .. "]' focus")
+          end
+        else
+          -- Not sure this is i3...
+          print("Lost focus: i3 or WINDOWID not detected")
+        end
+      end
+      vim.api.nvim_set_keymap('n', '<C-enter>', ':lua Synctex()<cr>', {silent = true})
+
     end
   },
 
@@ -283,6 +343,20 @@ require("lazy").setup({
         desc = "[G]pt [P]rompt"
       })
     end
+  },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "echo " .. openai_api_key
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
   }
 })
 vim.opt.termguicolors = true
@@ -323,6 +397,18 @@ lspconfig.clangd.setup({
     "--completion-style=detailed",
   },
 })
+lspconfig.pylsp.setup({
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'E402'},
+          maxLineLength = 180
+        }
+      }
+    }
+  }
+})
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -340,21 +426,39 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    --vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    --vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    --vim.keymap.set('n', '<space>wl', function()
+    --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    --end, opts)
+    --vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
- 
+
     -- Enable borders on popups.
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
     require("lsp_signature").on_attach()
   end,
+})
+
+-- Not sure if I want this here. This ChatGPT plugin is not really good for "edit with instructions"...
+local wk = require("which-key")
+local chatgpt = require("chatgpt")
+wk.register({
+    p = {
+        name = "ChatGPT",
+        e = {
+            function()
+                chatgpt.edit_with_instructions()
+            end,
+            "Edit with instructions",
+        },
+    },
+}, {
+    prefix = "<leader>",
+    mode = "v",
 })
