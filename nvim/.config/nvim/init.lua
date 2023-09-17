@@ -3,6 +3,8 @@ vim.o.swapfile = false
 vim.g.mapleader = ","
 vim.g.maplocalleader = "_"
 
+vim.o.wildmode = "longest,full"
+
 
 -- Enable Python 3 support
 -- Disable python2 support
@@ -41,7 +43,11 @@ vim.g.openai_api_key = openai_api_key
 
 -- Utility function to find the git project root
 find_git_root = function()
-  return vim.fn.system('git rev-parse --show-toplevel 2> /dev/null'):sub(1,-2)
+  local gitRoot = vim.fn.system('git rev-parse --show-toplevel 2> /dev/null'):sub(1,-2)
+  if gitRoot == '' then
+    gitRoot = vim.fn.getcwd()
+  end
+  return gitRoot
 end
 
 
@@ -138,19 +144,20 @@ require("lazy").setup({
 
       -- Project Files
       vim.keymap.set('n', '<c-P>', function()
-        fzf.files({ cwd = find_git_root() })
+        fzf.files({ cmd = "fd", cwd = find_git_root() })
       end)
       -- Super Project Files
       vim.keymap.set('n', '<Leader><c-P>', function()
-        fzf.files({ cwd = find_git_root() .. '/../' })
+        --print(vim.fn.expand(find_git_root() .. '/../'))
+        fzf.files({ cmd = "fd", cwd = vim.fn.expand(find_git_root() .. '/../') })
       end)
       -- Project Test Files
-      vim.keymap.set('n', '<Leader><c-P>', function()
-        fzf.files({ cwd = find_git_root() .. '/test/' })
+      vim.keymap.set('n', '<c-T>', function()
+        fzf.files({ cmd = "fd", cwd = find_git_root() .. '/test/' })
       end)
       -- Project Lines
       vim.keymap.set('n', '<Leader>L', function()
-        fzf.live_grep({ cwd = find_git_root() })
+        fzf.live_grep({ cmd = "rg", cwd = find_git_root() })
       end)
     end
   },
@@ -176,11 +183,11 @@ require("lazy").setup({
   { 'rluba/jai.vim' },
 
   -- C++
-  --{
-  --  'rhysd/vim-clang-format', config = function()
-  --    vim.api.nvim_set_keymap('n', '<Leader>f', ':ClangFormat<CR>', { noremap = true, silent = true })
-  --  end
-  --},
+  {
+    'rhysd/vim-clang-format', config = function()
+      --vim.api.nvim_set_keymap('n', '<Leader>cf', ':ClangFormat<CR>', { noremap = true, silent = true })
+    end
+  },
   {
     'derekwyatt/vim-fswitch',
     config = function()
@@ -238,8 +245,9 @@ require("lazy").setup({
   {
     'lervag/vimtex',
     config = function()
+      vim.g.latex_flavor = 'latex'
       vim.g.vimtex_fold_enabled = 1
-      vim.api.nvim_set_keymap('n', '<LocalLeader>lv', ':VimtexView<CR>', { noremap = true })
+      --vim.api.nvim_set_keymap('n', '<LocalLeader>lv', ':VimtexView<CR>', { noremap = true })
       if vim.fn.has('macunix') == 1 then
         vim.g.vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
         vim.g.vimtex_view_general_options = '-r @line @pdf @tex'
