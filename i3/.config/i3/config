@@ -319,6 +319,7 @@ client.background       #ffffff
 for_window [] title_window_icon yes
 for_window [class="^.*"] border normal
 for_window [title="Calculator"] border pixel 1
+for_window [class="vlc" floating] border none
 
 # i3 Gaps
 #bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
