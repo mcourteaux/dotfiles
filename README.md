@@ -5,7 +5,7 @@
  - sudo apt install git
  - git clone this repo
  - git submodule update --recursive --init
- - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip rxvt-unicode-256color i3status feh compton zathura xdotool playerctl ctags xsettingsd
+ - sudo apt install vim-gtk3 stow fasd zsh curl gconf2 gnome-tweak-tool build-essential cmake python3-dev silversearcher-ag libncurses-dev libz-dev xz-utils libpthread-workqueue-dev xclip i3status feh compton zathura xdotool playerctl ctags xsettingsd
  - Install latest (9.1+) neovim appimage as `~/.local/bin/nvim`.
  - `pip3 install pynvim`
  - To install emoji-keyboards support:
@@ -31,7 +31,6 @@
       # Linux
       YCM_CORES=6 python3 ./install.py --clang-completer --java-completer
 
- - compile color_coded (mkdir build, cmake .., make, make install)
  - set font through Tweaks (search Nerd)
  - logout/login
  - base16_monokai
@@ -41,7 +40,7 @@
 
 ```sh
 sudo add-apt-repository ppa:kgilmer/speed-ricer
-sudo apt-get install feh rofi i3lock i3status i3-gaps-wm rxvt-unicode-256color compton pywal
+sudo apt-get install feh rofi i3lock i3status i3-gaps-wm picom pywal
 sudo aptitude install fonts-emojione xdotool xsel
 ```
 

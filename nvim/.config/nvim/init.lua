@@ -116,7 +116,25 @@ require("lazy").setup({
   -- Colorschemes
   {'folke/tokyonight.nvim'},
   -- { 'Soares/base16.nvim' , config=function() vim.cmd.colorscheme('summerfruit') end },
-  { 'RRethy/nvim-base16' , config=function() vim.cmd.colorscheme('base16-summerfruit-dark') end },
+  { 'rktjmp/fwatch.nvim' },
+  { 'RRethy/nvim-base16',
+    dependencies = { 'rktjmp/fwatch.nvim' },
+    config = function()
+      -- Try to find the .colorrc file I use for toggling dark and light themes.
+      local colorrc_file = vim.env.HOME .. '/.vimrc.color'
+
+      local function resource_colorrc()
+          vim.cmd('source ' .. colorrc_file)
+      end
+
+      if vim.fn.filereadable(colorrc_file) == 1 then
+        resource_colorrc()
+        require('fwatch').watch(colorrc_file, "source " .. colorrc_file)
+      else
+          vim.cmd.colorscheme('base16-summerfruit-dark')
+      end
+    end
+  },
 
   {
     "folke/which-key.nvim",
@@ -317,55 +335,6 @@ require("lazy").setup({
       vim.g.chat_gpt_lang = 'English'
     end
   },
-  {
-    "thmsmlr/gpt.nvim",
-    config = function()
-      require('gpt').setup({
-        api_key = openai_api_key
-      })
-
-      opts = { silent = true, noremap = true }
-      vim.keymap.set('v', '<C-g>r', require('gpt').replace, {
-        silent = true,
-        noremap = true,
-        desc = "[G]pt [R]ewrite"
-      })
-      vim.keymap.set('v', '<C-g>p', require('gpt').visual_prompt, {
-        silent = false,
-        noremap = true,
-        desc = "[G]pt [P]rompt"
-      })
-      vim.keymap.set('n', '<C-g>p', require('gpt').prompt, {
-        silent = true,
-        noremap = true,
-        desc = "[G]pt [P]rompt"
-      })
-      vim.keymap.set('n', '<C-g>c', require('gpt').cancel, {
-        silent = true,
-        noremap = true,
-        desc = "[G]pt [C]ancel"
-      })
-      vim.keymap.set('i', '<C-g>p', require('gpt').prompt, {
-        silent = true,
-        noremap = true,
-        desc = "[G]pt [P]rompt"
-      })
-    end
-  },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        api_key_cmd = "echo " .. openai_api_key
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  }
 })
 vim.opt.termguicolors = true
 --vim.cmd.colorscheme('tokyonight')
@@ -453,20 +422,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- Not sure if I want this here. This ChatGPT plugin is not really good for "edit with instructions"...
-local wk = require("which-key")
-local chatgpt = require("chatgpt")
-wk.register({
-    p = {
-        name = "ChatGPT",
-        e = {
-            function()
-                chatgpt.edit_with_instructions()
-            end,
-            "Edit with instructions",
-        },
-    },
-}, {
-    prefix = "<leader>",
-    mode = "v",
-})
+require'lspconfig'.rust_analyzer.setup({})
