@@ -124,6 +124,8 @@ alias gr='git remote --verbose'
 alias gS='git submodule'
 alias gSuir='git submodule update --init --recursive'
 
+# Ripgrep
+alias hrg="rg --hyperlink-format=kitty"
 
 ## Solid Disassembler
 alias sda='~/Downloads/Telegram\ Desktop/solid_disassembler'
