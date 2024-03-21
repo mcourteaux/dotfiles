@@ -392,7 +392,7 @@ exec_always feh --bg-fill --randomize /usr/share/backgrounds/favorites/
 #exec_always feh --bg-scale --randomize /home/martijn/dotfiles/wallpapers/manjaro.png
 #exec_always --no-startup-id killall compton
 #exec_always --no-startup-id sleep 1 && compton --config ~/.config/compton.conf
-exec_always --no-startup-id sleep 0.5 && picom --config ~/.config/picom.conf
+#exec_always --no-startup-id sleep 0.5 && picom --config ~/.config/picom.conf
 
 exec_always --no-startup-id xsettingsd
 

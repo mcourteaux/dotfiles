@@ -12,10 +12,24 @@
 	d = difftool
 [color]
 	ui = auto
+
+# Git Diff with Kitty
 [diff]
-	tool = vimdiff
+    tool = kitty
+    guitool = kitty.gui
 [difftool]
-	prompt = false
+    prompt = false
+    trustExitCode = true
+[difftool "kitty"]
+    cmd = kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+    cmd = kitten diff $LOCAL $REMOTE
+
+# [diff]
+# 	tool = vimdiff
+# [difftool]
+# 	prompt = false
+
 [gpg]
 	program = gpg
 [init]

@@ -85,6 +85,7 @@ alias g='git'
 alias gs='git status'
 alias gi='vim .gitignore'
 alias gd='git diff'
+alias gdt='git difftool --no-symlinks --dir-diff'
 alias gb='git branch'
 alias gco='git checkout'
 
