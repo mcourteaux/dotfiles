@@ -163,22 +163,22 @@ set $ws10 "10"
 set $ws11 "11:Discord"
 
 
-set $primary_monitor HDMI-0
+set $primary_monitor DP-4
+set $secondary_monitor DP-0
 
-workspace $ws0 output DP-5
-workspace $ws1 output DP-5
+workspace $ws0 output $secondary_monitor
+workspace $ws1 output $secondary_monitor
+workspace $ws2 output $secondary_monitor
+workspace $ws3 output $secondary_monitor
 
-workspace $ws2 output $primary_monitor
-workspace $ws3 output $primary_monitor
 workspace $ws4 output $primary_monitor
 workspace $ws5 output $primary_monitor
 workspace $ws6 output $primary_monitor
 workspace $ws7 output $primary_monitor
 workspace $ws8 output $primary_monitor
 workspace $ws9 output $primary_monitor
-
-workspace $ws10 output DP-3
-workspace $ws11 output DP-3
+workspace $ws10 output $primary_monitor
+workspace $ws11 output $primary_monitor
 
 assign [class="telegram-desktop"] workspace $ws0
 assign [class="^Mail$"] workspace $ws0

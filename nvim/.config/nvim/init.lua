@@ -112,6 +112,20 @@ require("lazy").setup({
 
     end
   },
+  {
+     'SmiteshP/nvim-navic',
+     dependencies = { 'neovim/nvim-lspconfig' },
+     config = function()
+       local navic = require('nvim-navic')
+       navic.setup({
+         highlight = true,
+         lsp = {
+           auto_attach = false,
+           preference = nil,
+         }
+       })
+     end
+  },
 
   -- Colorschemes
   {'folke/tokyonight.nvim'},
@@ -148,6 +162,18 @@ require("lazy").setup({
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
     }
+  },
+  {
+    "airblade/vim-gitgutter",
+    init = function()
+      vim.g.gitgutter_highlight_linenrs = 1
+    end,
+    config = function()
+      vim.o.number = true
+      vim.api.nvim_set_hl(0, "GitGutterAddLineNr", { link = "GitGutterAdd" })
+      vim.api.nvim_set_hl(0, "GitGutterChangeLineNr", { link = "GitGutterChange" })
+      vim.api.nvim_set_hl(0, "GitGutterDeleteLineNr", { link = "GitGutterDelete" })
+    end
   },
 
   -- FZF
@@ -373,6 +399,12 @@ lspconfig.clangd.setup({
     "--query-driver=/usr/bin/c++,/usr/bin/cc,/usr/bin/gcc*,/usr/bin/clang*",
     "--completion-style=detailed",
   },
+  on_attach = function(client, bufnr)
+    local navic = require("nvim-navic")
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+    end
+  end
 })
 lspconfig.pylsp.setup({
   settings = {
@@ -415,6 +447,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+
+    vim.o.winbar = "[%{%v:lua.require'nvim-navic'.get_location()%}]"
 
     -- Enable borders on popups.
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
