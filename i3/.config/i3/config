@@ -277,7 +277,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/lock.png & sleep 1 && xset dpms force off
-bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/dotfiles/wallpapers/wallpapers/manjaro.png
+#bindsym Mod4+Mod1+l exec --no-startup-id i3lock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/manjaro.png
+bindsym Mod4+Mod1+l exec --no-startup-id i3lock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
 #bindsym Mod4+Mod1+l exec --no-startup-id i3lock -i /home/martijn/dotfiles/wallpapers/wallpapers/james-webb.png
 
 # Start i3bar to display a workspace bar (plus the system information i3status
