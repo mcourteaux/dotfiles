@@ -8,6 +8,8 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $alt Mod1
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -86,6 +88,12 @@ output * bg /usr/share/backgrounds/default.png fill
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    bindsym $alt+Control+Left workspace prev
+    bindsym $alt+Control+Right workspace next
+    bindsym $alt+Control+$left workspace prev
+    bindsym $alt+Control+$right workspace next
+
 #
 # Layout stuff:
 #
