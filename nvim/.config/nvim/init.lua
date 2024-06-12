@@ -1,3 +1,8 @@
+-- nvim-tree: disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+
 vim.o.encoding = "UTF-8"
 vim.o.swapfile = false
 vim.g.mapleader = ","
@@ -33,13 +38,13 @@ vim.opt.rtp:prepend(lazypath)
 --local openai_api_key = vim.fn.join(vim.fn.readfile(vim.fn.expand("~/.config/vim-chatgpt.key")))
 local openai_api_key_file = io.open(os.getenv("HOME") .. "/.config/vim-chatgpt.key", "r")
 if not openai_api_key_file then
-    error("Failed to open the OpenAI API key file: ~/.config/vim-chatgpt.key")
+    print("Failed to open the OpenAI API key file: ~/.config/vim-chatgpt.key")
+else
+    local openai_api_key = openai_api_key_file:read("*all")
+    openai_api_key = string.gsub(openai_api_key, "\n$", "") -- Strip trailing newline
+    openai_api_key_file:close()
+    vim.g.openai_api_key = openai_api_key
 end
-local openai_api_key = openai_api_key_file:read("*all")
-openai_api_key = string.gsub(openai_api_key, "\n$", "") -- Strip trailing newline
-openai_api_key_file:close()
-
-vim.g.openai_api_key = openai_api_key
 
 -- Utility function to find the git project root
 find_git_root = function()
@@ -206,10 +211,12 @@ require("lazy").setup({
     end
   },
 
+  -- NvimTree
+  { 'nvim-tree/nvim-tree.lua' },
+
   -- Various Tools
   { 'easymotion/vim-easymotion' },
   { 'editorconfig/editorconfig-vim' },
-  { 'scrooloose/nerdtree' },
   { 'ntpeters/vim-better-whitespace' },
   { 'Konfekt/vim-sentence-chopper' },
   {
@@ -260,27 +267,6 @@ require("lazy").setup({
       vim.api.nvim_set_keymap('x', 'ia', '<Plug>SidewaysArgumentTextobjI', {})
     end
   },
-  --{
-  --  'ycm-core/youcompleteme',
-  --  build = 'python3 ./install.py --clang-completer',
-  --  config = function()
-  --    -- YouCompleteMe
-  --    vim.g.ycm_use_clangd = 0
-  --    vim.g.ycm_clangd_args = { '--header-insertion=never' }
-  --    vim.g.ycm_disable_signature_help = 0
-  --    vim.g.ycm_auto_hover=''
-  --    vim.g.ycm_auto_trigger = 1
-
-  --    -- nnoremap gd :YcmCompleter GoTo<CR>
-  --    vim.api.nvim_set_keymap('n', 'gd', ':YcmCompleter GoTo<CR>', { noremap = true, silent = true })
-
-  --    -- nnoremap <leader>F :YcmCompleter FixIt<CR>
-  --    vim.api.nvim_set_keymap('n', '<leader>F', ':YcmCompleter FixIt<CR>', { noremap = true, silent = true })
-
-  --    -- nmap <leader>d <plug>(YCMHover)
-  --    vim.api.nvim_set_keymap('n', '<leader>d', '<plug>(YCMHover)', { noremap = true, silent = true })
-  --  end
-  --},
 
   -- Python
   { 'tmhedberg/SimpylFold' },
@@ -463,3 +449,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 require'lspconfig'.rust_analyzer.setup({})
+
+
+-- After a re-source, fix syntax matching issues (concealing brackets):
+if vim.g.loaded_webdevicons then
+  vim.fn['webdevicons#refresh']()
+end
+
+require("nvim-tree").setup()
