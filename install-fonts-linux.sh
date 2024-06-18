@@ -2,23 +2,23 @@
 
 VERSION="v3.2.1"
 
-rm -rf tmp-fonts
+function install() {
+  wget https://github.com/ryanoasis/nerd-fonts/releases/download/$VERSION/$1.zip
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/$VERSION/RobotoMono.zip
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/$VERSION/FiraCode.zip
+  rm -rf tmp-fonts
+  mkdir -p tmp-fonts && cd tmp-fonts
 
-mkdir -p tmp-fonts && cd tmp-fonts
+  unzip ../$1.zip
+  lowercase=$(echo "$1" | tr A-Z a-z)
+  sudo mkdir -p /usr/share/fonts/${lowercase}-nerdfont/
+  sudo mv * /usr/share/fonts/${lowercase}-nerdfont/
 
-# Fira Code
-unzip ../FiraCode.zip
-sudo mkdir -p /usr/share/fonts/firacode-nerdfont/
-sudo mv * /usr/share/fonts/firacode-nerdfont/
+   cd ..
+   rm -rf tmp-fonts
+   rm $1.zip
+}
 
-unzip ../RobotoMono.zip
-sudo mkdir -p /usr/share/fonts/robotomono-nerdfont/
-sudo mv * /usr/share/fonts/firacode-nerdfont/
+install "FiraCode"
+install "RobotoMono"
+install "ComicShannsMono"
 
-cd ..
-rm -rf tmp-fonts
-rm RobotoMono.zip
-rm FiraCode.zip
