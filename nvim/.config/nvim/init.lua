@@ -133,27 +133,11 @@ require("lazy").setup({
   },
 
   -- Colorschemes
-  {'folke/tokyonight.nvim'},
-  -- { 'Soares/base16.nvim' , config=function() vim.cmd.colorscheme('summerfruit') end },
   { 'rktjmp/fwatch.nvim' },
-  { 'RRethy/nvim-base16',
-    dependencies = { 'rktjmp/fwatch.nvim' },
-    config = function()
-      -- Try to find the .colorrc file I use for toggling dark and light themes.
-      local colorrc_file = vim.env.HOME .. '/.vimrc.color'
-
-      local function resource_colorrc()
-          vim.cmd('source ' .. colorrc_file)
-      end
-
-      if vim.fn.filereadable(colorrc_file) == 1 then
-        resource_colorrc()
-        require('fwatch').watch(colorrc_file, "source " .. colorrc_file)
-      else
-          vim.cmd.colorscheme('base16-summerfruit-dark')
-      end
-    end
-  },
+  {' folke/tokyonight.nvim' },
+  { 'Mofiqul/dracula.nvim' },
+  { 'sainnhe/gruvbox-material' },
+  --{ 'RRethy/nvim-base16' },
 
   {
     "folke/which-key.nvim",
@@ -349,8 +333,6 @@ require("lazy").setup({
     end
   },
 })
-vim.opt.termguicolors = true
---vim.cmd.colorscheme('tokyonight')
 
 vim.o.number = true
 vim.o.autochdir = true
@@ -378,6 +360,26 @@ vim.api.nvim_set_keymap('v', '<space>', 'zf', { noremap = true, silent = true })
 -- Uncomment the following lines if you wish to enable the "Over length marking" functionality
 -- vim.cmd([[ autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=blue ]])
 -- vim.cmd([[ autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/ ]])
+
+
+local function init_colorscheme()
+  vim.opt.termguicolors = true
+  -- Try to find the .colorrc file I use for toggling dark and light themes.
+  local colorrc_file = vim.env.HOME .. '/.vimrc.color'
+
+  local function resource_colorrc()
+    vim.cmd('source ' .. colorrc_file)
+  end
+
+  if vim.fn.filereadable(colorrc_file) == 1 then
+    resource_colorrc()
+    require('fwatch').watch(colorrc_file, "source " .. colorrc_file)
+  else
+    vim.cmd.colorscheme('base16-summerfruit-dark')
+  end
+end
+init_colorscheme()
+
 
 local lspconfig = require('lspconfig')
 lspconfig.clangd.setup({
