@@ -1,6 +1,6 @@
 -- nvim-tree: disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+--vim.g.loaded_netrw = 1
+--vim.g.loaded_netrwPlugin = 1
 
 
 vim.o.encoding = "UTF-8"
@@ -213,6 +213,7 @@ require("lazy").setup({
 
   -- NvimTree
   { 'nvim-tree/nvim-tree.lua' },
+  { 'prichrd/netrw.nvim', config = function() require'netrw'.setup{} end },
 
   -- Various Tools
   { 'easymotion/vim-easymotion' },
@@ -456,4 +457,18 @@ if vim.g.loaded_webdevicons then
   vim.fn['webdevicons#refresh']()
 end
 
-require("nvim-tree").setup()
+require("nvim-tree").setup{
+  hijack_netrw = false,
+  hijack_unnamed_buffer_when_opening = true,
+  respect_buf_cwd = true,
+  actions = {
+    open_file = {
+      window_picker = {
+        enable = false
+      },
+      quit_on_open = true
+    },
+  },
+}
+nvimtree_api = require("nvim-tree.api")
+vim.keymap.set('n', '<leader>e', nvimtree_api.tree.open)
