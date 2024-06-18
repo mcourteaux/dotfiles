@@ -19,6 +19,7 @@ order += "battery all"
 order += "disk /"
 order += "load"
 order += "memory"
+order += "volume master"
 order += "tztime local"
 
 wireless _first_ {
@@ -55,4 +56,12 @@ memory {
 tztime local {
         format = "<span background='#ffffff'> %Y-%m-%d %H:%M:%S </span>"
         timezone = "Europe/Brussels"
+}
+
+volume master {
+        format = "<span background='#866350'> ♪ : %volume </span>"
+        format_muted = "<span background='#866350'> ♪ : Muted (%volume) </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
 }

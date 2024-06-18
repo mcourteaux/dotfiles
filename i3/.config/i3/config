@@ -285,7 +285,8 @@ bindsym Mod4+Mod1+l exec --no-startup-id i3lock -t -i /home/martijn/dotfiles/wal
 # finds out, if available)
 bar {
     colors {
-      statusline #282828
+      background #282828
+      statusline #111111
     }
     output primary
     font pango:DejaVu Sans Mono 12
@@ -297,12 +298,11 @@ bar {
 # Non-primary bar (nonprimary keywords requires newer version of i3-gaps than what is in PPA)
 bar {
     colors {
-      statusline #282828
+      background #282828
+      statusline #111111
     }
-    output DP-3
-    output DP-5
     output nonprimary
-    font pango:DejaVu Sans Mono 10
+    font pango:DejaVu Sans Mono 12
     status_command i3status --config ~/.config/i3status/config-tiny
 }
 
@@ -318,14 +318,15 @@ client.background       #ffffff
 
 # window title
 for_window [] title_window_icon yes
-for_window [class="^.*"] border normal
+for_window [class="^.*"] border pixel 1
 for_window [title="Calculator"] border pixel 1
 for_window [class="vlc" floating] border none
 
 # i3 Gaps
+set $gaps 40
 #bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
-bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 5, gaps right all toggle 5, gaps top all toggle 5
-gaps inner 10
+bindsym $mod+g gaps inner all toggle $gaps, gaps left all toggle $gaps, gaps right all toggle $gaps, gaps top all toggle $gaps
+gaps inner $gaps
 
 ## 4K
 #for_window [class="^.*"] border pixel 5

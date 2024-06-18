@@ -364,6 +364,7 @@ vim.api.nvim_set_keymap('v', '<space>', 'zf', { noremap = true, silent = true })
 
 local function init_colorscheme()
   vim.opt.termguicolors = true
+  vim.cmd.colorscheme('gruvbox-material')
   -- Try to find the .colorrc file I use for toggling dark and light themes.
   local colorrc_file = vim.env.HOME .. '/.vimrc.color'
 
