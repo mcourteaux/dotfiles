@@ -325,7 +325,7 @@ for_window [class="vlc" floating] border none
 # i3 Gaps
 set $gaps 40
 #bindsym $mod+g gaps inner all toggle 10, gaps left all toggle 3, gaps right all toggle 3, gaps top all toggle 3
-bindsym $mod+g gaps inner all toggle $gaps, gaps left all toggle $gaps, gaps right all toggle $gaps, gaps top all toggle $gaps
+bindsym $mod+g gaps inner all toggle $gaps, gaps left all toggle $gaps, gaps right all toggle $gaps, gaps top all toggle $gaps, gaps bottom all toggle $gaps, gaps outer all toggle $gaps
 gaps inner $gaps
 
 ## 4K
