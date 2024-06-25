@@ -36,6 +36,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load OpenAI key for plugins
 --local openai_api_key = vim.fn.join(vim.fn.readfile(vim.fn.expand("~/.config/vim-chatgpt.key")))
+local openai_key_found = false
 local openai_api_key_file = io.open(os.getenv("HOME") .. "/.config/vim-chatgpt.key", "r")
 if not openai_api_key_file then
     print("Failed to open the OpenAI API key file: ~/.config/vim-chatgpt.key")
@@ -44,6 +45,7 @@ else
     openai_api_key = string.gsub(openai_api_key, "\n$", "") -- Strip trailing newline
     openai_api_key_file:close()
     vim.g.openai_api_key = openai_api_key
+    openai_key_found = true
 end
 
 -- Utility function to find the git project root
@@ -134,7 +136,7 @@ require("lazy").setup({
 
   -- Colorschemes
   { 'rktjmp/fwatch.nvim' },
-  {' folke/tokyonight.nvim' },
+  { 'folke/tokyonight.nvim' },
   { 'Mofiqul/dracula.nvim' },
   { 'sainnhe/gruvbox-material' },
   --{ 'RRethy/nvim-base16' },
@@ -320,7 +322,7 @@ require("lazy").setup({
 
 
   -- ChatGPT stuff
-  {
+  (open_ai_key_found and {
     'CoderCookE/vim-chatgpt',
     config = function()
       -- Chat GPT
@@ -331,7 +333,7 @@ require("lazy").setup({
       vim.g.chat_gpt_temperature = 0.2
       vim.g.chat_gpt_lang = 'English'
     end
-  },
+  } or {}),
 })
 
 vim.o.number = true
@@ -376,7 +378,7 @@ local function init_colorscheme()
     resource_colorrc()
     require('fwatch').watch(colorrc_file, "source " .. colorrc_file)
   else
-    vim.cmd.colorscheme('base16-summerfruit-dark')
+    vim.cmd.colorscheme('gruvbox-material')
   end
 end
 init_colorscheme()
