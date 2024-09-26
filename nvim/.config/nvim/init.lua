@@ -214,6 +214,38 @@ require("lazy").setup({
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
   },
 
   -- Syntax Highlighting Plugins
@@ -362,6 +394,45 @@ vim.api.nvim_set_keymap('v', '<space>', 'zf', { noremap = true, silent = true })
 -- Uncomment the following lines if you wish to enable the "Over length marking" functionality
 -- vim.cmd([[ autocmd FileType cpp,hpp,c,h highlight OverLength ctermbg=blue ]])
 -- vim.cmd([[ autocmd FileType cpp,hpp,c,h match OverLength /\%81v.\+/ ]])
+
+
+-- Also get the additional information to go into the diagnostics messages.
+-- Taken from: https://github.com/neovim/neovim/issues/19649#issuecomment-1750272564
+-- Stuff appearing twice in Trouble is because the additional information is added separately as
+-- a Hint-diagnostic on the line number if one is found.
+local original = vim.lsp.handlers['textDocument/publishDiagnostics']
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
+   vim.tbl_map(function(item)
+      if item.relatedInformation and #item.relatedInformation > 0 then
+         vim.tbl_map(function(k)
+            if k.location then
+               local tail = vim.fn.fnamemodify(vim.uri_to_fname(k.location.uri), ':t')
+               k.message = tail ..
+                   '(' .. (k.location.range.start.line + 1) .. ', ' .. (k.location.range.start.character + 1) ..
+                   '): ' .. k.message
+
+               if k.location.uri == vim.uri_from_bufnr(0) then
+                  table.insert(result.diagnostics, {
+                     code = item.code,
+                     message = k.message,
+                     range = k.location.range,
+                     severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
+                     source = item.source,
+                     relatedInformation = {},
+                  })
+               end
+            end
+            item.message = item.message .. '\n' .. k.message
+         end, item.relatedInformation)
+      end
+   end, result.diagnostics)
+   original(_, result, ctx, config)
+end
+
+
+vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<cr>', { noremap = true, silent = true })
+
+
 
 
 local function init_colorscheme()
