@@ -5,10 +5,13 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Variables
-#
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 set $alt Mod1
+# Allow override
+include "${XDG_CONFIG_HOME:-$HOME/.config}/sway/modkey.conf")'
+
 
 # Home row direction keys, like vim
 set $left h
@@ -64,6 +67,11 @@ output * bg /usr/share/backgrounds/default.png fill
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+
+    # Lock
+    bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
+
 #
 # Moving around:
 #
