@@ -11,8 +11,9 @@ import os
 
 
 def should_skip(filename, funcname):
-    if filename is None or funcname is None: return True
+    if filename is None or funcname is None: return False
     if isinstance(funcname, int): return True
+    if filename.endswith(".so"): return False
     if filename.startswith("/usr/"): return True
     if funcname.startswith("std::"): return True
     return False
