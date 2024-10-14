@@ -1,0 +1,23 @@
+@define-color text-shadow rgba(0, 0, 0, 0.8);
+@define-color mod-shadow rgba(0, 0, 0, 0.8);
+
+@define-color bg transparent;
+@define-color fg #000;
+@define-color fg-muted #400;
+@define-color border #aaa;
+
+@define-color bg-workspace-tab rgba(0, 0, 0, 0.15);
+@define-color fg-workspace-tab black;
+@define-color bg-workspace-tab-active rgba(255, 255, 255, 0.9);
+@define-color fg-workspace-tab-active black;
+@define-color bg-workspace-tab-hover rgba(255, 255, 255, 0.4);
+
+@define-color bg-mod-tray rgb(100, 114, 125);
+@define-color bg-mod-clock #aaa;
+@define-color bg-mod-cpu   #8d8;
+@define-color bg-mod-network #59b0e9;
+@define-color bg-mod-audio #f0d040;
+@define-color bg-mod-memory #bb79d6;
+@define-color bg-mod-idle-inhibitor #888;
+@define-color bg-mod-idle-inhibitor-activated #111;
+@define-color fg-mod-idle-inhibitor-activated #fff;

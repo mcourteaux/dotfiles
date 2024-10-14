@@ -1,0 +1,16 @@
+{
+    "gtkTheme": "Everforest-Dark-BL",
+    "gtkColorScheme": "prefer-dark",
+    "kvantumTheme": "",
+    "iconTheme": "Everforest-Dark",
+    "colorScheme": "everforest",
+    "vsCodeTheme": "Everforest Dark",
+    "vsCodeExtraColors" : "",
+    "kittyTheme" : "Arthur",
+    "nvimTheme": "gruvbox-material",
+    "nvimBackground": "dark",
+    "obsidianTheme": "Everforest",
+    "font": "JetBrainsMono Nerd Font",
+    "wofiThemeFile": "wofi-dark.css",
+    "waybarThemeFile": "waybar-dark.css"
+}

@@ -1,0 +1,16 @@
+{
+    "gtkTheme": "Everforest-Light-BL",
+    "gtkColorScheme": "prefer-light",
+    "kvantumTheme": "",
+    "iconTheme": "Everforest-Light",
+    "colorScheme": "everforest-light",
+    "vsCodeTheme": "Everforest Light",
+    "vsCodeExtraColors" : "",
+    "kittyTheme" : "Catppuccin-Latte",
+    "nvimTheme": "catppuccin-latte",
+    "nvimBackground": "light",
+    "obsidianTheme": "Everforest",
+    "font": "JetBrainsMono Nerd Font",
+    "wofiThemeFile": "wofi-light.css",
+    "waybarThemeFile": "waybar-light.css"
+}

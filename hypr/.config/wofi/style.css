@@ -1,0 +1,44 @@
+@import ".config/wofi/colors.css";
+
+* {
+    font-size: 18px;
+    font-family: monospace;
+}
+
+window {
+    margin: 0px;
+    background-color: transparent;
+}
+
+#outer-box {
+    border: 2px solid @border;
+    border-radius: 1em;
+    background-color: @bg;
+    margin: 10px 10px;
+    box-shadow: 00px 00px 4px 0px #111;
+}
+
+#input {
+    border-radius: calc(1em - 4px);
+    margin: 4px;
+    background-color: @input-bg;
+    border: 2px solid @input-border;
+    color: @input-fg;
+}
+
+#inner-box {
+    margin: 6px;
+    margin-top: 2px;
+}
+
+#entry {
+    color: @entry-fg;
+    border-radius: 5px;
+    padding: 0.1em 0.4em;
+}
+
+#entry:selected {
+    background-color: @entry-bg-selected;
+    color: @entry-fg;
+}
+
