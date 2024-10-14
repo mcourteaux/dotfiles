@@ -4,6 +4,7 @@
 
 kitty/.config/kitty/current-theme.conf
 nvim/.config/nvim/lazy-lock.json
+gdb/.gdb/__pycache__
 
 fonts/.local/share/fonts/.uuid
 base16/.config/htop/

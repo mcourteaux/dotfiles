@@ -1,12 +1,13 @@
+@import "colors.css";
+
 * {
-    font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+    font-family: monospace;
     font-size: 13px;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
+    background-color: @bg;
+    color: @fg;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -44,28 +45,28 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
 }
 
-/* you can set a style on hover for any module like this */
-#pulseaudio:hover {
-    background-color: #a37800;
+#workspaces {
+    padding: 5px 10px;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
+    padding: 0px 10px;
+    color: @fg-workspace-tab;
+    background-color: @bg-workspace-tab;
+    border-radius: 10px;
+    margin: 0px 4px;
+    box-shadow: 0 0 3px 0 @text-shadow;
 }
 
 #workspaces button.active {
-    padding: 0 5px;
-    background-color: rgba(200, 100, 0.0, 0.4);
-    color: #ffffff;
+    background-color: @bg-workspace-tab-active;
+    color: @fg-workspace-tab-active;
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.4);
+    background-color: @bg-workspace-tab-hover;
 }
 
 #workspaces button.focused {
@@ -93,20 +94,45 @@ button:hover {
 #pulseaudio,
 #wireplumber,
 #custom-media,
-#tray,
 #mode,
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
 #mpd {
+    padding: 0 9px;
+    color: @fg;
+    border-radius: 0 0 6px 6px;
+    margin: 0px;
+    margin-bottom: 6px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    margin-left: 6px;
+    margin-right: 6px;
+    box-shadow: 0 0 4px @mod-shadow;
+}
+
+#tray {
+    border-radius: 0 0 0 10px;
     padding: 0 10px;
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
+    background-color: @bg-mod-tray;
+    margin-left: 10px;
+    margin-bottom: 4px;
+    box-shadow: 0 0 4px @mod-shadow;
+}
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
 }
 
 #window,
 #workspaces {
     margin: 0 4px;
+    text-shadow: 0px 0px 5px @text-shadow;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -120,16 +146,14 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    background-color: @bg-mod-clock;
 }
 
 #battery {
-    background-color: #ffffff;
     color: #000000;
 }
 
 #battery.charging, #battery.plugged {
-    color: #ffffff;
     background-color: #26A65B;
 }
 
@@ -175,12 +199,11 @@ label:focus {
 }
 
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
+    background-color: @bg-mod-cpu;
 }
 
 #memory {
-    background-color: #9b59b6;
+    background-color: @bg-mod-memory;
 }
 
 #disk {
@@ -192,30 +215,21 @@ label:focus {
 }
 
 #network {
-    background-color: #2980b9;
+    background-color: @bg-mod-network;
 }
 
 #network.disconnected {
     background-color: #f53c3c;
 }
 
-#pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+#pulseaudio,#wireplumber {
+    background-color: @bg-mod-audio;
+    color: @fg;
 }
 
-#pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
-}
-
-#wireplumber {
-    background-color: #fff0f5;
-    color: #000000;
-}
-
-#wireplumber.muted {
-    background-color: #f53c3c;
+#pulseaudio.muted,#wireplumber.muted {
+    background-color: @bg-mod-audio;
+    color: @fg-muted;
 }
 
 #custom-media {
@@ -240,26 +254,14 @@ label:focus {
     background-color: #eb4d4b;
 }
 
-#tray {
-    background-color: #2980b9;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
 
 #idle_inhibitor {
-    background-color: #2d3436;
+    background-color: @bg-mod-idle-inhibitor;
 }
 
 #idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
+    background-color: @bg-mod-idle-inhibitor-activated;
+    color: @fg-mod-idle-inhibitor-activated;
 }
 
 #mpd {
@@ -313,6 +315,7 @@ label:focus {
 
 #privacy {
     padding: 0;
+    color: white;
 }
 
 #privacy-item {

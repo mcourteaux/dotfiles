@@ -6,7 +6,7 @@ local function file_exists(name)
 end
 
 
-local function reload() 
+local function reload()
         vim.cmd("source ".. colorFile)
 end
 

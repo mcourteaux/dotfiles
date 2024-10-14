@@ -96,20 +96,26 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 23,
         "spacing": 10
     },
     "clock": {
-        // "timezone": "America/New_York",
+        "timezones": ["Europe/Brussels", "America/New_York", "Asia/Taipei"],
+        "interval": 5,
+        "format": "{:%Z (UTC%z) 🕑 %H:%M 📅 %Y-%m-%d}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "actions": {
+            "on-scroll-up": "tz_up",
+            "on-scroll-down": "tz_down",
+            "on-right-click": "pavucontrol"
+        }
     },
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{used} GiB / {total} GiB 🐏"
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -166,8 +172,8 @@
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth-muted": "🔇 {icon} {format_source}",
+        "format-muted": "🔇 {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {

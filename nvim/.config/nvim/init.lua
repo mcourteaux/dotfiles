@@ -1,6 +1,7 @@
 -- nvim-tree: disable netrw at the very start of your init.lua
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
+--vim: shiftwidth=2 expandtab
 
 
 vim.o.encoding = "UTF-8"
@@ -139,6 +140,22 @@ require("lazy").setup({
   { 'folke/tokyonight.nvim' },
   { 'Mofiqul/dracula.nvim' },
   { 'sainnhe/gruvbox-material' },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000,
+    config = function()
+      require('catppuccin').setup({
+        transparent_background = true,
+      })
+    end,
+  },
+  { 'projekt0n/github-nvim-theme', name = 'github-theme',
+    config = function()
+      require('github-theme').setup({
+        options = {
+          transparent = true,
+        },
+      })
+    end,
+  },
   --{ 'RRethy/nvim-base16' },
 
   {
@@ -437,7 +454,6 @@ vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<cr>'
 
 local function init_colorscheme()
   vim.opt.termguicolors = true
-  vim.cmd.colorscheme('gruvbox-material')
   -- Try to find the .colorrc file I use for toggling dark and light themes.
   local colorrc_file = vim.env.HOME .. '/.vimrc.color'
 
