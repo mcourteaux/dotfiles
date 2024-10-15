@@ -2,6 +2,7 @@
 
 # getting json config values
 THEME_CONFIG="$HOME/.config/hypr/themes/$1.json"
+WALLPAPER=$(cat $THEME_CONFIG | jq -r ".wallpaper")
 GTK_THEME=$(cat $THEME_CONFIG | jq -r ".gtkTheme")
 GTK_COLOR_SCHEME=$(cat $THEME_CONFIG | jq -r ".gtkColorScheme")
 COLOR_SCHEME=$(cat $THEME_CONFIG | jq -r ".colorScheme")
@@ -27,7 +28,7 @@ fi
 
 # wallpaper
 for MON in $(hyprctl monitors -j | jq ".[].name" -r) ; do
-    hyprctl hyprpaper wallpaper "$MON,Pictures/wallpapers/$1.png"
+    hyprctl hyprpaper wallpaper "$MON,Pictures/wallpapers/$WALLPAPER"
 done
 
 # Relink wofi theme css
