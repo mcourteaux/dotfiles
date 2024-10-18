@@ -63,6 +63,7 @@ button:hover {
 #workspaces button.active {
     background-color: @bg-workspace-tab-active;
     color: @fg-workspace-tab-active;
+    font-weight: bold;
 }
 
 #workspaces button:hover {
@@ -129,16 +130,17 @@ button:hover {
     background-color: #eb4d4b;
 }
 
-#window,
-#workspaces {
-    margin: 0 4px;
+#window {
+    margin: 0 10px;
     text-shadow:
-    0px 0px 1px @text-shadow,
-    0px 0px 2px @text-shadow,
-    0px 0px 3px @text-shadow,
-    0px 0px 5px @text-shadow,
-    0px 0px 5px @text-shadow
-    ;
+        0px 0px 1px @text-shadow,
+        0px 0px 2px @text-shadow,
+        0px 0px 3px @text-shadow,
+        0px 0px 5px @text-shadow
+        ;
+    font-weight: bold;
+}
+#workspaces {
 }
 
 /* If workspaces is the leftmost module, omit left margin */
