@@ -132,7 +132,13 @@ button:hover {
 #window,
 #workspaces {
     margin: 0 4px;
-    text-shadow: 0px 0px 5px @text-shadow;
+    text-shadow:
+    0px 0px 1px @text-shadow,
+    0px 0px 2px @text-shadow,
+    0px 0px 3px @text-shadow,
+    0px 0px 5px @text-shadow,
+    0px 0px 5px @text-shadow
+    ;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -150,7 +156,9 @@ button:hover {
 }
 
 #battery {
+    background: rgb(190, 190, 190);
     color: #000000;
+    padding-right: 18px;
 }
 
 #battery.charging, #battery.plugged {
