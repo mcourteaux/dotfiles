@@ -1,4 +1,4 @@
-@define-color text-shadow rgba(0, 0, 0, 0.8);
+@define-color text-shadow rgba(0, 0, 0, 0.25);
 @define-color mod-shadow rgba(0, 0, 0, 0.8);
 
 @define-color bg transparent;

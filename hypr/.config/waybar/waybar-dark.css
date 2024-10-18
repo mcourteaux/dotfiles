@@ -1,5 +1,5 @@
 @define-color text-shadow #ffffff;
-@define-color mod-shadow rgba(0, 0, 0, 0.5);
+@define-color mod-shadow rgba(0, 0, 0, 0.8);
 
 @define-color bg transparent;
 @define-color fg #000;
