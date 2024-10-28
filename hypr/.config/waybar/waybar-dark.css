@@ -11,10 +11,12 @@
 @define-color fg-workspace-tab-active black;
 @define-color bg-workspace-tab-hover rgba(255, 255, 255, 0.4);
 
-@define-color bg-mod-default #777;
+@define-color bg-mod-default #333;
+@define-color border-inlay-bar rgba(255, 255, 255, 0.2);
+@define-color border-inlay-mod rgba(255, 255, 255, 0.3);
 
 @define-color bg-mod-tray #444;
-@define-color bg-mod-clock #777;
+@define-color bg-mod-clock #999;
 @define-color bg-mod-cpu   #1b8c41;
 @define-color bg-mod-gpu   #796c41;
 @define-color bg-mod-network #206099;

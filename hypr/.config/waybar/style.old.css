@@ -2,7 +2,7 @@
 
 * {
     font-family: monospace;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 window#waybar {
@@ -16,6 +16,15 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
 window#waybar.termite {
     background-color: #3F3F3F;
 }
@@ -27,7 +36,7 @@ window#waybar.chromium {
 
 button {
     /* Use box-shadow instead of border so the text isn't offset */
-    box-shadow: inset 0 -9px black;
+    box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
     border-radius: 0;
@@ -39,7 +48,7 @@ button:hover {
 }
 
 #workspaces {
-    padding: 2px 10px;
+    padding: 5px 10px;
 }
 
 #workspaces button {
@@ -81,14 +90,6 @@ button:hover {
     box-shadow: 0 0 3px 0 red;
 }
 
-.modules-right {
-    background-color: @bg-mod-default;
-    border-radius: 0 0 6px 6px;
-    margin: 0px;
-    padding: 0 4px 4px 4px;
-    border-bottom: 1px inset @border-inlay-bar;
-}
-
 #clock,
 #battery,
 #cpu,
@@ -106,12 +107,18 @@ button:hover {
 #language,
 #custom-nvidia,
 #mpd {
-    padding: 0 6px;
+    background-color: @bg-mod-default;
+    padding: 0 9px;
     color: @fg;
-    margin: 0;
-    margin-right: 5px;
-    border-radius: 0 0 4px 4px;
-    border-bottom: 1px inset @border-inlay-mod;
+    border-radius: 0 0 6px 6px;
+    margin: 0px;
+    margin-bottom: 6px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    margin-left: 6px;
+    margin-right: 6px;
+    box-shadow: 0 0 4px @mod-shadow;
 }
 
 #tray {
@@ -119,8 +126,7 @@ button:hover {
     padding: 0 10px;
     background-color: @bg-mod-tray;
     margin-left: 10px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 4px;
     box-shadow: 0 0 4px @mod-shadow;
 }
 #tray > .passive {

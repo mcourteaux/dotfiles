@@ -1,4 +1,4 @@
-@define-color text-shadow rgba(0, 0, 0, 0.25);
+@define-color text-shadow rgba(255, 255, 255, 0.25);
 @define-color mod-shadow rgba(0, 0, 0, 0.8);
 
 @define-color bg transparent;
@@ -7,6 +7,8 @@
 @define-color border #aaa;
 
 @define-color bg-mod-default #CCC;
+@define-color border-inlay-bar rgba(0, 0, 0, 0.2);
+@define-color border-inlay-mod rgba(0, 0, 0, 0.3);
 
 @define-color bg-workspace-tab rgba(0, 0, 0, 0.15);
 @define-color fg-workspace-tab black;
