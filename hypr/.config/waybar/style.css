@@ -80,8 +80,14 @@ button:hover {
 }
 
 #mode {
-    background-color: #64727D;
+    background-color: #CC3311;
+    color: white;
     box-shadow: inset 0 -3px #ffffff;
+
+    padding: 0px 10px;
+    border-radius: 10px;
+    margin: 4px 4px;
+    box-shadow: 0 0 3px 0 red;
 }
 
 #clock,
@@ -95,11 +101,13 @@ button:hover {
 #pulseaudio,
 #wireplumber,
 #custom-media,
-#mode,
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
+#language,
+#custom-nvidia,
 #mpd {
+    background-color: @bg-mod-default;
     padding: 0 9px;
     color: @fg;
     border-radius: 0 0 6px 6px;
@@ -211,6 +219,9 @@ label:focus {
 #cpu {
     background-color: @bg-mod-cpu;
 }
+#custom-nvidia {
+    background-color: @bg-mod-gpu;
+}
 
 #memory {
     background-color: @bg-mod-memory;
@@ -293,9 +304,6 @@ label:focus {
 
 #language {
     background: #00b093;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
     min-width: 16px;
 }
 

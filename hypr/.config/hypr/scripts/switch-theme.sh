@@ -27,9 +27,15 @@ else
 fi
 
 # wallpaper
-for MON in $(hyprctl monitors -j | jq ".[].name" -r) ; do
-    hyprctl hyprpaper wallpaper "$MON,Pictures/wallpapers/$WALLPAPER"
-done
+if [[ -z "${SWAYSOCK}" ]]; then
+    # Hyprpaper
+    for MON in $(hyprctl monitors -j | jq ".[].name" -r) ; do
+        hyprctl hyprpaper wallpaper "$MON,Pictures/wallpapers/$WALLPAPER"
+    done
+else
+    # Sway
+    swaymsg "output \"*\" background ~/Pictures/wallpapers/${WALLPAPER} fill"
+fi
 
 # Relink wofi theme css
 mkdir -p ~/.config/wofi/

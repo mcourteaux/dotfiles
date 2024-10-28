@@ -6,6 +6,8 @@
 @define-color fg-muted #400;
 @define-color border #aaa;
 
+@define-color bg-mod-default #CCC;
+
 @define-color bg-workspace-tab rgba(0, 0, 0, 0.15);
 @define-color fg-workspace-tab black;
 @define-color bg-workspace-tab-active rgba(255, 255, 255, 0.9);
@@ -14,7 +16,8 @@
 
 @define-color bg-mod-tray rgb(100, 114, 125);
 @define-color bg-mod-clock #aaa;
-@define-color bg-mod-cpu   #8d8;
+@define-color bg-mod-cpu   #7c7;
+@define-color bg-mod-gpu   #d88;
 @define-color bg-mod-network #59b0e9;
 @define-color bg-mod-audio #f0d040;
 @define-color bg-mod-memory #bb79d6;

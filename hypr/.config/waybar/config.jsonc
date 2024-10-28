@@ -7,12 +7,18 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
+        // Hyprland
         "hyprland/workspaces",
         "hyprland/mode",
-        "hyprland/scratchpad"
+        "hyprland/scratchpad",
+        // Sway
+        "sway/workspaces",
+        "sway/mode",
+        "sway/scratchpad"
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/window",
+        "sway/window"
     ],
     "modules-right": [
         "idle_inhibitor",
@@ -20,6 +26,7 @@
         "network",
         "power-profiles-daemon",
         "cpu",
+        "custom/nvidia",
         "memory",
         "temperature",
         "backlight",
@@ -52,10 +59,10 @@
             "unlocked": ""
         }
     },
-    "hyprland/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+    "sway/mode": {
+        "format": "↕️ <span style=\"italic\">{}</span> ↔️"
     },
-    "hyprland/scratchpad": {
+    "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
         "format-icons": ["", ""],
@@ -111,7 +118,8 @@
         }
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}% 🧠",
+        "interval": 1,
         "tooltip": false
     },
     "memory": {
@@ -129,6 +137,11 @@
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["🌑", "🌘", "🌗", "🌖", "🌕"]
+    },
+    "sway/language": {
+        "format": " {} ⌨️",
+        "tooltip": true,
+        "tooltip-format": "Toggle: Mod + Backspace\nCurrent: {short} {variant}"
     },
     "battery": {
         "states": {
@@ -210,5 +223,10 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+    },
+    "custom/nvidia": {
+        "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1% 🌡️\\2°C/g'",
+        "format": "{} 🖥️",
+        "interval": 2
     }
 }
