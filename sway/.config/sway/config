@@ -67,7 +67,7 @@ output * bg /usr/share/backgrounds/default.png fill
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+c exec killall waybar && swaymsg reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -75,6 +75,7 @@ output * bg /usr/share/backgrounds/default.png fill
 
     # Lock
     bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
+
 
 #
 # Moving around:

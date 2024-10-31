@@ -109,7 +109,7 @@
     "clock": {
         "timezones": ["Europe/Brussels", "America/New_York", "Asia/Taipei"],
         "interval": 5,
-        "format": "{:%Z (UTC%z) 🕑 %H:%M 📅 %Y-%m-%d}",
+        "format": "<small>{:%Z (UTC%z) </small>🕑 %H:%M 📅 %Y-%m-%d}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "actions": {
             "on-scroll-up": "tz_up",
@@ -123,7 +123,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{used} GiB / {total} GiB 🐏"
+        "format": "{used}<small> GiB / </small>{total}<small> GiB </small>🐏"
     },
     "temperature": {
         // "thermal-zone": 2,
