@@ -8,7 +8,7 @@ if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
     echo "
     output DP-3 disable
     output DP-1 disable
-    output DP-2 pos 0 0 res 1920x1080
+    output DP-2 pos 0 0 res 3840x2160 scale 2
     " > ~/.config/sway/config.d/20-monitors.conf
     killall waybar && swaymsg reload
   else
@@ -16,7 +16,7 @@ if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
     echo "
     monitor = DP-3, disabled
     monitor = DP-1, disabled
-    monitor = DP-2, 1920x1080, 0x0  , 1
+    monitor = DP-2, 3840x2160, 0x0  , 2
     " > $HOME/.config/hypr/monitors.conf
   fi
 else
