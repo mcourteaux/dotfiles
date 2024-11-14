@@ -1,6 +1,6 @@
 {
     "wallpaper": "summer-day.png",
-    "gtkTheme": "Everforest-Light-BL",
+    "gtkTheme": "Adwaita",
     "gtkColorScheme": "prefer-light",
     "kvantumTheme": "",
     "iconTheme": "Everforest-Light",
@@ -11,7 +11,7 @@
     "nvimTheme": "catppuccin-latte",
     "nvimBackground": "light",
     "obsidianTheme": "Everforest",
-    "font": "JetBrainsMono Nerd Font",
+    "font": "RobotoMono Nerd Font Mono",
     "wofiThemeFile": "wofi-light.css",
     "waybarThemeFile": "waybar-light.css"
 }

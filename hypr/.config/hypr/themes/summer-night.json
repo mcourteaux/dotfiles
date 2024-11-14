@@ -1,7 +1,7 @@
 {
     "wallpaperURL": "https://i.postimg.cc/KGCnxt5v/5120-HX4.png",
     "wallpaper": "5120-HX4.png",
-    "gtkTheme": "Everforest-Dark-BL",
+    "gtkTheme": "Adwaita-dark",
     "gtkColorScheme": "prefer-dark",
     "kvantumTheme": "",
     "iconTheme": "Everforest-Dark",
@@ -12,7 +12,7 @@
     "nvimTheme": "gruvbox-material",
     "nvimBackground": "dark",
     "obsidianTheme": "Everforest",
-    "font": "JetBrainsMono Nerd Font",
+    "font": "RobotoMono Nerd Font Mono",
     "wofiThemeFile": "wofi-dark.css",
     "waybarThemeFile": "waybar-dark.css"
 }

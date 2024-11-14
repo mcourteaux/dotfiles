@@ -41,10 +41,6 @@ fi
 mkdir -p ~/.config/wofi/
 ln -fs ~/.config/wofi/$WOFI_THEME_FILE ~/.config/wofi/colors.css
 
-# Change Waybar output depending on monitor
-#source ~/.config/hypr/scripts/detect-outputs.sh
-#sed -i -E 's/("output": ")(.*)(",)/\1'"$MAIN_DISPLAY"'\3/g' ~/.config/waybar/$COLOR_SCHEME/config
-
 # waybar
 killall waybar
 ln -fs ~/.config/waybar/$WAYBAR_THEME_FILE ~/.config/waybar/colors.css
@@ -52,6 +48,7 @@ waybar &
 
 
 # gtk theme
+gsettings set org.gnome.desktop.interface gtk-theme $GTK_THEME
 gsettings set org.gnome.desktop.interface color-scheme $GTK_COLOR_SCHEME
 
 # Kvantum Theme
@@ -79,9 +76,6 @@ fi
 #fi
 
 # kitty
-#sed -i '1d' ~/.config/kitty/kitty.conf
-#sed -i '1i\include colors/'$COLOR_SCHEME'.conf' ~/.config/kitty/kitty.conf
-#kill -s USR1 $(pidof kitty) # reload kitty config
 kitty +kitten themes --reload-in=all "$KITTY_THEME"
 
 # vs code theme
