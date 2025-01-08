@@ -1,8 +1,7 @@
 #!/bin/bash
 
-VERSION="v3.2.1"
-
 function install_nerd_fonts() {
+  VERSION="v3.3.0"
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/$VERSION/$1.zip
 
   rm -rf tmp-fonts
@@ -21,6 +20,15 @@ function install_nerd_fonts() {
 install_nerd_fonts "FiraCode"
 install_nerd_fonts "RobotoMono"
 install_nerd_fonts "ComicShannsMono"
+install_nerd_fonts "Gohu"
+install_nerd_fonts "ProggyClean"
+install_nerd_fonts "3270"
+install_nerd_fonts "BigBlueTerminal"
+install_nerd_fonts "Hack"
+install_nerd_fonts "Hermit"
+install_nerd_fonts "Iosevka"
+install_nerd_fonts "Lekton"
+install_nerd_fonts "ProFont"
 
 function install_serious_shanns() {
   VERSION="v6.0.0"

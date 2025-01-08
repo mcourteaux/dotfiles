@@ -222,6 +222,7 @@ require("lazy").setup({
   { 'easymotion/vim-easymotion' },
   { 'editorconfig/editorconfig-vim' },
   { 'ntpeters/vim-better-whitespace' },
+  { 'echasnovski/mini.align', version = false },
   { 'Konfekt/vim-sentence-chopper' },
   {
     'nmac427/guess-indent.nvim',
@@ -263,6 +264,30 @@ require("lazy").setup({
         desc = "Quickfix List (Trouble)",
       },
     },
+  },
+  {
+    "johmsalas/text-case.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("textcase").setup({})
+      require("telescope").load_extension("textcase")
+    end,
+    keys = {
+      "gc", -- Default invocation prefix
+      { "gc.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+    },
+    cmd = {
+      -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+      "Subs",
+      "TextCaseOpenTelescope",
+      "TextCaseOpenTelescopeQuickChange",
+      "TextCaseOpenTelescopeLSPChange",
+      "TextCaseStartReplacingCommand",
+    },
+    -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+    -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+    -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+    lazy = false,
   },
 
   -- Syntax Highlighting Plugins
@@ -472,6 +497,7 @@ init_colorscheme()
 
 
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
 lspconfig.clangd.setup({
   cmd = {
     "clangd",
@@ -503,6 +529,15 @@ lspconfig.pylsp.setup({
     end
   end
 })
+
+lspconfig.rust_analyzer.setup({})
+
+--lspconfig.jails.setup({
+--  cmd = { "/home/martijn/3rd/jai/Jails/bin/jails" },
+--  filetypes = { "jai" },
+--  root_dir = lspconfig.util.root_pattern("first.jai", "build.jai"),
+--})
+
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -541,8 +576,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require'lspconfig'.rust_analyzer.setup({})
-
 
 -- After a re-source, fix syntax matching issues (concealing brackets):
 if vim.g.loaded_webdevicons then
@@ -564,3 +597,5 @@ require("nvim-tree").setup{
 }
 nvimtree_api = require("nvim-tree.api")
 vim.keymap.set('n', '<leader>e', nvimtree_api.tree.open)
+
+require('mini.align').setup()

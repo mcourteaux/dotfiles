@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 # Figure out wayland or X11
 if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
