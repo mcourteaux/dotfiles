@@ -48,9 +48,6 @@ else
     --output DP-4 --primary --mode 3440x1440 --pos 0x560 --rotate normal --panning 3440x1440+0+560 \
     --output DP-5 --off
 
-  # Fix audio
-  pactl set-card-profile alsa_card.pci-0000_09_00.1 output:hdmi-stereo
-
   move() {
     sleep 0.02
     i3-msg workspace "$1"
@@ -73,3 +70,6 @@ else
   move "11:Discord" DP-4
 
 fi
+
+# Fix audio
+pactl set-card-profile alsa_card.pci-0000_09_00.1 output:hdmi-stereo-extra2

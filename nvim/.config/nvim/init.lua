@@ -64,11 +64,13 @@ require("lazy").setup({
   -- LSP
   { 'neovim/nvim-lspconfig' },
   {
+    -- Signature hints when moving cursor through arguments.
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
     opts = {},
     config = function(_, opts) require'lsp_signature'.setup(opts) end
   },
+  { 'dcampos/nvim-snippy' },
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -84,7 +86,7 @@ require("lazy").setup({
           expand = function(args)
             -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+            require('snippy').expand_snippet(args.body) -- For `snippy` users.
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
         },
@@ -105,16 +107,15 @@ require("lazy").setup({
           -- { name = 'vsnip' }, -- For vsnip users.
           -- { name = 'luasnip' }, -- For luasnip users.
           -- { name = 'ultisnips' }, -- For ultisnips users.
-          -- { name = 'snippy' }, -- For snippy users.
+          { name = 'snippy' }, -- For snippy users.
         }, {
           { name = 'buffer' },
         })
       })
 
       -- Set up lspconfig.
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-      require('lspconfig')['clangd'].setup {
+      require('lspconfig')['ccls'].setup {
         capabilities = capabilities
       }
 
@@ -140,6 +141,9 @@ require("lazy").setup({
   { 'folke/tokyonight.nvim' },
   { 'Mofiqul/dracula.nvim' },
   { 'sainnhe/gruvbox-material' },
+  { 'sainnhe/sonokai' },
+  { 'sainnhe/everforest' },
+  { 'sainnhe/edge' },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000,
     config = function()
       require('catppuccin').setup({
@@ -408,6 +412,51 @@ require("lazy").setup({
       vim.g.chat_gpt_lang = 'English'
     end
   } or {}),
+
+  -- Ollama
+  {
+      "David-Kunz/gen.nvim",
+      opts = {
+          model = "codegemma:7b", -- The default model to use.
+          quit_map = "q", -- set keymap to close the response window
+          retry_map = "<c-r>", -- set keymap to re-send the current prompt
+          accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
+          host = "localhost", -- The host running the Ollama service.
+          port = "11434", -- The port on which the Ollama service is listening.
+          display_mode = "split", -- The display mode. Can be "float" or "split" or "horizontal-split".
+          show_prompt = true, -- Shows the prompt submitted to Ollama. Can be true (3 lines) or "full".
+          show_model = true, -- Displays which model you are using at the beginning of your chat session.
+          no_auto_close = true, -- Never closes the window automatically.
+          file = false, -- Write the payload to a temporary file to keep the command short.
+          hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
+          -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+          -- This can also be a command string.
+          -- The executed command must return a JSON object with { response, context }
+          -- (context property is optional).
+          -- list_models = '<omitted lua function>', -- Retrieves a list of model names
+          result_filetype = "markdown", -- Configure filetype of the result buffer
+          debug = false -- Prints errors and the command which is run.
+      }
+  },
+  -- Ollama code-completion
+  --{
+  --  'jacob411/Ollama-Copilot',
+  --  opts = {
+  --    model_name = "codegemma:2b",
+  --    stream_suggestion = false,
+  --    python_command = "python3",
+  --    filetypes = {'python', 'lua', 'cpp', 'vim', "markdown"},
+  --    ollama_model_opts = {
+  --      num_predict = 40,
+  --      temperature = 0.1,
+  --    },
+  --    keymaps = {
+  --      suggestion = '<leader>os',
+  --      reject = '<leader>or',
+  --      insert_accept = '<Tab>',
+  --    },
+  --  }
+  --},
 })
 
 vim.o.number = true
@@ -498,20 +547,32 @@ init_colorscheme()
 
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
-lspconfig.clangd.setup({
-  cmd = {
-    "clangd",
-    "--query-driver=/usr/bin/c++,/usr/bin/cc,/usr/bin/gcc*,/usr/bin/clang*",
-    "--completion-style=detailed",
-  },
-  on_attach = function(client, bufnr)
-    local navic = require("nvim-navic")
-    if client.server_capabilities.documentSymbolProvider then
-      navic.attach(client, bufnr)
-    end
-  end
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- lspconfig.clangd.setup({
+--   capabilities = capabilities,
+--   cmd = {
+--     "clangd",
+--     "--query-driver=/usr/bin/c++,/usr/bin/cc,/usr/bin/gcc*,/usr/bin/clang*",
+--     "--completion-style=detailed",
+--   },
+--   on_attach = function(client, bufnr)
+--     local navic = require("nvim-navic")
+--     if client.server_capabilities.documentSymbolProvider then
+--       navic.attach(client, bufnr)
+--     end
+--   end
+-- })
+require'lspconfig'.ccls.setup({
+   capabilities = capabilities,
+   on_attach = function(client, bufnr)
+     local navic = require("nvim-navic")
+     if client.server_capabilities.documentSymbolProvider then
+       navic.attach(client, bufnr)
+     end
+   end
 })
 lspconfig.pylsp.setup({
+  capabilities = capabilities,
   settings = {
     pylsp = {
       plugins = {
@@ -530,9 +591,12 @@ lspconfig.pylsp.setup({
   end
 })
 
-lspconfig.rust_analyzer.setup({})
+lspconfig.rust_analyzer.setup({
+   capabilities = capabilities,
+})
 
 --lspconfig.jails.setup({
+--  capabilities = capabilities,
 --  cmd = { "/home/martijn/3rd/jai/Jails/bin/jails" },
 --  filetypes = { "jai" },
 --  root_dir = lspconfig.util.root_pattern("first.jai", "build.jai"),
@@ -561,10 +625,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     --end, opts)
     --vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<leader>f', function()
+    vim.keymap.set({'n', 'v'}, '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
 

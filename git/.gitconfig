@@ -34,3 +34,5 @@
 	program = gpg
 [init]
 	defaultBranch = main
+[core]
+	excludesfile = /home/martijn/.gitignore_global
