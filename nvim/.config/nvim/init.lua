@@ -297,6 +297,7 @@ require("lazy").setup({
   -- Syntax Highlighting Plugins
   { 'beyondmarc/glsl.vim' },
   { 'rluba/jai.vim' },
+  { 'kaarmu/typst.vim' },
 
   -- C++
   {
@@ -562,7 +563,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 --     end
 --   end
 -- })
-require'lspconfig'.ccls.setup({
+lspconfig.ccls.setup({
    capabilities = capabilities,
    on_attach = function(client, bufnr)
      local navic = require("nvim-navic")
@@ -590,10 +591,24 @@ lspconfig.pylsp.setup({
     end
   end
 })
-
 lspconfig.rust_analyzer.setup({
    capabilities = capabilities,
 })
+
+lspconfig.tinymist.setup {
+    settings = {
+        formatterMode = "typstyle",
+        exportPdf = "onType",
+        semanticTokens = "disable"
+    }
+}
+
+vim.api.nvim_create_user_command("TypstPinMain", function()
+  vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { vim.api.nvim_buf_get_name(0) } })
+end, {})
+vim.api.nvim_create_user_command("TypstUnpinMain", function()
+  vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { nil } })
+end, {})
 
 --lspconfig.jails.setup({
 --  capabilities = capabilities,
