@@ -36,17 +36,19 @@ vim.opt.rtp:prepend(lazypath)
 
 
 -- Load OpenAI key for plugins
---local openai_api_key = vim.fn.join(vim.fn.readfile(vim.fn.expand("~/.config/vim-chatgpt.key")))
 local openai_key_found = false
-local openai_api_key_file = io.open(os.getenv("HOME") .. "/.config/vim-chatgpt.key", "r")
-if not openai_api_key_file then
-    print("Failed to open the OpenAI API key file: ~/.config/vim-chatgpt.key")
-else
-    local openai_api_key = openai_api_key_file:read("*all")
-    openai_api_key = string.gsub(openai_api_key, "\n$", "") -- Strip trailing newline
-    openai_api_key_file:close()
-    vim.g.openai_api_key = openai_api_key
-    openai_key_found = true
+if false then
+  --local openai_api_key = vim.fn.join(vim.fn.readfile(vim.fn.expand("~/.config/vim-chatgpt.key")))
+  local openai_api_key_file = io.open(os.getenv("HOME") .. "/.config/vim-chatgpt.key", "r")
+  if not openai_api_key_file then
+      print("Failed to open the OpenAI API key file: ~/.config/vim-chatgpt.key")
+  else
+      local openai_api_key = openai_api_key_file:read("*all")
+      openai_api_key = string.gsub(openai_api_key, "\n$", "") -- Strip trailing newline
+      openai_api_key_file:close()
+      vim.g.openai_api_key = openai_api_key
+      openai_key_found = true
+  end
 end
 
 -- Utility function to find the git project root
@@ -61,6 +63,7 @@ end
 
 -- Actually load lazy.nvim
 require("lazy").setup({
+  { 'andymass/vim-matchup' },
   -- LSP
   { 'neovim/nvim-lspconfig' },
   {
@@ -160,7 +163,6 @@ require("lazy").setup({
       })
     end,
   },
-  --{ 'RRethy/nvim-base16' },
 
   {
     "folke/which-key.nvim",
@@ -340,9 +342,18 @@ require("lazy").setup({
   -- VimTex
   {
     'lervag/vimtex',
+    dependencies = { 'andymass/vim-matchup' },
     config = function()
+      vim.g.matchup_override_vimtex = 1
+      vim.g.matchup_matchparen_deferred = 1
+
       vim.g.latex_flavor = 'latex'
-      vim.g.vimtex_fold_enabled = 1
+      vim.g.vimtex_fold_enabled = 0
+      vim.g.vimtex_matchparen_enabled = 0
+      vim.g.vimtex_motion_enabled = 0
+      vim.g.vimtex_syntax_conceal_disable = 1
+      vim.g.vimtex_syntax_enabled = 0
+
       --vim.api.nvim_set_keymap('n', '<LocalLeader>lv', ':VimtexView<CR>', { noremap = true })
       if vim.fn.has('macunix') == 1 then
         vim.g.vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
@@ -401,7 +412,7 @@ require("lazy").setup({
 
 
   -- ChatGPT stuff
-  (open_ai_key_found and {
+  (openai_key_found and {
     'CoderCookE/vim-chatgpt',
     config = function()
       -- Chat GPT
