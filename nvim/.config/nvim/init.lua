@@ -614,6 +614,15 @@ lspconfig.tinymist.setup {
     }
 }
 
+lspconfig.texlab.setup {
+  capabilities = capabilities,
+  settings = {
+    texlab = {
+      formatterLineLength = 0,
+    }
+  },
+}
+
 vim.api.nvim_create_user_command("TypstPinMain", function()
   vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { vim.api.nvim_buf_get_name(0) } })
 end, {})
@@ -663,7 +672,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Enable borders on popups.
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    require("lsp_signature").on_attach()
+    --require("lsp_signature").on_attach()
   end,
 })
 

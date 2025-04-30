@@ -10,6 +10,7 @@ echo "PROFILE: $PROFILE"
 set -x
 
 pactl set-card-profile $CARD output:hdmi-stereo
-pactl set-card-profile $CARD output:$PROFILE
+pactl set-card-profile $CARD output:hdmi-stereo-extra2
+#pactl set-card-profile $CARD output:$PROFILE
 
 
