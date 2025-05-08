@@ -64,6 +64,16 @@ end
 -- Actually load lazy.nvim
 require("lazy").setup({
   { 'andymass/vim-matchup' },
+  {
+    "ficcdaf/academic.nvim",
+    -- recommended: rebuild on plugin update
+    build = ":AcademicBuild",
+    --config = function()
+    --  local aca = require('academic')
+    --  print("config", aca)
+    --  aca.setup({})
+    --end
+  },
   -- LSP
   { 'neovim/nvim-lspconfig' },
   {
