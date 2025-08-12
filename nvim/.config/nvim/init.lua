@@ -65,6 +65,29 @@ end
 require("lazy").setup({
   { 'andymass/vim-matchup' },
   {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
+    build = ':TSUpdate',
+    config = function()
+      require("nvim-treesitter").install({ 'cpp', 'html', 'css', 'zig', 'cmake', 'bash' })
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { "lua", "html", "css", "js" },
+        -- Do not specify a `pattern`, because we want to auto-enable `treesitter` for all files.
+        callback = function()
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
+  },
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    lazy = false,
+    main = 'rainbow-delimiters.setup',
+    opts = {},
+  },
+  {
     "ficcdaf/academic.nvim",
     -- recommended: rebuild on plugin update
     build = ":AcademicBuild",
@@ -74,6 +97,8 @@ require("lazy").setup({
     --  aca.setup({})
     --end
   },
+  { 'nvim-focus/focus.nvim', version = false },
+
 
   -- LSP
   { 'neovim/nvim-lspconfig' },
@@ -323,6 +348,7 @@ require("lazy").setup({
   { 'beyondmarc/glsl.vim' },
   { 'rluba/jai.vim' },
   { 'kaarmu/typst.vim' },
+  { 'rhysd/vim-llvm' },
 
   -- C++
   {
@@ -722,3 +748,31 @@ nvimtree_api = require("nvim-tree.api")
 vim.keymap.set('n', '<leader>e', nvimtree_api.tree.open)
 
 require('mini.align').setup()
+--require("focus").setup()
+
+if vim.g.neovide then
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.g.neovide_cursor_vfx_particle_lifetime = 0.8
+  vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 0.4
+
+
+  -- Font size changing
+  vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
+  vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
+  vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+
+  -- Copy paste with clipboard
+  --vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
+  vim.keymap.set('v', '<C-S-c>', '"+y') -- Copy
+  vim.keymap.set('n', '<C-S-v>', '"+P') -- Paste normal mode
+  vim.keymap.set('v', '<C-S-v>', '"+P') -- Paste visual mode
+  vim.keymap.set('c', '<C-S-v>', '<C-R>+') -- Paste command mode
+  vim.keymap.set('i', '<C-S-v>', '<ESC>l"+Pli') -- Paste insert mode
+end
+
+-- Allow clipboard copy paste in neovim
+--vim.api.nvim_set_keymap('' , '<D-v>', '+p<CR>', { noremap = true, silent = true})
+--vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+--vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+--vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+
