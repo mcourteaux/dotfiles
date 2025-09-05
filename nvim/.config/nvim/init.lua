@@ -584,8 +584,8 @@ end
 
 vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<cr>', { noremap = true, silent = true })
 
-
-
+-- To snake case shortcut
+vim.api.nvim_set_keymap('n', 'gas', ':lua require("textcase").current_word("to_snake_case")<CR>', { noremap = true, silent = true })
 
 local function init_colorscheme()
   vim.opt.termguicolors = true
@@ -752,8 +752,8 @@ require('mini.align').setup()
 
 if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = "pixiedust"
-  vim.g.neovide_cursor_vfx_particle_lifetime = 0.8
-  vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 0.4
+  vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
+  vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 1.8
 
 
   -- Font size changing
@@ -767,7 +767,7 @@ if vim.g.neovide then
   vim.keymap.set('n', '<C-S-v>', '"+P') -- Paste normal mode
   vim.keymap.set('v', '<C-S-v>', '"+P') -- Paste visual mode
   vim.keymap.set('c', '<C-S-v>', '<C-R>+') -- Paste command mode
-  vim.keymap.set('i', '<C-S-v>', '<ESC>l"+Pli') -- Paste insert mode
+  vim.keymap.set('i', '<C-S-v>', '<ESC>"+pa') -- Paste insert mode
 end
 
 -- Allow clipboard copy paste in neovim

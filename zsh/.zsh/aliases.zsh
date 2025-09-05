@@ -12,6 +12,8 @@ alias icat='kitty +kitten icat'
 
 alias hl='highlight'
 
+alias wlsunset_here="wlsunset -l 51 -L 3.7 -t 3000"
+
 if [[ $platform == 'darwin' ]]; then
   alias ctags="`brew --prefix`/bin/ctags"
 fi
