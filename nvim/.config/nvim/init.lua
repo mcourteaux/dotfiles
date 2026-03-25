@@ -103,11 +103,14 @@ require("lazy").setup({
   -- LSP
   { 'neovim/nvim-lspconfig' },
   {
-    -- Signature hints when moving cursor through arguments.
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts) require'lsp_signature'.setup(opts) end
+    event = "InsertEnter",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      }
+    },
   },
   { 'dcampos/nvim-snippy' },
   {
@@ -151,13 +154,6 @@ require("lazy").setup({
           { name = 'buffer' },
         })
       })
-
-      -- Set up lspconfig.
-      -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-      require('lspconfig')['ccls'].setup {
-        capabilities = capabilities
-      }
-
     end
   },
   {
@@ -263,7 +259,7 @@ require("lazy").setup({
       end)
       -- Project Lines
       vim.keymap.set('n', '<Leader>L', function()
-        fzf.live_grep({ cmd = "rg", cwd = find_git_root() })
+        fzf.live_grep({ cmd = "rg --column --line-number", cwd = find_git_root() })
       end)
     end
   },
@@ -329,6 +325,9 @@ require("lazy").setup({
     keys = {
       "gc", -- Default invocation prefix
       { "gc.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+      -- To snake case shortcut
+      { "gcS", function() require("textcase").lsp_rename('to_snake_case') end, mode = {"n", "x"}, desc = "LSP to_snake_case" },
+      { "gcs", function() require("textcase").current_word('to_snake_case') end, mode = {"n", "x"}, desc = "LSP to_snake_case" },
     },
     cmd = {
       -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
@@ -584,8 +583,18 @@ end
 
 vim.api.nvim_set_keymap('n', '<Leader>d', ':lua vim.diagnostic.open_float()<cr>', { noremap = true, silent = true })
 
--- To snake case shortcut
-vim.api.nvim_set_keymap('n', 'gas', ':lua require("textcase").current_word("to_snake_case")<CR>', { noremap = true, silent = true })
+vim.api.nvim_create_user_command(
+  "RemoveHungarianPrefixAndConvertToSnakeCase",
+  function()
+    vim.cmd([[
+      %s/\<m\([A-Z][A-Za-z0-9_]*\)/\= '' . tolower(substitute(submatch(1), '\([A-Z]\)', '_\1', 'g'))/g
+    ]])
+  end,
+  { desc = "Remove Hungarian 'm' prefix and convert identifiers to snake_case" }
+)
+vim.keymap.set("n", "gcm", ":RemoveHungarianPrefixAndConvertToSnakeCase<CR>", {
+  desc = "Remove Hungarian 'm' prefix and convert to snake_case"
+})
 
 local function init_colorscheme()
   vim.opt.termguicolors = true
@@ -606,33 +615,34 @@ end
 init_colorscheme()
 
 
-local lspconfig = require('lspconfig')
 local configs = require('lspconfig.configs')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- lspconfig.clangd.setup({
+vim.lsp.config['clangd'] = {
+  capabilities = capabilities,
+  cmd = {
+    "clangd",
+    "--query-driver=/usr/bin/c++,/usr/bin/cc,/usr/bin/gcc*,/usr/bin/clang*",
+    "--completion-style=detailed",
+  },
+  on_attach = function(client, bufnr)
+    local navic = require("nvim-navic")
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+    end
+  end
+}
+vim.lsp.enable('clangd')
+
+--vim.lsp.ccls.setup({
 --   capabilities = capabilities,
---   cmd = {
---     "clangd",
---     "--query-driver=/usr/bin/c++,/usr/bin/cc,/usr/bin/gcc*,/usr/bin/clang*",
---     "--completion-style=detailed",
---   },
 --   on_attach = function(client, bufnr)
 --     local navic = require("nvim-navic")
 --     if client.server_capabilities.documentSymbolProvider then
 --       navic.attach(client, bufnr)
 --     end
 --   end
--- })
-lspconfig.ccls.setup({
-   capabilities = capabilities,
-   on_attach = function(client, bufnr)
-     local navic = require("nvim-navic")
-     if client.server_capabilities.documentSymbolProvider then
-       navic.attach(client, bufnr)
-     end
-   end
-})
-lspconfig.pylsp.setup({
+--})
+vim.lsp.config['pylsp'] = {
   capabilities = capabilities,
   settings = {
     pylsp = {
@@ -650,28 +660,20 @@ lspconfig.pylsp.setup({
       navic.attach(client, bufnr)
     end
   end
-})
-lspconfig.rust_analyzer.setup({
-   capabilities = capabilities,
-})
+}
+vim.lsp.enable('pylsp')
 
-lspconfig.tinymist.setup {
+vim.lsp.config['rust_analyzer'] = {
+   capabilities = capabilities,
+}
+
+vim.lsp.config['tinymist'] = {
     settings = {
         formatterMode = "typstyle",
         exportPdf = "onType",
         semanticTokens = "disable"
     }
 }
-
-lspconfig.texlab.setup {
-  capabilities = capabilities,
-  settings = {
-    texlab = {
-      formatterLineLength = 0,
-    }
-  },
-}
-
 vim.api.nvim_create_user_command("TypstPinMain", function()
   vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { vim.api.nvim_buf_get_name(0) } })
 end, {})
@@ -679,12 +681,16 @@ vim.api.nvim_create_user_command("TypstUnpinMain", function()
   vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { nil } })
 end, {})
 
---lspconfig.jails.setup({
---  capabilities = capabilities,
---  cmd = { "/home/martijn/3rd/jai/Jails/bin/jails" },
---  filetypes = { "jai" },
---  root_dir = lspconfig.util.root_pattern("first.jai", "build.jai"),
---})
+
+vim.lsp.config['texlab'] = {
+  capabilities = capabilities,
+  settings = {
+    texlab = {
+      formatterLineLength = 0,
+    }
+  },
+}
+vim.lsp.enable('texlab')
 
 
 -- Use LspAttach autocommand to only map the following keys
@@ -698,26 +704,32 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    --vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    --vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    --vim.keymap.set('n', '<space>wl', function()
+    vim.keymap.set('n'  , 'gD'        , vim.lsp.buf.declaration            , opts)
+    vim.keymap.set('n'  , 'gd'        , vim.lsp.buf.definition             , opts)
+    vim.keymap.set('n'  , 'K'         , vim.lsp.buf.hover                  , opts)
+    vim.keymap.set('n'  , 'gi'        , vim.lsp.buf.implementation         , opts)
+    vim.keymap.set('n'  , '<C-k>'     , vim.lsp.buf.signature_help         , opts)
+    --vim.keymap.set('n', '<space>wa' , vim.lsp.buf.add_workspace_folder   , opts)
+    --vim.keymap.set('n', '<space>wr' , vim.lsp.buf.remove_workspace_folder, opts)
+    --vim.keymap.set('n', '<space>wl' , function()
     --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    --end, opts)
-    --vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set({'n', 'v'}, '<leader>f', function()
+    --end               , opts)
+    --vim.keymap.set('n', '<space>D'  , vim.lsp.buf.type_definition        , opts)
+    vim.keymap.set('n'      , '<leader>rn', vim.lsp.buf.rename             , opts)
+    vim.keymap.set({'n','v'}, '<leader>ca', vim.lsp.buf.code_action        , opts)
+    vim.keymap.set('n'      , 'gr'        , vim.lsp.buf.references         , opts)
+    vim.keymap.set({'n','v'}, '<leader>f' , function()
       vim.lsp.buf.format { async = true }
     end, opts)
 
     vim.o.winbar = "[%{%v:lua.require'nvim-navic'.get_location()%}]"
+
+    vim.keymap.set('n', '<leader>pd', function() vim.diagnostic.jump({count=-1, float=true}) end , opts)
+    vim.keymap.set('n', '<leader>nd', function() vim.diagnostic.jump({count= 1, float=true}) end , opts)
+    vim.keymap.set('n', '<leader>pe', function() vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR}) end , opts)
+    vim.keymap.set('n', '<leader>ne', function() vim.diagnostic.jump({count= 1, float=true, severity=vim.diagnostic.severity.ERROR}) end , opts)
+    vim.keymap.set('n', '<leader>pw', function() vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.WARN}) end , opts)
+    vim.keymap.set('n', '<leader>nw', function() vim.diagnostic.jump({count= 1, float=true, severity=vim.diagnostic.severity.WARN}) end , opts)
 
     -- Enable borders on popups.
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
@@ -751,6 +763,7 @@ require('mini.align').setup()
 --require("focus").setup()
 
 if vim.g.neovide then
+  vim.g.neovide_opacity = 0.9
   vim.g.neovide_cursor_vfx_mode = "pixiedust"
   vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
   vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 1.8

@@ -4,6 +4,7 @@ alias zsnb='cd ~/zec/SilverNode/build/'
 alias znr='cd ~/zec/NeonRAW/'
 alias znui='cd ~/zec/nui/'
 alias zcol='cd ~/zec/color/'
+alias zexif='cd ~/zec/NeonEXIF/'
 
 
 portable_nproc() {
@@ -16,10 +17,11 @@ portable_nproc() {
     else
         NPROCS="$(getconf _NPROCESSORS_ONLN)"  # glibc/coreutils fallback
     fi
-    echo "$NPROCS"
+    echo "$((${NPROCS}/2))"
 }
 
 export NINJAJOBS=$(($(portable_nproc) - 2))
+alias ninja="ninja -j${NINJAJOBS}"
 
 #alias tracy='~/zec/NeonRAW/ext/tracy/profiler/build/unix/Tracy-release'
 

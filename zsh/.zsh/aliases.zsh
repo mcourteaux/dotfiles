@@ -79,6 +79,9 @@ fi
 # i3 editing
 alias vi3='vim ~/.config/i3/config'
 
+# sway editing
+alias vsway='nvim ~/.config/sway/config'
+
 # zsh profile editing
 alias vzsh='vim ~/.zshrc'
 
@@ -131,3 +134,6 @@ alias hrg="rg --hyperlink-format=kitty"
 
 ## Solid Disassembler
 alias sda='~/Downloads/Telegram\ Desktop/solid_disassembler'
+
+## Image View Nearest Neighbor
+alias imvnn='imv -u nearest_neighbour'

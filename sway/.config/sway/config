@@ -25,6 +25,9 @@ exec wlsunset -l 51 -L 3.7 -t 3000
 bindsym $mod+Shift+w exec ~/.config/hypr/scripts/switch-theme.sh summer-night
 bindsym $mod+Shift+x exec ~/.config/hypr/scripts/switch-theme.sh summer-day
 
+# Handy (Speech to text)
+bindsym $mod+Shift+s exec handy --toggle-transcription
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -55,6 +58,7 @@ output * bg /usr/share/backgrounds/default.jxl fill
     # Kill focused window
     bindsym $mod+Shift+q kill
     bindsym Mod1+F4 kill
+    bindsym Mod1+Shift+F4 exec ~/.config/sway/sigkill_focused.sh
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -76,7 +80,8 @@ output * bg /usr/share/backgrounds/default.jxl fill
 
 
     # Lock
-    bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
+    #bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
+    bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/own/abstract-dark0.webp
 
 
 #
