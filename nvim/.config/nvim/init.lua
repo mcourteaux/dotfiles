@@ -35,8 +35,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
--- Load OpenAI key for plugins
 local openai_key_found = false
+-- Load OpenAI key for plugins
 if false then
   --local openai_api_key = vim.fn.join(vim.fn.readfile(vim.fn.expand("~/.config/vim-chatgpt.key")))
   local openai_api_key_file = io.open(os.getenv("HOME") .. "/.config/vim-chatgpt.key", "r")
@@ -140,6 +140,7 @@ require("lazy").setup({
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
+          -- ["<A-y>"] = require('minuet').make_cmp_map(),
           ['<C-e>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
@@ -152,6 +153,7 @@ require("lazy").setup({
           { name = 'snippy' }, -- For snippy users.
         }, {
           { name = 'buffer' },
+          -- { name = 'minuet' },
         })
       })
     end
@@ -259,7 +261,7 @@ require("lazy").setup({
       end)
       -- Project Lines
       vim.keymap.set('n', '<Leader>L', function()
-        fzf.live_grep({ cmd = "rg --column --line-number", cwd = find_git_root() })
+        fzf.live_grep({ cmd = "rg --column --line-number --glob='!.ccls-cache'", cwd = find_git_root() })
       end)
     end
   },
@@ -474,49 +476,169 @@ require("lazy").setup({
   } or {}),
 
   -- Ollama
-  {
-      "David-Kunz/gen.nvim",
-      opts = {
-          model = "codegemma:7b", -- The default model to use.
-          quit_map = "q", -- set keymap to close the response window
-          retry_map = "<c-r>", -- set keymap to re-send the current prompt
-          accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
-          host = "localhost", -- The host running the Ollama service.
-          port = "11434", -- The port on which the Ollama service is listening.
-          display_mode = "split", -- The display mode. Can be "float" or "split" or "horizontal-split".
-          show_prompt = true, -- Shows the prompt submitted to Ollama. Can be true (3 lines) or "full".
-          show_model = true, -- Displays which model you are using at the beginning of your chat session.
-          no_auto_close = true, -- Never closes the window automatically.
-          file = false, -- Write the payload to a temporary file to keep the command short.
-          hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
-          -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-          -- This can also be a command string.
-          -- The executed command must return a JSON object with { response, context }
-          -- (context property is optional).
-          -- list_models = '<omitted lua function>', -- Retrieves a list of model names
-          result_filetype = "markdown", -- Configure filetype of the result buffer
-          debug = false -- Prints errors and the command which is run.
-      }
-  },
-  -- Ollama code-completion
   --{
-  --  'jacob411/Ollama-Copilot',
-  --  opts = {
-  --    model_name = "codegemma:2b",
-  --    stream_suggestion = false,
-  --    python_command = "python3",
-  --    filetypes = {'python', 'lua', 'cpp', 'vim', "markdown"},
-  --    ollama_model_opts = {
-  --      num_predict = 40,
-  --      temperature = 0.1,
-  --    },
-  --    keymaps = {
-  --      suggestion = '<leader>os',
-  --      reject = '<leader>or',
-  --      insert_accept = '<Tab>',
-  --    },
-  --  }
+  --    "David-Kunz/gen.nvim",
+  --    opts = {
+  --        model = "codegemma:7b", -- The default model to use.
+  --        quit_map = "q", -- set keymap to close the response window
+  --        retry_map = "<c-r>", -- set keymap to re-send the current prompt
+  --        accept_map = "<c-cr>", -- set keymap to replace the previous selection with the last result
+  --        host = "localhost", -- The host running the Ollama service.
+  --        port = "11434", -- The port on which the Ollama service is listening.
+  --        display_mode = "split", -- The display mode. Can be "float" or "split" or "horizontal-split".
+  --        show_prompt = true, -- Shows the prompt submitted to Ollama. Can be true (3 lines) or "full".
+  --        show_model = true, -- Displays which model you are using at the beginning of your chat session.
+  --        no_auto_close = true, -- Never closes the window automatically.
+  --        file = false, -- Write the payload to a temporary file to keep the command short.
+  --        hidden = false, -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
+  --        -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+  --        -- This can also be a command string.
+  --        -- The executed command must return a JSON object with { response, context }
+  --        -- (context property is optional).
+  --        -- list_models = '<omitted lua function>', -- Retrieves a list of model names
+  --        result_filetype = "markdown", -- Configure filetype of the result buffer
+  --        debug = false -- Prints errors and the command which is run.
+  --    }
   --},
+
+  -- Ollama code-completion
+  -- {
+  --   --'Jacob411/Ollama-Copilot',
+  --   'm-nikolaidis/Ollama-Copilot',
+  --   branch = 'patch-1',
+  --   opts = {
+  --     model_name = "gemma4",
+  --     stream_suggestion = true,
+  --     python_command = "python3",
+  --     filetypes = {'python', 'lua', 'cpp', 'vim', "markdown"},
+  --     ollama_model_opts = {
+  --       num_predict = 40,
+  --       temperature = 0.1,
+  --     },
+  --     keymaps = {
+  --       suggestion = '<leader>ls',
+  --       reject = '<leader>lr',
+  --       insert_accept = '<Tab>',
+  --     },
+  --   }
+  -- },
+
+
+  -- Avante
+  -- {
+  --   "yetone/avante.nvim",
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   -- ⚠️ must add this setting! ! !
+  --   build = vim.fn.has("win32") ~= 0
+  --       and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+  --       or "make",
+  --   event = "VeryLazy",
+  --   version = false, -- Never set this value to "*"! Never!
+  --   ---@module 'avante'
+  --   ---@type avante.Config
+  --   opts = {
+  --     -- add any opts here
+  --     -- this file can contain specific instructions for your project
+  --     instructions_file = "avante.md",
+  --     provider = "ollama",
+  --     providers = {
+  --       ollama = {
+  --         model = "granite4.1:3b",
+  --         --is_env_set = require("avante.providers.ollama").check_endpoint_alive,
+  --         is_env_set = function()
+  --           return require("avante.providers.ollama").check_endpoint_alive
+  --         end
+  --       },
+  --     }
+  --   },
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below dependencies are optional,
+  --     "nvim-mini/mini.pick", -- for file_selector provider mini.pick
+  --     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+  --     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+  --     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+  --     "stevearc/dressing.nvim", -- for input provider dressing
+  --     "folke/snacks.nvim", -- for input provider snacks
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     "zbirenbaum/copilot.lua", -- for providers='copilot'
+  --     {
+  --       -- support for image pasting
+  --       "HakonHarnes/img-clip.nvim",
+  --       event = "VeryLazy",
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       'MeanderingProgrammer/render-markdown.nvim',
+  --       opts = {
+  --         file_types = { "markdown", "Avante" },
+  --       },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  -- }
+
+
+  -- Minuet AI
+  -- {
+  --      'milanglacier/minuet-ai.nvim',
+  --      config = function()
+  --          require('minuet').setup {
+  --            virtualtext = {
+  --                auto_trigger_ft = {},
+  --                keymap = {
+  --                    -- accept whole completion
+  --                    accept = '<A-A>',
+  --                    -- accept one line
+  --                    accept_line = '<A-a>',
+  --                    -- accept n lines (prompts for number)
+  --                    -- e.g. "A-z 2 CR" will accept 2 lines
+  --                    accept_n_lines = '<A-z>',
+  --                    -- Cycle to prev completion item, or manually invoke completion
+  --                    prev = '<A-[>',
+  --                    -- Cycle to next completion item, or manually invoke completion
+  --                    next = '<A-]>',
+  --                    dismiss = '<A-e>',
+  --                },
+  --            },
+  --            provider = 'openai_fim_compatible',
+  --            n_completions = 1, -- recommend for local model for resource saving
+  --            -- I recommend beginning with a small context window size and incrementally
+  --            -- expanding it, depending on your local computing power. A context window
+  --            -- of 512, serves as an good starting point to estimate your computing
+  --            -- power. Once you have a reliable estimate of your local computing power,
+  --            -- you should adjust the context window to a larger value.
+  --            context_window = 512,
+  --            provider_options = {
+  --                openai_fim_compatible = {
+  --                    -- For Windows users, TERM may not be present in environment variables.
+  --                    -- Consider using APPDATA instead.
+  --                    api_key = 'TERM',
+  --                    name = 'Ollama',
+  --                    end_point = 'http://localhost:11434/v1/completions',
+  --                    model = 'qwen2.5-coder:7b',
+  --                    optional = {
+  --                        max_tokens = 56,
+  --                        top_p = 0.9,
+  --                    },
+  --                },
+  --            },
+  --          }
+  --      end,
+  -- },
 })
 
 vim.o.number = true
@@ -762,11 +884,14 @@ vim.keymap.set('n', '<leader>e', nvimtree_api.tree.open)
 require('mini.align').setup()
 --require("focus").setup()
 
+vim.g.guifont = "FiraCode Nerd Font"
+
 if vim.g.neovide then
   vim.g.neovide_opacity = 0.9
   vim.g.neovide_cursor_vfx_mode = "pixiedust"
   vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
   vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 1.8
+
 
 
   -- Font size changing

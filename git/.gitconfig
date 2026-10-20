@@ -21,9 +21,9 @@
     prompt = false
     trustExitCode = true
 [difftool "kitty"]
-    cmd = kitten diff $LOCAL $REMOTE
+    cmd = kitty +kitten diff $LOCAL $REMOTE
 [difftool "kitty.gui"]
-    cmd = kitten diff $LOCAL $REMOTE
+    cmd = kitty +kitten diff $LOCAL $REMOTE
 
 # [diff]
 # 	tool = vimdiff
@@ -35,4 +35,7 @@
 [init]
 	defaultBranch = main
 [core]
-	excludesfile = /home/martijn/.gitignore_global
+#	pager = delta
+	excludesFile = ~/.gitignore_global
+[interactive]
+#	diffFilter = delta --color-only

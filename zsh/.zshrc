@@ -14,3 +14,5 @@ export PATH="/usr/local/opt/llvm/bin/:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . "$HOME/.local/bin/env"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
