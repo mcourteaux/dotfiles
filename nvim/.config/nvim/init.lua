@@ -186,7 +186,6 @@ require("lazy").setup({
   },
 
   -- Colorschemes
-  { 'rktjmp/fwatch.nvim' },
   { 'folke/tokyonight.nvim' },
   { 'Mofiqul/dracula.nvim' },
   { 'sainnhe/gruvbox-material' },
@@ -721,23 +720,10 @@ vim.keymap.set("n", "gcm", ":RemoveHungarianPrefixAndConvertToSnakeCase<CR>", {
   desc = "Remove Hungarian 'm' prefix and convert to snake_case"
 })
 
-local function init_colorscheme()
-  vim.opt.termguicolors = true
-  -- Try to find the .colorrc file I use for toggling dark and light themes.
-  local colorrc_file = vim.env.HOME .. '/.vimrc.color'
-
-  local function resource_colorrc()
-    vim.cmd('source ' .. colorrc_file)
-  end
-
-  if vim.fn.filereadable(colorrc_file) == 1 then
-    resource_colorrc()
-    require('fwatch').watch(colorrc_file, "source " .. colorrc_file)
-  else
-    vim.cmd.colorscheme('gruvbox-material')
-  end
-end
-init_colorscheme()
+-- Dark / light: wlperch's Neovim theme plugin (site/plugin/wlperch-theme.lua)
+-- sets the colorscheme for the current mode and follows every switch.
+vim.opt.termguicolors = true
+vim.cmd.colorscheme('gruvbox-material')
 
 
 local configs = require('lspconfig.configs')
