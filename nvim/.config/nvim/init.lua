@@ -660,6 +660,9 @@ vim.o.smartindent = true
 -- Highlight trailling whitespace
 vim.o.listchars = "trail:·,tab:>-"
 
+-- Halide Stmt files
+vim.filetype.add({ extension = { stmt = 'halide' } })
+
 -- Folding tricks
 vim.api.nvim_set_keymap('n', '<space>', 'za', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<space>', 'zf', { noremap = true, silent = true })
