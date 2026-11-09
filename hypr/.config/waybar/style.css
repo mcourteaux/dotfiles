@@ -1,28 +1,22 @@
-@import "colors.css";
-
+/* wlperch full bar, backup: style.css.before-wlperch-full */
+/* The complete wlperch bar for sway (see config.jsonc next to it). Your own
+ * style.css is kept as style.css.before-wlperch-full while this is installed.
+ * Colors match the wlperch popup. */
+@import "wlperch.css";
 * {
     font-family: monospace;
     font-size: 14px;
 }
 
 window#waybar {
-    background-color: @bg;
-    color: @fg;
+    background-color: transparent;
+    color: #e4e7ee;
     transition-property: background-color;
     transition-duration: .5s;
 }
 
 window#waybar.hidden {
     opacity: 0.2;
-}
-
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
 }
 
 button {
@@ -38,107 +32,163 @@ button:hover {
     background: inherit;
 }
 
+/* ---- Left side: workspaces + window title in a matching dark block ---- */
+.modules-left {
+    background-color: rgba(17, 19, 24, 0.96);   /* #111318 */
+    border-radius: 0 0 14px 0;
+    padding: 0 6px 0 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.modules-left * {
+    font-family: "Noto Sans", "RobotoMono Nerd Font Propo", sans-serif;
+}
+
 #workspaces {
-    padding: 2px 10px;
+    padding: 0 2px;
 }
 
 #workspaces button {
-    padding: 0px 10px;
-    color: @fg-workspace-tab;
-    background-color: @bg-workspace-tab;
-    border-radius: 10px;
-    margin: 4px;
-    box-shadow: 0 0 3px 0 @text-shadow;
+    padding: 0 9px;
+    min-width: 12px;
+    margin: 4px 2px;
+    color: #8a92a3;
+    background: transparent;
+    border-radius: 8px;
+    box-shadow: none;
+    border: none;
+}
+
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #e4e7ee;
 }
 
 #workspaces button.focused,
 #workspaces button.active {
-    background-color: @bg-workspace-tab-active;
-    color: @fg-workspace-tab-active;
+    background-color: #7aa2f7;
+    color: #111318;
     font-weight: bold;
 }
 
-#workspaces button:hover {
-    background-color: @bg-workspace-tab-hover;
+#workspaces button.visible:not(.focused) {
+    color: #e4e7ee;
+    box-shadow: inset 0 -2px rgba(122, 162, 247, 0.6);
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: rgba(247, 118, 142, 0.85);
+    color: #111318;
 }
 
 #mode {
-    background-color: #CC3311;
-    color: white;
-    box-shadow: inset 0 -3px #ffffff;
-
-    padding: 0px 10px;
-    border-radius: 10px;
+    background-color: rgba(247, 118, 142, 0.9);
+    color: #111318;
+    font-weight: bold;
+    padding: 0 10px;
+    border-radius: 8px;
     margin: 4px 4px;
-    box-shadow: 0 0 3px 0 red;
 }
 
+#scratchpad {
+    color: #8a92a3;
+    padding: 0 8px;
+}
+
+#scratchpad.empty {
+    background-color: transparent;
+}
+
+#window {
+    color: #c8ccd6;
+    margin: 0 10px 0 8px;
+}
+
+/* ---- Right side: one dark block, styled like the wlperch popup ---- */
 .modules-right {
-    background-color: @bg-mod-default;
-    border-radius: 0 0 6px 6px;
-    margin: 0px;
-    padding: 0 4px 4px 4px;
-    border-bottom: 1px inset @border-inlay-bar;
+    background-color: rgba(17, 19, 24, 0.96);   /* #111318 */
+    border-radius: 0 0 0 14px;
+    margin: 0;
+    padding: 0 4px 0 10px;
+    border-left: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.modules-right * {
+    font-family: "Noto Sans", "RobotoMono Nerd Font Propo", sans-serif;
 }
 
 #clock,
 #battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
 #backlight,
-#network,
-#pulseaudio,
-#wireplumber,
-#custom-media,
+#memory,
 #idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#language,
-#custom-nvidia,
-#mpd {
-    padding: 0 6px;
-    color: @fg;
-    margin: 0;
-    margin-right: 5px;
-    border-radius: 0 0 4px 4px;
-    border-bottom: 2px inset @border-inlay-mod;
+#power-profiles-daemon {
+    color: #e4e7ee;
+    background: transparent;
+    padding: 0 10px;
+    margin: 3px 1px;
+    border-radius: 8px;
+    border: none;
+}
+
+#clock:hover,
+#memory:hover,
+#battery:hover,
+#backlight:hover,
+#idle_inhibitor:hover,
+#power-profiles-daemon:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+#clock {
+    color: #c8ccd6;
+}
+
+#idle_inhibitor {
+    color: #8a92a3;
+}
+#idle_inhibitor.activated {
+    background-color: rgba(224, 175, 104, 0.18);
+    color: #e0af68;
+}
+
+#power-profiles-daemon.performance { color: #f7768e; }
+#power-profiles-daemon.balanced    { color: #7aa2f7; }
+#power-profiles-daemon.power-saver { color: #9ece6a; }
+
+#backlight { color: #e0af68; }
+
+#memory { color: #7dcfff; }
+
+#battery { color: #9ece6a; }
+#battery.warning:not(.charging) { color: #ff9e64; }
+#battery.critical:not(.charging) {
+    color: #f7768e;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to { background-color: rgba(247, 118, 142, 0.25); }
 }
 
 #tray {
-    border-radius: 0 0 0 10px;
-    padding: 0 10px;
-    background-color: @bg-mod-tray;
-    margin-left: 10px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-    box-shadow: 0 0 4px @mod-shadow;
+    background: transparent;
+    padding: 0 8px;
+    margin: 0 2px;
 }
 #tray > .passive {
     -gtk-icon-effect: dim;
 }
-
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
-
-#window {
-    margin: 0 10px;
-    text-shadow:
-        0px 0px 1px @text-shadow,
-        0px 0px 2px @text-shadow,
-        0px 0px 3px @text-shadow,
-        0px 0px 5px @text-shadow
-        ;
-    font-weight: bold;
-}
-#workspaces {
+    background-color: rgba(247, 118, 142, 0.35);
+    border-radius: 6px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -149,152 +199,6 @@ button:hover {
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
-}
-
-#clock {
-    background-color: @bg-mod-clock;
-}
-
-#battery {
-    background: rgb(190, 190, 190);
-    color: #000000;
-    padding-right: 18px;
-}
-
-#battery.charging, #battery.plugged {
-    background-color: #26A65B;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-/* Using steps() instead of linear as a timing function to limit cpu usage */
-#battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: steps(12);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#power-profiles-daemon {
-    padding-right: 15px;
-}
-
-#power-profiles-daemon.performance {
-    background-color: #f53c3c;
-    color: #ffffff;
-}
-
-#power-profiles-daemon.balanced {
-    background-color: #2980b9;
-    color: #ffffff;
-}
-
-#power-profiles-daemon.power-saver {
-    background-color: #2ecc71;
-    color: #000000;
-}
-
-label:focus {
-    background-color: #000000;
-}
-
-#cpu {
-    background-color: @bg-mod-cpu;
-}
-#custom-nvidia {
-    background-color: @bg-mod-gpu;
-}
-
-#memory {
-    background-color: @bg-mod-memory;
-}
-
-#disk {
-    background-color: #964B00;
-}
-
-#backlight {
-    background-color: #90b1b1;
-}
-
-#network {
-    background-color: @bg-mod-network;
-}
-
-#network.disconnected {
-    background-color: #f53c3c;
-}
-
-#pulseaudio,#wireplumber {
-    background-color: @bg-mod-audio;
-    color: @fg;
-}
-
-#pulseaudio.muted,#wireplumber.muted {
-    background-color: @bg-mod-audio;
-    color: @fg-muted;
-}
-
-#custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-    background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-    background-color: #ffa000;
-}
-
-#temperature {
-    background-color: #f0932b;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
-}
-
-
-#idle_inhibitor {
-    background-color: @bg-mod-idle-inhibitor;
-}
-
-#idle_inhibitor.activated {
-    background-color: @bg-mod-idle-inhibitor-activated;
-    color: @fg-mod-idle-inhibitor-activated;
-}
-
-#mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
-}
-
-#mpd.disconnected {
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    background-color: #90b1b1;
-}
-
-#mpd.paused {
-    background-color: #51a37a;
-}
-
-#language {
-    background: #00b093;
-    min-width: 30px;
 }
 
 #keyboard-state {
@@ -313,13 +217,6 @@ label:focus {
     background: rgba(0, 0, 0, 0.2);
 }
 
-#scratchpad {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-#scratchpad.empty {
-	background-color: transparent;
-}
 
 #privacy {
     padding: 0;

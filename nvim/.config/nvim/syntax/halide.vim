@@ -4,6 +4,9 @@ if exists("b:current_syntax")
   finish
 endif
 
+" '$' is part of identifiers (e.g. eX$2), so digits after it are no word start
+syn iskeyword @,48-57,_,192-255,$
+
 " Define Halide Stmt keywords
 syn keyword halideKeyword let if else break continue return reinterpret allocate free in struct custom_new
 syn keyword halideLoop for while
@@ -16,7 +19,7 @@ syn keyword halideSpecialKeyword produce consume
 " Define Halide Stmt types
 syn keyword halideType void float32 float64 uint1 int8 uint8 int16 uint16 int32 uint32 int64 uint64
 syn match halideVectorizedType "\<\(int8\|int16\|int32\|int64\|uint1\|uint8\|uint16\|uint32\|uint64\|float16\|float32\|float64\|bool\)x\=[0-9]\+\>"
-syn match halideBroadcast "\<x\=[0-9]\+\>\ze("
+syn match halideBroadcast "\.\@<!\<x\=[0-9]\+\>\ze("
 
 " Define Halide Stmt functions
 syn keyword halideFunction select clamp cast assert alloca offset_pointer
@@ -36,10 +39,11 @@ syn region halideComment start="/\*" end="\*/" contains=halideTodo
 syn match halideComment "//.*" contains=halideTodo
 
 " Define numbers
-syn match halideNumber "\<[0-9]\+\>"
-syn match halideTypedNumber "\<[0-9]\+_[ui]\(8\|16\|32\|64\)\>" contains=halideNumberSuffix
+" Numbers are never preceded by '.' (e.g. input.extent.0)
+syn match halideNumber "\.\@<!\<[0-9]\+\>"
+syn match halideTypedNumber "\.\@<!\<[0-9]\+_[ui]\(8\|16\|32\|64\)\>" contains=halideNumberSuffix
 syn match halideNumberSuffix "_[ui][0-9]\+\>" contained
-syn match halideFloat "\<[0-9]*\.[0-9]\+f\?\>"
+syn match halideFloat "\.\@<!\<[0-9]*\.[0-9]\+f\?\>"
 
 " Define strings
 syn region halideString start=+"+ skip=+\\\\\|\\\"+ end=+"+

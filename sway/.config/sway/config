@@ -22,8 +22,8 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 exec wlsunset -l 51 -L 3.7 -t 3000
 
 # Theme switching
-bindsym $mod+Shift+w exec ~/.config/hypr/scripts/switch-theme.sh summer-night
-bindsym $mod+Shift+x exec ~/.config/hypr/scripts/switch-theme.sh summer-day
+bindsym $mod+Shift+w exec wlperch theme dark
+bindsym $mod+Shift+x exec wlperch theme light
 
 # Handy (Speech to text)
 bindsym $mod+Shift+s exec handy --toggle-transcription
@@ -38,9 +38,9 @@ set $right l
 # Recommends: foot
 set $term kitty
 
-set $menu wofi --show drun
-set $menuterm wofi --show run
-set $emoji ~/.config/wofi-emoji/wofi-emoji
+set $menu wlperch toggle launch --center
+set $menuterm wlperch toggle run --center
+set $emoji wlperch toggle emoji --center
 
 ### Output configuration
 #
@@ -73,7 +73,7 @@ output * bg /usr/share/backgrounds/default.jxl fill
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c exec killall waybar && swaymsg reload
+    bindsym $mod+Shift+c exec swaymsg reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -81,7 +81,7 @@ output * bg /usr/share/backgrounds/default.jxl fill
 
     # Lock
     #bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/repeating/01.png
-    bindsym Mod4+Mod1+l exec --no-startup-id swaylock -t -i /home/martijn/dotfiles/wallpapers/wallpapers/own/abstract-dark0.webp
+    bindsym Mod4+Mod1+l exec --no-startup-id wlperch lock
 
 
 #

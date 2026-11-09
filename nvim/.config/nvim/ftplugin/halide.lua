@@ -1,7 +1,9 @@
 -- Halide Stmt: brace-based folding and background shading of
--- gpu_block (yellow, stronger inside gpu_thread) and parallel (blue) scopes.
+-- gpu_block (yellow, stronger inside gpu_thread) and parallel (blue) scopes,
+-- plus rainbow delimiters (and the operators inside parentheses/brackets).
 
 local ns = vim.api.nvim_create_namespace('halide_scopes')
+local ns_rainbow = vim.api.nvim_create_namespace('halide_rainbow')
 
 -- Mix `amount` of color `b` into color `a` (both 0xRRGGBB).
 local function blend(a, b, amount)
@@ -23,9 +25,16 @@ local function define_highlights()
   if not bg then
     bg = vim.o.background == 'light' and 0xffffff or 0x1c1c1c
   end
-  vim.api.nvim_set_hl(0, 'HalideGpuBlockScope', { bg = blend(bg, 0xffcc00, 0.12) })
-  vim.api.nvim_set_hl(0, 'HalideGpuThreadScope', { bg = blend(bg, 0xffcc00, 0.22) })
-  vim.api.nvim_set_hl(0, 'HalideParallelScope', { bg = blend(bg, 0x3388ff, 0.15) })
+  vim.api.nvim_set_hl(0, 'HalideGpuBlockScope', { bg = blend(bg, 0xffcc00, 0.07) })
+  vim.api.nvim_set_hl(0, 'HalideGpuThreadScope', { bg = blend(bg, 0xffcc00, 0.13) })
+  vim.api.nvim_set_hl(0, 'HalideParallelScope', { bg = blend(bg, 0x3388ff, 0.09) })
+  -- Left border bar (fg) on top of the scope's own shading (bg).
+  vim.api.nvim_set_hl(0, 'HalideGpuBlockScopeBorder',
+    { fg = blend(bg, 0xffcc00, 0.25), bg = blend(bg, 0xffcc00, 0.07) })
+  vim.api.nvim_set_hl(0, 'HalideGpuThreadScopeBorder',
+    { fg = blend(bg, 0xffcc00, 0.38), bg = blend(bg, 0xffcc00, 0.13) })
+  vim.api.nvim_set_hl(0, 'HalideParallelScopeBorder',
+    { fg = blend(bg, 0x3388ff, 0.30), bg = blend(bg, 0x3388ff, 0.09) })
 
   local light = vim.o.background == 'light'
   vim.api.nvim_set_hl(0, 'halideGpuLoop', { fg = light and 0x9a6700 or 0xe3b341, bold = true })
@@ -66,14 +75,35 @@ if not vim.g.halide_scope_hl_setup then
   })
 end
 
+local border_char = '▌'
+
 local scope_hl = {
   gpu_block = 'HalideGpuBlockScope',
   gpu_thread = 'HalideGpuThreadScope',
   parallel = 'HalideParallelScope',
 }
 
--- Per-buffer cache: { tick = changedtick, levels = { [lnum] = foldexpr value } }
+-- Per-buffer cache: { tick = changedtick, levels = { [lnum] = foldexpr value },
+--   braces/parens = { [lnum] = nesting depth at line start } }
 local cache = {}
+
+-- Call fn(col, ch) for every character outside strings and // comments.
+local function scan(line, fn)
+  local i, n, in_str = 1, #line, false
+  while i <= n do
+    local ch = line:sub(i, i)
+    if in_str then
+      if ch == '\\' then i = i + 1 elseif ch == '"' then in_str = false end
+    elseif ch == '"' then
+      in_str = true
+    elseif ch == '/' and line:sub(i + 1, i + 1) == '/' then
+      return
+    else
+      fn(i, ch)
+    end
+    i = i + 1
+  end
+end
 
 local function analyze(buf)
   local tick = vim.api.nvim_buf_get_changedtick(buf)
@@ -81,7 +111,8 @@ local function analyze(buf)
   if c and c.tick == tick then return c end
 
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-  local levels = {}
+  local levels, braces, parens = {}, {}, {}
+  local pdepth = 0
   local stack = {} -- per open brace: { kind, indent } for shaded scopes, else false
 
   vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
@@ -89,6 +120,7 @@ local function analyze(buf)
   for lnum, line in ipairs(lines) do
     local depth_start = #stack
     local opened, closed = false, false
+    braces[lnum], parens[lnum] = depth_start, pdepth
 
     -- Shaded scopes this line belongs to: those open at its start, plus the
     -- ones it opens (so headers and closing braces are shaded too).
@@ -103,16 +135,8 @@ local function analyze(buf)
     end
     local opener = kind and { kind = kind, indent = #indent } or false
 
-    local i, n, in_str = 1, #line, false
-    while i <= n do
-      local ch = line:sub(i, i)
-      if in_str then
-        if ch == '\\' then i = i + 1 elseif ch == '"' then in_str = false end
-      elseif ch == '"' then
-        in_str = true
-      elseif ch == '/' and line:sub(i + 1, i + 1) == '/' then
-        break
-      elseif ch == '{' then
+    scan(line, function(_, ch)
+      if ch == '{' then
         stack[#stack + 1] = opener
         if opener then shaded[#shaded + 1] = opener end
         opener = false -- only the first brace on the line opens the scope
@@ -120,9 +144,13 @@ local function analyze(buf)
       elseif ch == '}' then
         if #stack > 0 then stack[#stack] = nil end
         closed = true
+      elseif ch == '(' or ch == '[' then
+        pdepth = pdepth + 1
+      elseif (ch == ')' or ch == ']') and pdepth > 0 then
+        pdepth = pdepth - 1
       end
-      i = i + 1
-    end
+    end)
+    local n = #line
 
     if opened then
       levels[lnum] = '>' .. #stack
@@ -134,29 +162,94 @@ local function analyze(buf)
 
     -- Shade from each scope's indent to the window edge; inner scopes on top.
     for depth, e in ipairs(shaded) do
+      local hl, border = scope_hl[e.kind], scope_hl[e.kind] .. 'Border'
       if e.indent < n then
         vim.api.nvim_buf_set_extmark(buf, ns, lnum - 1, e.indent, {
           end_row = lnum,
           end_col = 0,
-          hl_group = scope_hl[e.kind],
+          hl_group = hl,
           hl_eol = true,
-          priority = 10 + depth,
+          priority = 10 + 2 * depth,
           strict = false,
         })
+        -- Bar only over whitespace, so the header and closing brace stay readable.
+        if line:sub(e.indent + 1, e.indent + 1):match('%s') then
+          vim.api.nvim_buf_set_extmark(buf, ns, lnum - 1, e.indent, {
+            virt_text = { { border_char, border } },
+            virt_text_pos = 'overlay',
+            priority = 11 + 2 * depth,
+          })
+        end
       else -- line too short (e.g. blank): paint past its end
         vim.api.nvim_buf_set_extmark(buf, ns, lnum - 1, 0, {
-          virt_text = { { string.rep(' ', 1000), scope_hl[e.kind] } },
+          virt_text = { { border_char, border }, { string.rep(' ', 1000), hl } },
           virt_text_win_col = e.indent,
-          priority = 10 + depth,
+          priority = 10 + 2 * depth,
         })
       end
     end
   end
 
-  c = { tick = tick, levels = levels }
+  c = { tick = tick, levels = levels, braces = braces, parens = parens }
   cache[buf] = c
   return c
 end
+
+-- Rainbow delimiters: braces cycle by scope depth, parentheses/brackets (and
+-- the operators directly inside them) by expression depth. Drawn per visible
+-- line with ephemeral extmarks, so huge stmt files stay fast.
+local rainbow = {
+  'RainbowDelimiterRed', 'RainbowDelimiterYellow', 'RainbowDelimiterBlue',
+  'RainbowDelimiterOrange', 'RainbowDelimiterGreen', 'RainbowDelimiterViolet',
+  'RainbowDelimiterCyan',
+}
+local operators = {}
+for ch in ('+-*/%<>=!&|^~'):gmatch('.') do operators[ch] = true end
+
+local function paint(buf, row, col, depth)
+  vim.api.nvim_buf_set_extmark(buf, ns_rainbow, row, col - 1, {
+    end_col = col,
+    hl_group = rainbow[(depth - 1) % #rainbow + 1],
+    priority = 150,
+    ephemeral = true,
+  })
+end
+
+vim.api.nvim_set_decoration_provider(ns_rainbow, {
+  on_win = function(_, _, buf)
+    if vim.bo[buf].filetype ~= 'halide' then return false end
+    local c = cache[buf]
+    if c and c.tick == vim.api.nvim_buf_get_changedtick(buf) then return true end
+    vim.schedule(function()
+      if vim.api.nvim_buf_is_valid(buf) then
+        analyze(buf)
+        vim.cmd.redraw({ bang = true })
+      end
+    end)
+    return false
+  end,
+  on_line = function(_, _, buf, row)
+    local c = cache[buf]
+    local bdepth, pdepth = c.braces[row + 1], c.parens[row + 1]
+    if not bdepth then return end
+    local line = vim.api.nvim_buf_get_lines(buf, row, row + 1, false)[1]
+    scan(line, function(col, ch)
+      if ch == '{' then
+        bdepth = bdepth + 1
+        paint(buf, row, col, bdepth)
+      elseif ch == '}' then
+        if bdepth > 0 then paint(buf, row, col, bdepth); bdepth = bdepth - 1 end
+      elseif ch == '(' or ch == '[' then
+        pdepth = pdepth + 1
+        paint(buf, row, col, pdepth)
+      elseif ch == ')' or ch == ']' then
+        if pdepth > 0 then paint(buf, row, col, pdepth); pdepth = pdepth - 1 end
+      elseif operators[ch] and pdepth > 0 then
+        paint(buf, row, col, pdepth)
+      end
+    end)
+  end,
+})
 
 _G.HalideFoldExpr = function(lnum)
   return analyze(vim.api.nvim_get_current_buf()).levels[lnum] or 0

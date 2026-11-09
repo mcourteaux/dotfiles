@@ -6,8 +6,8 @@ if [[ "$XDG_SESSION_TYPE" = "wayland" ]]; then
   if [[ ! -z "${SWAYSOCK}" ]]; then
     # Sway
     echo "
-    output DP-3 pos 0 0 res 3440x1440
-    output DP-1 pos 3440 0 res 2560x1440
+    output DP-3 pos 0 0 res 3440x1440 scale 1
+    output DP-1 pos 3440 0 res 2560x1440 scale 1
     output DP-2 disable
 
     workspace 1 output DP-1

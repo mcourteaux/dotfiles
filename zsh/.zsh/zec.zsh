@@ -1,10 +1,11 @@
 
 alias zsn='cd ~/zec/SilverNode/'
 alias zsnb='cd ~/zec/SilverNode/build/'
-alias znr='cd ~/zec/NeonRAW/'
-alias znui='cd ~/zec/nui/'
-alias zcol='cd ~/zec/color/'
-alias zexif='cd ~/zec/NeonEXIF/'
+alias znr='cd ~/zec/SilverNode/lib/NeonRAW/'
+alias znui='cd ~/zec/SilverNode/lib/nui/'
+alias zcol='cd ~/zec/SilverNode/lib/color/'
+alias zexif='cd ~/zec/SilverNode/lib/NeonEXIF/'
+alias zhe='cd ~/zec/SilverNode/lib/helium/'
 
 
 portable_nproc() {
@@ -38,6 +39,12 @@ gplzec(){
         cd "$ZEC_HOME/$REPO"
         git status
         git pull
+        # SilverNode pins its libraries (lib/) and third-party code (3rd/) as
+        # submodules: check out the commits it pins.
+        if [ -f .gitmodules ]
+        then
+          git submodule update --init --recursive
+        fi
       else
         echo "--- Skipping because it doesn't look like it has a .git folder."
       fi

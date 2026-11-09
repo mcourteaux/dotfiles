@@ -254,6 +254,10 @@ require("lazy").setup({
         --print(vim.fn.expand(find_git_root() .. '/../'))
         fzf.files({ cmd = "fd", cwd = vim.fn.expand(find_git_root() .. '/../') })
       end)
+      vim.keymap.set('n', '<Leader><Leader><c-P>', function()
+        --print(vim.fn.expand(find_git_root() .. '/../'))
+        fzf.files({ cmd = "fd", cwd = vim.fn.expand(find_git_root() .. '/../../') })
+      end)
       -- Project Test Files
       vim.keymap.set('n', '<c-T>', function()
         fzf.files({ cmd = "fd", cwd = find_git_root() .. '/test/' })
